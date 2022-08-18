@@ -3,6 +3,7 @@
 1. Create a branch
 - Git pull (to update local repo with github repo)
 - Git checkout -b branchName
+- name the branch the task name
 3. Make changes
 - git add/commit/push
 - (for first push to new branch): git push --set-upstream origin branchName
