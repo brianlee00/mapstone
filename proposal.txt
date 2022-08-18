@@ -1,0 +1,61 @@
+Dev10 Capstone - Urban Development Map
+
+App/Team name: Cyburbia
+
+Team Members: Ryjll Morris, Brian Lee, Stephen Yale
+
+What is it?
+Our application will provide a way to track development projects using an interactive map. Users will be able to see real estate development projects that are proposed, under construction, and completed. A user will be able to view projects on the map, where clicking on a location pin will pull up more information. Admins will be able to add, edit, and delete projects as necessary. 
+
+Projects will contain a location (address, city, state), a developer (will exist as a separate class with full CRUD operability), a square footage, a type (residential, industrial, commercial, recreational, etc.), a status (proposed, in progress, completed), and a brief description. 
+
+What problem does this solve?
+This application will be a resource for urban planners, local elected officials, real estate development professionals, and citizens to stay informed about developments occurring in their area. The lifecycle of development projects can be long and confusing, so it is beneficial for everyone to have a complete database that can connect projects to places and help people understand where things are happening and how they are related to other places. Admins, most likely professional planners and/or city officials, can update projects as their scope changes throughout the course of the development process.
+
+Tech stack in use: Java, MySQL, JavaScript, HTML, CSS, Bootstrap/Bootswatch, React
+
+Learning Goal: Mapping API (Mapbox, Google Maps, OpenStreetMap)
+
+Projected milestones during development: 
+Diagram tables and relationships in SQL
+Projects, Locations, Developers, possibly more
+Define models
+Projects, Locations, Developers, etc.
+Build/test data repositories for each model
+Build/test service layers for each model
+Build/test controllers to define HTTP interaction
+Build React components to render UI
+Incorporate Mapping API to display projects on a map
+Import and/or define icons and colors to customize the map
+
+Inspiration: http://www.bostonplans.org/projects/development-projects/project-template-(3)/mapDev10 Capstone - Urban Development Map
+
+App/Team name: Cyburbia
+
+Team Members: Ryjll Morris, Brian Lee, Stephen Yale
+
+What is it?
+Our application will provide a way to track development projects using an interactive map. Users will be able to see real estate development projects that are proposed, under construction, and completed. A user will be able to view projects on the map, where clicking on a location pin will pull up more information. Admins will be able to add, edit, and delete projects as necessary. 
+
+Projects will contain a location (address, city, state), a developer (will exist as a separate class with full CRUD operability), a square footage, a type (residential, industrial, commercial, recreational, etc.), a status (proposed, in progress, completed), and a brief description. 
+
+What problem does this solve?
+This application will be a resource for urban planners, local elected officials, real estate development professionals, and citizens to stay informed about developments occurring in their area. The lifecycle of development projects can be long and confusing, so it is beneficial for everyone to have a complete database that can connect projects to places and help people understand where things are happening and how they are related to other places. Admins, most likely professional planners and/or city officials, can update projects as their scope changes throughout the course of the development process.
+
+Tech stack in use: Java, MySQL, JavaScript, HTML, CSS, Bootstrap/Bootswatch, React
+
+Learning Goal: Mapping API (Mapbox, Google Maps, OpenStreetMap)
+
+Projected milestones during development: 
+Diagram tables and relationships in SQL
+Projects, Locations, Developers, possibly more
+Define models
+Projects, Locations, Developers, etc.
+Build/test data repositories for each model
+Build/test service layers for each model
+Build/test controllers to define HTTP interaction
+Build React components to render UI
+Incorporate Mapping API to display projects on a map
+Import and/or define icons and colors to customize the map
+
+Inspiration: http://www.bostonplans.org/projects/development-projects/project-template-(3)/map
