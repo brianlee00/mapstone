@@ -1,13 +1,14 @@
 # Github Workflow
 
 1. Create a branch
+- Git pull (to update local repo with github repo)
 - Git checkout -b branchName
-- (for first push on new branch): git push --set-upstream origin branchName
-2. Make changes
+3. Make changes
 - git add/commit/push
-3. Create a pull request
+- (for first push to new branch): git push --set-upstream origin branchName
+4. Create a pull request
 - notify team
-4. Address review comments
-5. Merge your pull request
-- after looked at by team
-6. Delete your branch
+5. Address review comments
+6. Merge your pull request
+- after reviewed by team
+7. Delete your branch
