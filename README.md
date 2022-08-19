@@ -13,3 +13,6 @@
 5. Merge your pull request
 - after reviewed by team
 6. Delete your branch
+
+
+Inspiration - Boston Planning Map: http://www.bostonplans.org/projects/development-projects/project-template-(3)/map
