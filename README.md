@@ -4,12 +4,15 @@
 - Git pull (to update local repo with github repo)
 - Git checkout -b branchName
 - name the branch the task name
-3. Make changes
+2. Make changes
 - git add/commit/push
 - (for first push to new branch): git push --set-upstream origin branchName
-4. Create a pull request
+3. Create a pull request
 - notify team
-5. Address review comments
-6. Merge your pull request
+4. Address review comments
+5. Merge your pull request
 - after reviewed by team
-7. Delete your branch
+6. Delete your branch
+
+
+Inspiration - Boston Planning Map: http://www.bostonplans.org/projects/development-projects/project-template-(3)/map
