@@ -44,7 +44,7 @@ create table project (
     `type` varchar(100) not null,
     `status` varchar(100) not null,
     `description` varchar(500) not null,
-    budget decimal(10,2)
+    budget decimal(12,2)
 );
 
 create table project_developer (
