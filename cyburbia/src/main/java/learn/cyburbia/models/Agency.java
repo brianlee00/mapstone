@@ -2,13 +2,13 @@ package learn.cyburbia.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Agency {
     private int agencyId;
     private String name;
     private int locationId;
     private String email;
-
     private List<Project> projects = new ArrayList<>();
 
     public Agency(){}
@@ -32,5 +32,19 @@ public class Agency {
 
     public List<Project> getProjects() {return new ArrayList<>(projects);}
     public void setProjects(List<Project> projects){this.projects = projects;}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Agency agency = (Agency) o;
+        return agencyId == agency.agencyId && locationId == agency.locationId && Objects.equals(name, agency.name) && Objects.equals(email, agency.email) && Objects.equals(projects, agency.projects);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(agencyId, name, locationId, email, projects);
+    }
+
 
 }

@@ -1,5 +1,7 @@
 package learn.cyburbia.models;
 
+import java.util.Objects;
+
 public class Location {
 
     private int locationId;
@@ -28,5 +30,18 @@ public class Location {
     public void setState(State state) {this.state = state;}
 
     public String getLocation() {return address + ", "+ city +", "+ state.getAbbr();}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return locationId == location.locationId && Objects.equals(address, location.address) && Objects.equals(city, location.city) && state == location.state;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(locationId, address, city, state);
+    }
 
 }
