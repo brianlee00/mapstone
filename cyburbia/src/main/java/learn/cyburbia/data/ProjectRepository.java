@@ -1,4 +1,4 @@
 package learn.cyburbia.data;
 
-public class ProjectRepository {
+public interface ProjectRepository {
 }
