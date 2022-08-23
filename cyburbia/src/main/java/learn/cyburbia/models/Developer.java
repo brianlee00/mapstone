@@ -20,6 +20,8 @@ public class Developer {
         this.projects = projects;
     }
 
+    public Developer() {}
+
     public int getDeveloperId() {
         return developerId;
     }
