@@ -1,10 +1,13 @@
 package learn.cyburbia.data;
 
+import learn.cyburbia.data.mappers.ProjectDeveloperMapper;
+import learn.cyburbia.data.mappers.ProjectMapper;
 import learn.cyburbia.models.Project;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -32,7 +35,7 @@ public class ProjectJdbcTemplateRepository implements ProjectRepository{
                 "`description`, budget " +
                 "from project" +
                 "where project_id = ?;";
-        Project project = jdbcTemplate.query(sql, new ProjectMapper(), projectId).stream
+        Project project = jdbcTemplate.query(sql, new ProjectMapper(), projectId).stream()
                 .findFirst().orElse(null);
 
         if (project != null) {
@@ -73,22 +76,41 @@ public class ProjectJdbcTemplateRepository implements ProjectRepository{
         final String sql = "update project set "
                 + "location_id = ?, "
                 + "agency_id = ?, "
-                + "last_name = ?, "
-                + "dob = ?, "
-                + "height_in_inches = ? "
-                + "where agent_id = ?;";
+                + "sq_ft = ?, "
+                + "`type` = ?, "
+                + "`status` = ?, "
+                + "`description = ?, "
+                + "budget = ? "
+                + "where project_id = ?;";
 
         return jdbcTemplate.update(sql,
-                agent.getFirstName(),
-                agent.getMiddleName(),
-                agent.getLastName(),
-                agent.getDob(),
-                agent.getHeightInInches(),
-                agent.getAgentId()) > 0;
+                project.getLocationId(),
+                project.getAgencyId(),
+                project.getSqFt(),
+                project.getProjectType().toString(),
+                project.getStatus().toString(),
+                project.getDescription(),
+                project.getBudget().intValue(),
+                project.getProjectId()) > 0;
     }
 
     @Override
-    public boolean deleteById(int projectId) {
-        return false;
+    @Transactional
+    public boolean deleteById(int projectId, int locationId) {
+        // Deletes location associated with project as well as project
+        jdbcTemplate.update("delete from project_developer where project_id = ?", projectId);
+        jdbcTemplate.update("delete from project where project_id = ?", projectId);
+        return jdbcTemplate.update("delete from location where location_id = ?", locationId) > 0;
+    }
+
+    private void addDevelopers(Project project) {
+        final String sql = "select pd.developer_id, pd.project_id, " +
+                "d.name developer_name, d.email, d.location_id " +
+                "from project_developer pd" +
+                "inner join developer d on pd.developer_id = d.developer_id " +
+                "where pd.project_id = ?;";
+
+        var projectDevelopers = jdbcTemplate.query(sql, new ProjectDeveloperMapper(), project.getProjectId());
+        project.setDevelopers(projectDevelopers);
     }
 }
