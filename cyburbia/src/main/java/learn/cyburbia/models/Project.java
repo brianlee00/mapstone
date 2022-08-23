@@ -28,6 +28,8 @@ public class Project {
         this.developers = developers;
     }
 
+    public Project() {}
+
     public int getProjectId() {
         return projectId;
     }
