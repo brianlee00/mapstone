@@ -29,6 +29,8 @@ public class Project {
         this.developers = developers;
     }
 
+    public Project() {}
+
     public int getProjectId() {
         return projectId;
     }
@@ -101,16 +103,4 @@ public class Project {
         this.developers = developers;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Project project = (Project) o;
-        return projectId == project.projectId && sqFt == project.sqFt && locationId == project.locationId && agencyId == project.agencyId && projectType == project.projectType && status == project.status && Objects.equals(description, project.description) && Objects.equals(budget, project.budget) && Objects.equals(developers, project.developers);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(projectId, sqFt, projectType, status, description, budget, locationId, agencyId, developers);
-    }
 }
