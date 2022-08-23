@@ -8,11 +8,11 @@ public class Location {
     private String address;
     private String city;
     private State state;
-    private int zipCode;
+    private String zipCode;
 
     public Location() {}
 
-    public Location(String address, String city, State state, int zipCode) {
+    public Location(String address, String city, State state, String zipCode) {
         this.address = address;
         this.city = city;
         this.state = state;
@@ -26,14 +26,14 @@ public class Location {
     public void setAddress(String address){this.address = address;}
 
     public String getCity() {return city;}
-    public void setCity() {this.city = city;}
+    public void setCity(String city) {this.city = city;}
 
     public State getState() {return state;}
     public void setState(State state) {this.state = state;}
 
-    public int getZipCode(){return zipCode;}
+    public String getZipCode(){return zipCode;}
 
-    public void setZipCode(int zipCode) {this.zipCode = zipCode;}
+    public void setZipCode(String zipCode) {this.zipCode = zipCode;}
 
     public String getLocation() {return address + ", "+ city +", "+ state.getAbbr();}
 
@@ -42,7 +42,7 @@ public class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return locationId == location.locationId && zipCode == location.zipCode && Objects.equals(address, location.address) && Objects.equals(city, location.city) && state == location.state;
+        return locationId == location.locationId && Objects.equals(zipCode, location.zipCode) && Objects.equals(address, location.address) && Objects.equals(city, location.city) && state == location.state;
     }
 
     @Override

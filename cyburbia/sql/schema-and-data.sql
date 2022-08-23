@@ -8,7 +8,7 @@ create table location (
     address varchar(200) not null,
     city varchar(50) not null,
     state varchar(3) not null,
-    zip_code varchar(5) not null
+    zip_code int not null
 );
 
 create table developer (
@@ -61,15 +61,15 @@ create table project_developer (
 
 -- data
 insert into location (location_id, address, city, state, zip_code) values
-	(1, '368 Fulton St', 'Brooklyn', 'NY', '11201'),
-    (2, '4208 28th St', 'Long Island City', 'NY', '11101'),
-    (3, '114 Central Ave', 'Staten Island', 'NY', '10301'),
-    (4, '826 Market St', 'Philadelphia', 'PA', '19107'),
-    (5, '1201 Callowhill St', 'Philadelphia', 'PA', '19123'),
-    (6, '153 N 15th St', 'Philadelphia', 'PA', '19102'),
-	(7, '244 A St', 'Boston', 'MA', '02210'),
-    (8, '1910 Dorchester Ave', 'Boston', 'MA', '02124'),
-    (9, '22 Spruce St', 'Quincy', 'MA', '02171');
+	(1, '368 Fulton St', 'Brooklyn', 'NY', 11201),
+    (2, '4208 28th St', 'Long Island City', 'NY', 11101),
+    (3, '114 Central Ave', 'Staten Island', 'NY', 10301),
+    (4, '826 Market St', 'Philadelphia', 'PA', 19107),
+    (5, '1201 Callowhill St', 'Philadelphia', 'PA', 19123),
+    (6, '153 N 15th St', 'Philadelphia', 'PA', 19102),
+	(7, '244 A St', 'Boston', 'MA', 02210),
+    (8, '1910 Dorchester Ave', 'Boston', 'MA', 02124),
+    (9, '22 Spruce St', 'Quincy', 'MA', 02171);
 
 insert into agency (agency_id, `name`, email, location_id) values
 	(1, 'New York Urban Development Authority', 'contact@nyuda.org', 1),
