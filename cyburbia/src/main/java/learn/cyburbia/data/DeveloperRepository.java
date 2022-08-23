@@ -15,6 +15,4 @@ public interface DeveloperRepository {
 
     boolean update(Developer developer);
 
-    @Transactional
-    boolean deleteById(int developerId);
 }

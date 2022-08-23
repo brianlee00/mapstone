@@ -39,7 +39,7 @@ public class ProjectJdbcTemplateRepository implements ProjectRepository{
                 .findFirst().orElse(null);
 
         if (project != null) {
-// ************************************************************
+            addDevelopers(project);
         }
         return project;
     }
