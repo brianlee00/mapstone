@@ -1,5 +1,6 @@
 package learn.cyburbia.models;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,12 +12,12 @@ public class Project {
     private ProjectType projectType;
     private Status status;
     private String description;
-    private double budget;
+    private BigDecimal budget;
     private int locationId;
     private int agencyId;
     private List<ProjectDeveloper> developers = new ArrayList<>();
 
-    public Project(int projectId, int sqFt, ProjectType projectType, Status status, String description, double budget, int locationId, int agencyId, List<ProjectDeveloper> developers) {
+    public Project(int projectId, int sqFt, ProjectType projectType, Status status, String description, BigDecimal budget, int locationId, int agencyId, List<ProjectDeveloper> developers) {
         this.projectId = projectId;
         this.sqFt = sqFt;
         this.projectType = projectType;
@@ -68,11 +69,11 @@ public class Project {
         this.description = description;
     }
 
-    public double getBudget() {
+    public BigDecimal getBudget() {
         return budget;
     }
 
-    public void setBudget(double budget) {
+    public void setBudget(BigDecimal budget) {
         this.budget = budget;
     }
 
@@ -105,7 +106,7 @@ public class Project {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Project project = (Project) o;
-        return projectId == project.projectId && sqFt == project.sqFt && Double.compare(project.budget, budget) == 0 && locationId == project.locationId && agencyId == project.agencyId && projectType == project.projectType && status == project.status && Objects.equals(description, project.description) && Objects.equals(developers, project.developers);
+        return projectId == project.projectId && sqFt == project.sqFt && locationId == project.locationId && agencyId == project.agencyId && projectType == project.projectType && status == project.status && Objects.equals(description, project.description) && Objects.equals(budget, project.budget) && Objects.equals(developers, project.developers);
     }
 
     @Override
