@@ -1,6 +1,8 @@
 package learn.cyburbia.data;
 
+import learn.cyburbia.data.mappers.ProjectMapper;
 import learn.cyburbia.models.Agency;
+import learn.cyburbia.data.mappers.AgencyMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -34,11 +36,14 @@ public class AgencyJdbcTemplateRepository implements AgencyRepository{
                 + "from agency "
                 + "where agency_id = ?;";
 
-        Agency result = jdbcTemplate.query(sql, new AgencyMapper(), agencyId).stream()
+        Agency agency = jdbcTemplate.query(sql, new AgencyMapper(), agencyId).stream()
                 .findAny().orElse(null);
 
+        if (agency != null) {
+            addProjects(agency);
+        }
 
-        return result;
+        return agency;
     }
 
     @Override
@@ -75,7 +80,14 @@ public class AgencyJdbcTemplateRepository implements AgencyRepository{
         return jdbcTemplate.update(sql, agency.getName(), agency.getEmail(), agency.getLocationId(), agency.getAgencyId()) > 0;
     }
 
-
+    private void addProjects(Agency agency){
+        final String sql = "select project.project_id, project.location_id, project.agency_id, project.sq_ft, project.type, project.status, project.description, project.budget "
+                +"from project "
+                +"join agency on agency.agency_id = project.agency_id "
+                +"where project.agency_id = ?;";
+        var projects = jdbcTemplate.query(sql, new ProjectMapper(), agency.getAgencyId());
+        agency.setProjects(projects);
+    }
 
 
 

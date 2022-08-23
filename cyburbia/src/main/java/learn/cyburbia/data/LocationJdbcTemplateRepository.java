@@ -1,6 +1,7 @@
 package learn.cyburbia.data;
 
 import learn.cyburbia.models.Location;
+import learn.cyburbia.data.mappers.LocationMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
