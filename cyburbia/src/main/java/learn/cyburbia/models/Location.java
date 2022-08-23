@@ -26,7 +26,7 @@ public class Location {
     public void setAddress(String address){this.address = address;}
 
     public String getCity() {return city;}
-    public void setCity() {this.city = city;}
+    public void setCity(String city) {this.city = city;}
 
     public State getState() {return state;}
     public void setState(State state) {this.state = state;}
@@ -42,7 +42,7 @@ public class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return locationId == location.locationId && zipCode == location.zipCode && Objects.equals(address, location.address) && Objects.equals(city, location.city) && state == location.state;
+        return locationId == location.locationId && Objects.equals(zipCode, location.zipCode) && Objects.equals(address, location.address) && Objects.equals(city, location.city) && state == location.state;
     }
 
     @Override
