@@ -8,11 +8,11 @@ public class Location {
     private String address;
     private String city;
     private State state;
-    private int zipCode;
+    private String zipCode;
 
     public Location() {}
 
-    public Location(String address, String city, State state, int zipCode) {
+    public Location(String address, String city, State state, String zipCode) {
         this.address = address;
         this.city = city;
         this.state = state;
@@ -31,9 +31,9 @@ public class Location {
     public State getState() {return state;}
     public void setState(State state) {this.state = state;}
 
-    public int getZipCode(){return zipCode;}
+    public String getZipCode(){return zipCode;}
 
-    public void setZipCode(int zipCode) {this.zipCode = zipCode;}
+    public void setZipCode(String zipCode) {this.zipCode = zipCode;}
 
     public String getLocation() {return address + ", "+ city +", "+ state.getAbbr();}
 
