@@ -16,5 +16,5 @@ public interface ProjectRepository {
     boolean update(Project project);
 
     @Transactional
-    boolean deleteById(int projectId);
+    boolean deleteById(int projectId, int locationId);
 }

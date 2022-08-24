@@ -6,7 +6,8 @@ public enum Status {
     REV("In Review"),
     APP("Approved"),
     CON("Under Construction"),
-    COM("Completed");
+    COM("Completed"),
+    CAN("Canceled");
 
     private final String name;
 
