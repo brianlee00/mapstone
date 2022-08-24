@@ -2,9 +2,10 @@ package learn.cyburbia.domain;
 
 import learn.cyburbia.data.AgencyRepository;
 import learn.cyburbia.models.Agency;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class AgencyService {
     private final AgencyRepository agencyRepository;
 
@@ -25,6 +26,15 @@ public class AgencyService {
         if (agency.getAgencyId() != 0) {
             result.addMessage("Agency ID cannot be set for `add` operation", ResultType.INVALID);
             return result;
+        }
+
+        List<Agency> agencies = agencyRepository.findAll();
+        for (Agency a : agencies) {
+            if (agency.getName().equalsIgnoreCase(a.getName())
+            && agency.getEmail().equalsIgnoreCase(a.getEmail())) {
+                result.addMessage("Duplicate Agency may not be added", ResultType.INVALID);
+                return result;
+            }
         }
 
         agency = agencyRepository.add(agency);
@@ -64,7 +74,7 @@ public class AgencyService {
         if (Validations.isNullOrBlank(agency.getEmail())) {
             result.addMessage("Email address is required for this Agency", ResultType.INVALID);
         }
-        if (agency.getLocationId() == Integer.parseInt(null)) {
+        if (agency.getLocationId() <= 0) {
             result.addMessage("Location must be set for this Agency", ResultType.INVALID);
         }
 
