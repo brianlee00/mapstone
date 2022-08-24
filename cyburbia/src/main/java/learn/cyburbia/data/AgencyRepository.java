@@ -14,7 +14,5 @@ public interface AgencyRepository {
 
     boolean update(Agency agency);
 
-    @Transactional
-    boolean deleteById(int agencyId);
 
 }
