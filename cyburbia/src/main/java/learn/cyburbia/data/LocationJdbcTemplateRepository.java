@@ -81,7 +81,7 @@ public class LocationJdbcTemplateRepository implements LocationRepository {
         return jdbcTemplate.update(sql,
                 location.getAddress(),
                 location.getCity(),
-                location.getState(),
+                location.getState().getAbbr(),
                 location.getZipCode(),
                 location.getLocationId()) > 0;
     }

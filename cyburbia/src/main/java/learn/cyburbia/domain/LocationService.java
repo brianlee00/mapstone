@@ -1,2 +1,4 @@
-package learn.cyburbia.domain;public class LocationService {
+package learn.cyburbia.domain;
+
+public class LocationService {
 }

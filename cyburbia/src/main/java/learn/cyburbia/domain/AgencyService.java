@@ -1,2 +1,4 @@
-package learn.cyburbia.domain;public class AgencyService {
+package learn.cyburbia.domain;
+
+public class AgencyService {
 }

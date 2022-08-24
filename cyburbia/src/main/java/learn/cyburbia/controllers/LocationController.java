@@ -1,2 +1,4 @@
-package learn.cyburbia.controllers;public class LocationController {
+package learn.cyburbia.controllers;
+
+public class LocationController {
 }

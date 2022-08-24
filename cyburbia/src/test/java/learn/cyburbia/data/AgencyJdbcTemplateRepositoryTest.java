@@ -30,7 +30,7 @@ class AgencyJdbcTemplateRepositoryTest {
     void shouldFindAgencies() {
         List<Agency> agencies = repository.findAll();
         assertNotNull(agencies);
-        assertEquals(3,agencies.size());
+        assertEquals(4,agencies.size());
     }
 
     @Test
@@ -58,6 +58,8 @@ class AgencyJdbcTemplateRepositoryTest {
         Agency agency = new Agency();
         agency.setAgencyId(3);
         agency.setName("TEST");
+        agency.setEmail("testing@test.com");
+        agency.setLocationId(5);
         assertTrue(repository.update(agency));
         assertEquals("TEST", agency.getName());
     }

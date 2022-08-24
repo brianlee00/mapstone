@@ -1,2 +1,4 @@
-package learn.cyburbia.controllers;public class AgencyController {
+package learn.cyburbia.controllers;
+
+public class AgencyController {
 }
