@@ -69,7 +69,7 @@ public class DeveloperJdbcTemplateRepository implements DeveloperRepository{
         final String sql = "update developer set "
                 + "`name` = ?, "
                 + "email = ?, "
-                + "location_id = ?, "
+                + "location_id = ? "
                 + "where developer_id = ?;";
 
         return jdbcTemplate.update(sql,
