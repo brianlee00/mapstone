@@ -35,7 +35,7 @@ public class Location {
 
     public void setZipCode(String zipCode) {this.zipCode = zipCode;}
 
-    public String getLocation() {return address + ", "+ city +", "+ state.getAbbr();}
+    public String getLocation() {return address + ", "+ city +", "+ state.getAbbr()+ ", "+ zipCode;}
 
     @Override
     public boolean equals(Object o) {
