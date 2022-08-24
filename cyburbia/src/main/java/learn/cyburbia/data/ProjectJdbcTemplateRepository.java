@@ -33,7 +33,7 @@ public class ProjectJdbcTemplateRepository implements ProjectRepository{
     public Project findById(int projectId) {
         final String sql = "select project_id, location_id, agency_id, sq_ft, `type`, `status`, " +
                 "`description`, budget " +
-                "from project" +
+                "from project " +
                 "where project_id = ?;";
         Project project = jdbcTemplate.query(sql, new ProjectMapper(), projectId).stream()
                 .findFirst().orElse(null);
@@ -79,7 +79,7 @@ public class ProjectJdbcTemplateRepository implements ProjectRepository{
                 + "sq_ft = ?, "
                 + "`type` = ?, "
                 + "`status` = ?, "
-                + "`description = ?, "
+                + "`description` = ?, "
                 + "budget = ? "
                 + "where project_id = ?;";
 
@@ -106,7 +106,7 @@ public class ProjectJdbcTemplateRepository implements ProjectRepository{
     private void addDevelopers(Project project) {
         final String sql = "select pd.developer_id, pd.project_id, " +
                 "d.name developer_name, d.email, d.location_id " +
-                "from project_developer pd" +
+                "from project_developer pd " +
                 "inner join developer d on pd.developer_id = d.developer_id " +
                 "where pd.project_id = ?;";
 
