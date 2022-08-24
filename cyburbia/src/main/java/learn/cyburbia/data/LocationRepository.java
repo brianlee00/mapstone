@@ -14,7 +14,6 @@ public interface LocationRepository {
 
     boolean update(Location location);
 
-    @Transactional
-    boolean deleteById(int locationId);
+
 
 }
