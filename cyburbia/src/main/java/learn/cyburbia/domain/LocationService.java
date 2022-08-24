@@ -89,10 +89,7 @@ import java.util.List;
             List<Location> all = repository.findAll();
 
             for (Location l : all) {
-                if (l.getLocationId() == location.getLocationId() && l.getAddress().equalsIgnoreCase(location.getAddress()) && l.getCity().equalsIgnoreCase(location.getCity()) && l.getState() == location.getState() && l.getZipCode().equalsIgnoreCase(location.getZipCode())) {
-                    result.addMessage("Duplicate Location not Allowed", ResultType.INVALID);
-
-                } else if (l.getLocationId() != location.getLocationId() && l.getAddress().equalsIgnoreCase(location.getAddress()) && l.getCity().equalsIgnoreCase(location.getCity()) && l.getState() == location.getState() && l.getZipCode().equalsIgnoreCase(location.getZipCode())) {
+                if (l.getAddress().equalsIgnoreCase(location.getAddress()) && l.getCity().equalsIgnoreCase(location.getCity()) && l.getState() == location.getState() && l.getZipCode().equalsIgnoreCase(location.getZipCode())) {
                     result.addMessage("Duplicate Location not Allowed", ResultType.INVALID);
                 }
             }
