@@ -22,16 +22,18 @@ public class ProjectDeveloperJdbcTemplateRepository implements ProjectDeveloperR
                 projectDeveloper.getProjectId()) > 0;
     }
 
-    @Override
-    public boolean update(ProjectDeveloper projectDeveloper) {
-        final String sql = "update project_developer set " +
-                "developer_id = ?, " +
-                "project_id = ? " +
-                "where developer_id = ? and project_id = ?;";
-        return jdbcTemplate.update(sql,
-                projectDeveloper.getDeveloper().getDeveloperId(),
-                projectDeveloper.getProjectId()) > 0;
-    }
+//    @Override
+//    public boolean update(ProjectDeveloper projectDeveloper) {
+//        final String sql = "update project_developer set " +
+//                "developer_id = ?, " +
+//                "project_id = ? " +
+//                "where developer_id = ? and project_id = ?;";
+//        return jdbcTemplate.update(sql,
+//                projectDeveloper.getDeveloper().getDeveloperId(),
+//                projectDeveloper.getProjectId(),
+//                projectDeveloper.getDeveloper().getDeveloperId(),
+//                projectDeveloper.getProjectId()) > 0;
+//    }
 
     @Override
     public boolean deleteByKey(int projectId, int developerId) {
