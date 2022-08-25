@@ -84,7 +84,7 @@ public class ProjectService {
             result.addMessage("status is required", ResultType.INVALID);
         }
 
-        if (project.getDescription() == null) {
+        if (Validations.isNullOrBlank(project.getDescription())) {
             result.addMessage("description is required", ResultType.INVALID);
         }
 
