@@ -3,12 +3,14 @@
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-       
-      
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
