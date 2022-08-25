@@ -38,11 +38,12 @@ public class ProjectJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindProject1() {
-        Project project = repository.findById(1);
-        assertEquals(1, project.getProjectId());
-        assertEquals(10000, project.getSqFt());
-        assertEquals(ProjectType.MIX, project.getProjectType());
+    void shouldFindProject2() {
+        Project project = repository.findById(2);
+        assertEquals(2, project.getProjectId());
+        assertEquals(30000, project.getSqFt());
+        assertEquals(ProjectType.RES, project.getProjectType());
+        assertEquals("Building Brotherly Love, Inc", project.getDevelopers().get(0).getDeveloper().getName());
     }
 
     @Test
