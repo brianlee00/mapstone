@@ -58,6 +58,8 @@ public class AgencyService {
             result.addMessage(msg, ResultType.NOT_FOUND);
         }
 
+
+
         return result;
     }
 
@@ -81,6 +83,17 @@ public class AgencyService {
         if (!agency.getEmail().contains("@")) {
             result.addMessage("Must provide valid email address", ResultType.INVALID);
         }
+//
+//        List<Agency> agencies = agencyRepository.findAll();
+//        for (Agency a : agencies) {
+//            if (agency.getAgencyId() == a.getAgencyId()) {
+//            } else {
+//                if (agency.getLocationId() == a.getLocationId()) {
+//                    result.addMessage("Location already in use", ResultType.INVALID);
+//                    return result;
+//                }
+//            }
+//        }
 
         return result;
     }
