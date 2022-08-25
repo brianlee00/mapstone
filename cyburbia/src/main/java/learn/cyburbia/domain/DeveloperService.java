@@ -81,6 +81,11 @@ public class DeveloperService {
         if (developer.getLocationId() < 1) {
             result.addMessage("Location must be set for this developer", ResultType.INVALID);
         }
+
+        if (!developer.getEmail().contains("@")) {
+            result.addMessage("Must provide valid email address", ResultType.INVALID);
+        }
+
         return result;
     }
 
