@@ -1,0 +1,35 @@
+@url = http://localhost:8080/api/developer
+
+
+### findAll
+GET {{url}} HTTP/1.1
+
+### findById
+GET {{url}}/1 HTTP/1.1
+
+
+### add
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Test",
+    "email": "Test@Test.com",
+    "locationId": 1
+    
+}
+
+### update
+PUT {{url}}/4 HTTP/1.1
+Content-Type: application/json
+
+{
+    "developerId": 4,
+    "name": "Testing",
+    "email": "Test@Test.com",
+    "locationId": 1
+}
+
+### delete would not work
+DELETE {{url}}/4 HTTP/1.1
+
