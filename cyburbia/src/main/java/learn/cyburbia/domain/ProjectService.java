@@ -19,6 +19,8 @@ public class ProjectService {
         return repository.findAll();
     }
 
+    public Project findById(int projectId) { return repository.findById(projectId); }
+
     public Result<Project> add(Project project) {
         Result<Project> result = validate(project);
         if (!result.isSuccess()) {
