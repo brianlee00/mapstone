@@ -1,7 +1,9 @@
 package learn.cyburbia.domain;
 
+import learn.cyburbia.data.ProjectDeveloperRepository;
 import learn.cyburbia.data.ProjectRepository;
 import learn.cyburbia.models.Project;
+import learn.cyburbia.models.ProjectDeveloper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,17 +11,19 @@ import java.util.List;
 @Service
 public class ProjectService {
 
-    private final ProjectRepository repository;
+    private final ProjectRepository projectRepository;
+    private final ProjectDeveloperRepository projectDeveloperRepository;
 
-    public ProjectService(ProjectRepository repository) {
-        this.repository = repository;
+    public ProjectService(ProjectRepository projectRepository, ProjectDeveloperRepository projectDeveloperRepository) {
+        this.projectRepository = projectRepository;
+        this.projectDeveloperRepository = projectDeveloperRepository;
     }
 
     public List<Project> findAll() {
-        return repository.findAll();
+        return projectRepository.findAll();
     }
 
-    public Project findById(int projectId) { return repository.findById(projectId); }
+    public Project findById(int projectId) { return projectRepository.findById(projectId); }
 
     public Result<Project> add(Project project) {
         Result<Project> result = validate(project);
@@ -32,7 +36,7 @@ public class ProjectService {
             return result;
         }
 
-        project = repository.add(project);
+        project = projectRepository.add(project);
         result.setPayload(project);
         return result;
     }
@@ -48,7 +52,7 @@ public class ProjectService {
             return result;
         }
 
-        if (!repository.update(project)) {
+        if (!projectRepository.update(project)) {
             String msg = String.format("projectId: %s, not found", project.getProjectId());
             result.addMessage(msg, ResultType.NOT_FOUND);
         }
@@ -57,7 +61,40 @@ public class ProjectService {
     }
 
     public boolean deleteById(int projectId, int locationId) {
-        return repository.deleteById(projectId, locationId);
+        return projectRepository.deleteById(projectId, locationId);
+    }
+
+    public Result<Void> addDeveloper(ProjectDeveloper projectDeveloper) {
+        Result<Void> result = validate(projectDeveloper);
+        if (!result.isSuccess()) {
+            return result;
+        }
+
+        if (!projectDeveloperRepository.add(projectDeveloper)) {
+            result.addMessage("developer not added", ResultType.INVALID);
+        }
+
+        return result;
+    }
+
+//    public Result<Void> updateDeveloper(ProjectDeveloper projectDeveloper) {
+//        Result<Void> result = validate(projectDeveloper);
+//        if (!result.isSuccess()) {
+//            return result;
+//        }
+//
+//        if (!projectDeveloperRepository.update(projectDeveloper)) {
+//            String msg = String.format("update failed for project id %s, developer id %s: not found",
+//                    projectDeveloper.getProjectId(),
+//                    projectDeveloper.getDeveloper().getDeveloperId());
+//            result.addMessage(msg, ResultType.NOT_FOUND);
+//        }
+//
+//        return result;
+//    }
+
+    public boolean deleteDeveloperByKey(int projectId, int developerId) {
+        return projectDeveloperRepository.deleteByKey(projectId, developerId);
     }
 
     private Result<Project> validate(Project project) {
@@ -94,6 +131,19 @@ public class ProjectService {
             if (project.getBudget().intValue() < 0) {
                 result.addMessage("budget must be positive", ResultType.INVALID);
             }
+        }
+        return result;
+    }
+
+    private Result<Void> validate(ProjectDeveloper projectDeveloper) {
+        Result<Void> result = new Result<>();
+        if (projectDeveloper == null) {
+            result.addMessage("projectDeveloper cannot be null", ResultType.INVALID);
+            return result;
+        }
+
+        if (projectDeveloper.getDeveloper() == null) {
+            result.addMessage("developer cannot be null", ResultType.INVALID);
         }
 
         return result;
