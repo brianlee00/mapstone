@@ -105,7 +105,7 @@ public class ProjectJdbcTemplateRepository implements ProjectRepository{
 
     private void addDevelopers(Project project) {
         final String sql = "select pd.developer_id, pd.project_id, " +
-                "d.name developer_name, d.email, d.location_id " +
+                "d.name, d.email, d.location_id " +
                 "from project_developer pd " +
                 "inner join developer d on pd.developer_id = d.developer_id " +
                 "where pd.project_id = ?;";
