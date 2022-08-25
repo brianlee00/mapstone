@@ -30,6 +30,7 @@ public class ProjectJdbcTemplateRepository implements ProjectRepository{
     }
 
     @Override
+    @Transactional
     public Project findById(int projectId) {
         final String sql = "select project_id, location_id, agency_id, sq_ft, `type`, `status`, " +
                 "`description`, budget " +
