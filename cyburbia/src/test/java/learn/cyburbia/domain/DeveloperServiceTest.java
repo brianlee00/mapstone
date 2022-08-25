@@ -1,2 +1,4 @@
-package learn.cyburbia.domain;public class DeveloperServiceTest {
+package learn.cyburbia.domain;
+
+public class DeveloperServiceTest {
 }
