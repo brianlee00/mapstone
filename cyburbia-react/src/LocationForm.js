@@ -1,20 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 
-const AGENCY_DEFAULT = {
-  name: '',
-  email: '',
-  locationId: 0
-};
 const LOCATION_DEFAULT = {
-    address: '',
-    city: '',
-    state: 'NEW_YORK',
-    zipCode: ''
-  };
+  address: '',
+  city: '',
+  state: 'NEW_YORK',
+  zipCode: ''
+};
 
-function AgencyForm() {
-  const [agency, setAgency] = useState(AGENCY_DEFAULT);
+function LocationForm() {
   const [location, setLocation] = useState(LOCATION_DEFAULT);
   const [errors, setErrors] = useState([]);
 
@@ -30,7 +24,7 @@ function AgencyForm() {
   useEffect(() => {
     // Make sure that we have an "id" value...
     if (id) {
-      fetch(`http://localhost:8080/api/agency/${id}`)
+      fetch(`http://localhost:8080/api/location/${id}`)
         .then(response => {
           if (response.status === 200) {
             return response.json();
@@ -38,39 +32,23 @@ function AgencyForm() {
             return Promise.reject(`Unexpected status code: ${response.status}`);
           }
         })
-        .then(data => setAgency(data))
-        .catch(console.log);
-
-        fetch(`http://localhost:8080/api/location/${id}`)
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            return Promise.reject(`Unexpected status code: ${response.status}`);
-          }
-        })
-        .then(datal => setLocation(datal))
+        .then(data => setLocation(data))
         .catch(console.log);
     }
   }, [id]); // Hey React... please call my arrow function every time the "id" route parameter changes value
 
   const handleChange = (event) => {
     // Make a copy of the object.
-    const newAgency = { ...agency };
     const newLocation = { ...location};
 
     // Update the value of the property that just changed.
     // We can "index" into the object using square brackets (just like we can do with arrays).
     if (event.target.type === 'checkbox') {
-      newAgency[event.target.name] = event.target.checked;
       newLocation[event.target.name] = event.target.checked;
     } else {
-      newAgency[event.target.name] = event.target.value;
       newLocation[event.target.name] = event.target.value;
-
     }
 
-    setAgency(newAgency);
     setLocation(newLocation);
   };
 
@@ -78,23 +56,22 @@ function AgencyForm() {
     event.preventDefault();
 
     if (id) {
-      updateAgency();
+      updateLocation();
     } else {
-      addAgency();
+      addLocation();
     }
   };
 
-  const addAgency = () => {
-    
+  const addLocation = () => {
     const init = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(agency)
+      body: JSON.stringify(location)
     };
 
-    fetch('http://localhost:8080/api/agency', init)
+    fetch('http://localhost:8080/api/location', init)
       .then(response => {
         if (response.status === 201 || response.status === 400) {
           return response.json();
@@ -103,7 +80,7 @@ function AgencyForm() {
         }
       })
       .then(data => {
-        if (data.agencyId) {
+        if (data.locationId) {
           /*
 
           On the happy path, "data" is an object that looks this:
@@ -121,7 +98,7 @@ function AgencyForm() {
           */
 
           // Send the user back to the list route.
-          history.push('/agencies');
+          history.push('/locations');
         } else {
           /*
 
@@ -140,71 +117,8 @@ function AgencyForm() {
         }
       })
       .catch(console.log);
-      addLocation();
   };
 
-  const addLocation = () => {
-    const init = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(location)
-  };
-
-  fetch('http://localhost:8080/api/location', init)
-    .then(response => {
-      if (response.status === 201 || response.status === 400) {
-        return response.json();
-      } else {
-        return Promise.reject(`Unexpected status code: ${response.status}`);
-      }
-    })
-    .then(data => {
-        if (data.locationId) {
-         
-          history.push('/agencies');
-        } else {
-
-          setErrors(data);
-        }
-      })
-      .catch(console.log);
-  };
-
-  const updateAgency = () => {
-    // assign an ID (this is probably needed anymore)
-    agency.agencyId = id;
-
-    const init = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(agency)
-    };
-  
-    fetch(`http://localhost:8080/api/agency/${id}`, init)
-      .then(response => {
-        if (response.status === 204) {
-          return null;
-        } else if (response.status === 400) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected status code: ${response.status}`);
-        }
-      })
-      .then(data => {
-        if (!data) {
-          // Send the user back to the list route.
-          history.push('/agencies');
-        } else {
-          setErrors(data);
-        }
-      })
-      .catch(console.log);
-      updateLocation();
-  };
   const updateLocation = () => {
     // assign an ID (this is probably needed anymore)
     location.locationId = id;
@@ -230,7 +144,7 @@ function AgencyForm() {
       .then(data => {
         if (!data) {
           // Send the user back to the list route.
-          history.push('/agencies');
+          history.push('/locations');
         } else {
           setErrors(data);
         }
@@ -238,11 +152,9 @@ function AgencyForm() {
       .catch(console.log);
   };
 
-
-
   return (
     <>
-      <h2 className="mb-4">{id ? 'Update Agency' : 'Add Agency'}</h2>
+      <h2 className="mb-4">{id ? 'Update Location' : 'Add Location'}</h2>
 
       {errors.length > 0 && (
         <div className="alert alert-danger">
@@ -257,18 +169,8 @@ function AgencyForm() {
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input id="name" name="name" type="text" className="form-control"
-            value={agency.name} onChange={handleChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input id="email" name="email" type="text" className="form-control"
-            value={agency.email} onChange={handleChange} />
-        </div>
-        <div className="form-group">
           <label htmlFor="address">Address:</label>
-          <input id="address" name="address" type="text" className="form-control"
+          <input id="address" address="address" type="text" className="form-control"
             value={location.address} onChange={handleChange} />
         </div>
         <div className="form-group">
@@ -338,11 +240,12 @@ function AgencyForm() {
           <input id="zipCode" name="zipCode" type="number" className="form-control"
             value={location.zipCode} onChange={handleChange} />
         </div>
+    
         <div className="mt-4">
           <button className="btn btn-success mr-2" type="submit">
-            <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
+            <i className="bi bi-file-earmark-check"></i> {id ? 'Update Location' : 'Add Location'}
           </button>
-          <Link className="btn btn-warning" to="/agencies">
+          <Link className="btn btn-warning" to="/locations">
             <i className="bi bi-stoplights"></i> Cancel
           </Link>
         </div>
@@ -351,4 +254,4 @@ function AgencyForm() {
   );
 }
 
-export default AgencyForm;
+export default LocationForm;
