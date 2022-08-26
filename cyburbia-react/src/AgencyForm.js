@@ -41,7 +41,17 @@ function AgencyForm() {
         .then(data => setAgency(data))
         .catch(console.log);
 
-        fetch(`http://localhost:8080/api/location/${id}`)
+
+        fetch(`http://localhost:8080/api/agency/${id}`)
+        .then(response => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            return Promise.reject(`Unexpected status code: ${response.status}`);
+          }
+        })
+        .then(data => 
+          fetch(`http://localhost:8080/api/location/${data.locationId}`)
         .then(response => {
           if (response.status === 200) {
             return response.json();
@@ -50,7 +60,9 @@ function AgencyForm() {
           }
         })
         .then(datal => setLocation(datal))
-        .catch(console.log);
+        .catch(console.log))
+
+        
     }
   }, [id]); // Hey React... please call my arrow function every time the "id" route parameter changes value
 
@@ -104,37 +116,10 @@ function AgencyForm() {
       })
       .then(data => {
         if (data.agencyId) {
-          /*
-
-          On the happy path, "data" is an object that looks this:
-
-          {
-            "id": 30,
-            "section": "The Ridge",
-            "row": 202,
-            "column": 201,
-            "yearInstalled": 2000,
-            "material": "MONO_SI",
-            "tracking": true
-          }
-
-          */
-
-          // Send the user back to the list route.
+         
           history.push('/agencies');
         } else {
-          /*
-
-          On the unhappy path, "data" is an array that looks this:
-
-          [
-            "SolarPanel `section` is required.",
-            "SolarPanel `row` must be a positive number less than or equal to 250.",
-            "SolarPanel `column` must be a positive number less than or equal to 250.",
-            "SolarPanel `material` is required."
-          ]
-
-          */
+      
 
           setErrors(data);
         }
