@@ -35,16 +35,27 @@ function DeveloperForm() {
                 .then(data => setDeveloper(data))
                 .catch(console.log);
 
-            fetch(`http://localhost:8080/api/location/${id}`)
+                fetch(`http://localhost:8080/api/developer/${id}`)
                 .then(response => {
-                    if (response.status === 200) {
-                        return response.json();
-                    } else {
-                        return Promise.reject(`Unexpected status code: ${response.status}`);
-                    }
+                  if (response.status === 200) {
+                    return response.json();
+                  } else {
+                    return Promise.reject(`Unexpected status code: ${response.status}`);
+                  }
                 })
-                .then(datal => setLocation(datal))
-                .catch(console.log);
+                .then(data =>
+                  fetch(`http://localhost:8080/api/location/${data.locationId}`)
+        
+                    .then(response => {
+                      if (response.status === 200) {
+                        return response.json();
+                      } else {
+                        return Promise.reject(`Unexpected status code: ${response.status}`);
+                      }
+                    })
+                    .then(datal => setLocation(datal))
+        
+                    .catch(console.log))
         }
     }, [id]);
 

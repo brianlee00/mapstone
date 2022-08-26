@@ -36,8 +36,6 @@ function AgencyForm() {
         .then(data => setAgency(data))
         .catch(console.log);
 
-
-
       fetch(`http://localhost:8080/api/agency/${id}`)
         .then(response => {
           if (response.status === 200) {
