@@ -20,9 +20,16 @@ function AgencyForm() {
 
   const history = useHistory();
 
+
+  // Not using destructuring...
+  // const params = useParams();
+  // const id = params.id;
+
+  // Using destructuring...
   const { id } = useParams();
 
   useEffect(() => {
+    // Make sure that we have an "id" value...
 
     if (id) {
       fetch(`http://localhost:8080/api/agency/${id}`)
@@ -36,7 +43,19 @@ function AgencyForm() {
         .then(data => setAgency(data))
         .catch(console.log);
 
-        fetch(`http://localhost:8080/api/location/${id}`)
+
+
+        fetch(`http://localhost:8080/api/agency/${id}`)
+        .then(response => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            return Promise.reject(`Unexpected status code: ${response.status}`);
+          }
+        })
+        .then(data => 
+          fetch(`http://localhost:8080/api/location/${data.locationId}`)
+
         .then(response => {
           if (response.status === 200) {
             return response.json();
@@ -45,14 +64,20 @@ function AgencyForm() {
           }
         })
         .then(datal => setLocation(datal))
-        .catch(console.log);
+
+        .catch(console.log))
+
+        
     }
-  }, [id]); 
+  }, [id]); // Hey React... please call my arrow function every time the "id" route parameter changes value
 
   const handleChange = (event) => {
-
+    // Make a copy of the object.
     const newAgency = { ...agency };
     const newLocation = { ...location};
+
+    // Update the value of the property that just changed.
+    // We can "index" into the object using square brackets (just like we can do with arrays).
 
     if (event.target.type === 'checkbox') {
       newAgency[event.target.name] = event.target.checked;
@@ -97,8 +122,13 @@ function AgencyForm() {
       })
       .then(data => {
         if (data.agencyId) {
+
+         
           history.push('/agencies');
         } else {
+      
+
+
           setErrors(data);
         }
       })
@@ -169,6 +199,7 @@ function AgencyForm() {
       updateLocation();
   };
 
+
   const updateLocation = () => {
     // assign an ID (this is probably needed anymore)
     location.locationId = id;
@@ -206,8 +237,9 @@ function AgencyForm() {
 
   return (
     <>
-    <div className="container">
-      <h2 className="mb-3 mt-3">{id ? 'Update Agency' : 'Add Agency'}</h2>
+
+      <h2 className="mb-4">{id ? 'Update Agency' : 'Add Agency'}</h2>
+
 
       {errors.length > 0 && (
         <div className="alert alert-danger">
@@ -312,7 +344,8 @@ function AgencyForm() {
           </Link>
         </div>
       </form>
-      </div>
+
+
     </>
   );
 }
