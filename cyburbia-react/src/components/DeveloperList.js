@@ -33,7 +33,7 @@ function DeveloperList() {
                             <th>Developer ID</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>%nbsp;</th>
+                            <th>&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,7 +44,7 @@ function DeveloperList() {
                                 <td>{developer.email}</td>
                                 <td>
                                     <div className="float-right mr-2">
-                                        <Link className="btn btn-primary btn-sm" to={`developers/edit/${developer.developerId}`}>
+                                        <Link className="btn btn-primary btn-sm" to={`/developers/edit/${developer.developerId}`}>
                                             <i className="bi bi-pencil-square"></i> Edit
                                         </Link>
                                     </div>
