@@ -14,16 +14,7 @@ function App() {
         <Route path="/" exact>
           <Home />
         </Route>
-        <Route path="/developers">
-          <DeveloperList />
-        </Route>
-        <Route path={['/developers/add', '/developers/edit:id']}>
-          <DeveloperForm />
-        </Route>
 
-        <Route>
-          <NotFound />
-        </Route>
       </Switch>
     </Router>
   );
