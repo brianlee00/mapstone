@@ -18,9 +18,12 @@ function ProjectList() {
       .catch(console.log);
   }, []);
 
-  function FetchLocation(project) {
-    var location;
-    fetch(`http://localhost:8080/api/location/${project.locationId}`)
+  console.log(projects)
+
+  let locations = [];
+  if (projects.length > 0) {
+    projects.map((project) => {
+      fetch(`http://localhost:8080/api/location/${project.locationId}`)
       .then(response => {
         if (response.status === 200) {
           return response.json();
@@ -28,19 +31,21 @@ function ProjectList() {
           return Promise.reject(`Unexpected status code: ${response.status}`);
         }
       })
-      .then(data => {location = data})
+      .then(data => {locations[project.projectId] = data})
       .catch(console.log);
-    return location;
+    })
   }
 
-  return (
+  console.log(locations)
+
+  return locations.length > 0 && (
       <>
         <h1 className="mb-4">Project List</h1>
         <Link className="btn btn-primary my-4" to="/project/add">
           <i className="bi bi-plus-circle"></i> Add Project
         </Link>
-        <table class="table table-striped table-hover table-sm">
-          <thead class="thead-dark">
+        <table className="table table-striped table-hover table-sm">
+          <thead className="thead-dark">
             <tr>
               <th>Project ID</th>
               <th>Type</th>
@@ -63,7 +68,7 @@ function ProjectList() {
                 <td>{project.description}</td>
                 <td>{project.sqFt}</td>
                 <td>{project.budget}</td>
-                <td>{FetchLocation(project).address}</td>
+                <td>{locations[project.projectId].address}</td>
                 <td>{project.agencyId}</td>
                 <td>{project.developers}</td>
                 <td>
