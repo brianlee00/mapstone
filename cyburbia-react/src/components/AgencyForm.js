@@ -20,6 +20,7 @@ function AgencyForm() {
 
   const history = useHistory();
 
+
   // Not using destructuring...
   // const params = useParams();
   // const id = params.id;
@@ -29,6 +30,7 @@ function AgencyForm() {
 
   useEffect(() => {
     // Make sure that we have an "id" value...
+
     if (id) {
       fetch(`http://localhost:8080/api/agency/${id}`)
         .then(response => {
@@ -42,6 +44,7 @@ function AgencyForm() {
         .catch(console.log);
 
 
+
         fetch(`http://localhost:8080/api/agency/${id}`)
         .then(response => {
           if (response.status === 200) {
@@ -52,6 +55,7 @@ function AgencyForm() {
         })
         .then(data => 
           fetch(`http://localhost:8080/api/location/${data.locationId}`)
+
         .then(response => {
           if (response.status === 200) {
             return response.json();
@@ -60,6 +64,7 @@ function AgencyForm() {
           }
         })
         .then(datal => setLocation(datal))
+
         .catch(console.log))
 
         
@@ -73,6 +78,7 @@ function AgencyForm() {
 
     // Update the value of the property that just changed.
     // We can "index" into the object using square brackets (just like we can do with arrays).
+
     if (event.target.type === 'checkbox') {
       newAgency[event.target.name] = event.target.checked;
       newLocation[event.target.name] = event.target.checked;
@@ -116,10 +122,12 @@ function AgencyForm() {
       })
       .then(data => {
         if (data.agencyId) {
+
          
           history.push('/agencies');
         } else {
       
+
 
           setErrors(data);
         }
@@ -190,6 +198,8 @@ function AgencyForm() {
       .catch(console.log);
       updateLocation();
   };
+
+
   const updateLocation = () => {
     // assign an ID (this is probably needed anymore)
     location.locationId = id;
@@ -227,7 +237,9 @@ function AgencyForm() {
 
   return (
     <>
+
       <h2 className="mb-4">{id ? 'Update Agency' : 'Add Agency'}</h2>
+
 
       {errors.length > 0 && (
         <div className="alert alert-danger">
@@ -332,6 +344,8 @@ function AgencyForm() {
           </Link>
         </div>
       </form>
+
+
     </>
   );
 }

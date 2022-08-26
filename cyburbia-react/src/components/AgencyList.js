@@ -22,6 +22,7 @@ function AgencyList() {
 
   return (
     <>
+
       <h2 className="mb-4">Agencies</h2>
 
       <button className="btn btn-primary my-4" onClick={() => history.push('/agencies/add')}>
@@ -55,6 +56,7 @@ function AgencyList() {
           ))}
         </tbody>
       </table>
+
     </>
   );
 }
