@@ -18,6 +18,21 @@ function ProjectList() {
       .catch(console.log);
   }, []);
 
+  function FetchLocation(project) {
+    var location;
+    fetch(`http://localhost:8080/api/location/${project.locationId}`)
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
+        }
+      })
+      .then(data => {location = data})
+      .catch(console.log);
+    return location;
+  }
+
   return (
       <>
         <h1 className="mb-4">Project List</h1>
@@ -28,10 +43,10 @@ function ProjectList() {
           <thead class="thead-dark">
             <tr>
               <th>Project ID</th>
-              <th>Sq. Ft</th>
               <th>Type</th>
               <th>Status</th>
               <th>Description</th>
+              <th>Sq. Ft</th>
               <th>Budget</th>
               <th>Location</th>
               <th>Agency</th>
@@ -43,12 +58,12 @@ function ProjectList() {
             {projects.map(project => (
               <tr key={project.projectId}>
                 <td>{project.projectId}</td>
-                <td>{project.sqFt}</td>
                 <td>{project.projectType}</td>
                 <td>{project.status}</td>
                 <td>{project.description}</td>
+                <td>{project.sqFt}</td>
                 <td>{project.budget}</td>
-                <td>{project.locationId}</td>
+                <td>{FetchLocation(project).address}</td>
                 <td>{project.agencyId}</td>
                 <td>{project.developers}</td>
                 <td>

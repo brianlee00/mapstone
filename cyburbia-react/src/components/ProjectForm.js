@@ -125,24 +125,41 @@ function ProjectForm() {
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="sqFt">Sq. Ft:</label>
-          <input id="sqFt" name="sqFt" type="text" className="form-control"
-            value={project.sqFt} onChange={handleChange} />
-        </div>
-        <div className="form-group">
           <label htmlFor="projectType">Project Type:</label>
-          <input id="projectType" name="projectType" type="text" className="form-control"
-            value={project.projectType} onChange={handleChange} />
+          <select id="projectType" name="projectType" className="form-control"
+            value={project.projectType} onChange={handleChange}>
+            <option>RES</option>
+            <option>IND</option>
+            <option>COM</option>
+            <option>AGR</option>
+            <option>REC</option>
+            <option>INS</option>
+            <option>TRA</option>
+            <option>MIX</option>
+            <option>NAT</option>
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="status">Status:</label>
-          <input id="status" name="status" type="text" className="form-control"
-            value={project.status} onChange={handleChange} />
+          <select id="status" name="status" className="form-control"
+            value={project.status} onChange={handleChange}>
+            <option>PRO</option>
+            <option>REV</option>
+            <option>APP</option>
+            <option>CON</option>
+            <option>COM</option>
+            <option>CAN</option>
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="description">Description:</label>
-          <input id="description" name="description" type="date" className="form-control"
+          <input id="description" name="description" type="text" className="form-control"
             value={project.description} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="sqFt">Sq. Ft:</label>
+          <input id="sqFt" name="sqFt" type="number" className="form-control"
+            value={project.sqFt} onChange={handleChange} />
         </div>
         <div class="form-group">
           <label for="budget">Budget:</label>
@@ -151,7 +168,7 @@ function ProjectForm() {
         </div>
         <div className="mt-4">
           <button className="btn btn-success mr-2" type="submit">
-            <i className="bi bi-file-earmark-check"></i> {id ? 'Update Field Agent' : 'Add Field Agent'}
+            <i className="bi bi-file-earmark-check"></i> {id ? 'Update Project' : 'Add Project'}
           </button>
           <Link className="btn btn-warning" to="/projects">
             <i className="bi bi-stoplights"></i> Cancel
