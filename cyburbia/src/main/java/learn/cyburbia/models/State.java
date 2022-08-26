@@ -34,7 +34,7 @@ public enum State {
         NEW_JERSEY("NJ","New Jersey"),
         NEW_MEXICO("NM","New Mexico"),
         NEW_YORK("NY","New York"),
-        NEW_CAROLINA("NC","New Carolina"),
+        NORTH_CAROLINA("NC","North Carolina"),
         NORTH_DAKOTA("ND","North Dakota"),
         OHIO("OH","Ohio"),
         OKLAHOMA("OK","Oklahoma"),
