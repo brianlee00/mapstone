@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 function DeveloperList() {
     const [developers, setDevelopers] = useState([]);
+    const [locations, setLocations] = useState([]);
 
     const history = useHistory();
 
