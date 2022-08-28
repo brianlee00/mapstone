@@ -7,6 +7,7 @@ import DeveloperList from './components/DeveloperList';
 import NotFound from './components/NotFound';
 import AgencyForm from './components/AgencyForm';
 import AgencyList from './components/AgencyList';
+import TestForm from './components/TestForm';
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           <AgencyList />
         </Route>
         <Route exact path={['/agencies/add', '/agencies/edit/:id']}>
-          <AgencyForm />
+          <TestForm />
         </Route>
 
         <Route>
