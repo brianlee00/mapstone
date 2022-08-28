@@ -170,7 +170,7 @@ function LocationForm() {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="address">Address:</label>
-          <input id="address" address="address" type="text" className="form-control"
+          <input id="address" name="address" type="text" className="form-control"
             value={location.address} onChange={handleChange} />
         </div>
         <div className="form-group">

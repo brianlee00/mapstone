@@ -8,6 +8,8 @@ import NotFound from './components/NotFound';
 import AgencyForm from './components/AgencyForm';
 import AgencyList from './components/AgencyList';
 import TestForm from './components/TestForm';
+import LocationForm from './components/LocationForm';
+import LocationList from './components/LocationList';
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Home />
+    
         </Route>
         <Route exact path="/developers">
           <DeveloperList />
@@ -29,6 +32,14 @@ function App() {
         <Route exact path={['/agencies/add', '/agencies/edit/:id']}>
           <TestForm />
         </Route>
+
+        <Route exact path="/locations">
+          <LocationList />
+        </Route>
+        <Route exact path={['/locations/add', '/locations/edit/:id']}>
+          <LocationForm />
+        </Route>
+       
 
         <Route>
           <NotFound />
