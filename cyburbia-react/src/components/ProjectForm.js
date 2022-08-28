@@ -15,7 +15,8 @@ const PROJECT_DEFAULT = {
 function ProjectForm() {
   const [project, setProject] = useState(PROJECT_DEFAULT);
   const [errors, setErrors] = useState([]);
-  const [agencies, setAgencies] = useState([])
+  const [agencies, setAgencies] = useState([]);
+  const [developers, setDevelopers] = useState([]);
 
   const history = useHistory();
   const { id } = useParams();
@@ -30,6 +31,19 @@ function ProjectForm() {
       }
     })
     .then(data => setAgencies(data))
+    .catch(console.log);
+  }, []);
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/developer')
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        return Promise.reject(`Unexpected status code: ${response.status}`);
+      }
+    })
+    .then(data => setDevelopers(data))
     .catch(console.log);
   }, []);
 
@@ -187,9 +201,25 @@ function ProjectForm() {
             <option value="">Choose Agency</option>
             {agencies.map(agency => (
               <option value={agency.agencyId} key={agency.agencyId}>{agency.name}</option>
-            ))
-            }
+            ))}
           </select>
+        </div>
+        <div className="form-group">
+          {developers.map(developer => (
+            <li key={developer.developerId}>
+              <div className="developers">
+                <input
+                  type="checkbox"
+                  id={developer.developerId}
+                  name={developer.developerId}
+                  value={developer.developerId}
+                  checked={false}
+                  onChange={handleChange}
+                />
+                <label htmlFor={developer.developerId}>{developer.name}</label>
+              </div>
+            </li>
+          ))}
         </div>
         <div className="mt-4">
           <button className="btn btn-success mr-2" type="submit">
