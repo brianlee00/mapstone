@@ -85,6 +85,8 @@ function TestForm() {
    
   },[], [id]);
 
+ 
+
   const handleChange = (event) => {
     const newAgency = { ...agency };
     if (event.target.type === 'checkbox') {
@@ -93,8 +95,22 @@ function TestForm() {
     } else {
       newAgency[event.target.name] = event.target.value;
     }
-
     setAgency(newAgency);
+  };
+
+  const handleChanges = (event) => {
+
+    fetch('http://localhost:8080/api/location')
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
+        }
+      })
+      .then(data => setLocations(data))
+      .catch(console.log);
+
   };
 
 
@@ -109,6 +125,7 @@ function TestForm() {
     } else {
       newLocation[event.target.name] = event.target.value;
     }
+
     setLocation(newLocation);
   };
 
@@ -116,10 +133,25 @@ function TestForm() {
     event.preventDefault();
 
     if (id) {
-        setCurrentView('EL')
       updateAgency();
+      history.push('/agencies');
+      
     } else {
       addAgency();
+      history.push('/agencies');
+    }
+  };
+
+  const handleSubmits = (event) => {
+    event.preventDefault();
+
+    if (id) {
+      updateAgency();
+      updateLocation();
+    } else {
+      addAgency();
+      addLocation();
+      
     }
   };
 
@@ -129,7 +161,6 @@ function TestForm() {
         setCurrentView('ASL');
     } else {
 
-    
     setCurrentView('AAL');
     }
 }
@@ -139,13 +170,17 @@ function TestForm() {
   const handleSubmitTwo = (event) => {
     event.preventDefault();
 
-    if (id) {
-      updateLocation();
+    if (agency.locationId) {
+        updateLocation();
+        
+     
     } else {
-      addLocation();
-      agency.locationId = location.locationId;
+        addLocation();
+      
+      
     }
   };
+
 
 
   const addAgency = () => {
@@ -167,10 +202,9 @@ function TestForm() {
         }
       })
       .then(data => {
-        if (data.agencyId) {
+        if (!data.agencyId) {
 
-          history.push('/agencies');
-        } else {
+
 
           setErrors(data);
         }
@@ -203,10 +237,7 @@ function TestForm() {
         }
       })
       .then(data => {
-        if (!data) {
-
-          history.push('/agencies');
-        } else {
+        if (data) {
           setErrors(data);
         }
       })
@@ -250,7 +281,7 @@ function TestForm() {
           */
 
           // Send the user back to the list route.
-          history.push('/locations');
+          setCurrentView('AA');
         } else {
           /*
 
@@ -274,7 +305,6 @@ function TestForm() {
 
   const updateLocation = () => {
     // assign an ID (this is probably needed anymore)
-    location.locationId = id;
 
     const init = {
       method: 'PUT',
@@ -284,7 +314,7 @@ function TestForm() {
       body: JSON.stringify(location)
     };
   
-    fetch(`http://localhost:8080/api/location/${id}`, init)
+    fetch(`http://localhost:8080/api/location/${location.locationId}`, init)
       .then(response => {
         if (response.status === 204) {
           return null;
@@ -297,7 +327,7 @@ function TestForm() {
       .then(data => {
         if (!data) {
           // Send the user back to the list route.
-          history.push('/locations');
+          history.push('/agencies');
         } else {
           setErrors(data);
         }
@@ -335,19 +365,9 @@ function TestForm() {
                   
               </label>
             </div>
+            <h2 className="mb-3 mt-3">{'Add New Agency Location'}</h2>
 
-        <form onSubmit={handleSubmit && handleSubmitTwo}>
-          <div className="form-group">
-            <label htmlFor="name">Name:</label>
-            <input id="name" name="name" type="text" className="form-control"
-              value={agency.name} onChange={handleChange} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input id="email" name="email" type="text" className="form-control"
-              value={agency.email} onChange={handleChange} />
-          </div>
-
+        <form onSubmit={handleSubmitTwo}>
           <div className="form-group">
           <label htmlFor="address">Address:</label>
           <input id="address" name="address" type="text" className="form-control"
@@ -423,7 +443,7 @@ function TestForm() {
     
           <div className="mt-4">
             <button className="btn btn-success mr-2" type="submit">
-              <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
+              <i className="bi bi-file-earmark-check"></i> Continue
             </button>
             <Link className="btn btn-warning" to="/agencies">
               <i className="bi bi-stoplights"></i> Cancel
@@ -431,9 +451,46 @@ function TestForm() {
 
           </div>
         </form>
-</>
+        </>
        )}
+       {currentView === 'AA' &&(
+        <>
+        <form onSubmit={handleSubmit}>
+        <div className="form-group">
+            <label htmlFor="name">Name:</label>
+            <input id="name" name="name" type="text" className="form-control"
+              value={agency.name} onChange={handleChange} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input id="email" name="email" type="text" className="form-control"
+              value={agency.email} onChange={handleChange} />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="locationId">Location Id:</label>
+            <select id="locationId" name="locationId" type="number" className="form-control"
+              value={agency.locationId} onMouseOver={handleChanges} onChange={handleChange}>
+                <option>0</option>
+              {locations.map(location => (
+                <option key={location.locationId}>{location.locationId}</option>
+                
+              ))}
+              </select>
+          </div>
+    
+          <div className="mt-4">
+            <button className="btn btn-success mr-2" type="submit">
+              <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
+            </button>
+            <Link className="btn btn-warning" to="/agencies">
+              <i className="bi bi-stoplights"></i> Cancel
+            </Link>
 
+          </div>
+          </form>
+</>
+)}
        {currentView === 'ASL' && (
         <>
          <div className="form-group">
@@ -445,7 +502,7 @@ function TestForm() {
                   
               </label>
             </div>
-        <form onSubmit={handleSubmit && handleSubmitTwo}>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input id="name" name="name" type="text" className="form-control"
@@ -460,9 +517,10 @@ function TestForm() {
           <div className="form-group">
             <label htmlFor="locationId">Location Id:</label>
             <select id="locationId" name="locationId" type="number" className="form-control"
-              value={agency.locationId} onChange={handleChange}>
+              value={agency.locationId}  onChange={handleChange}>
+                <option>0</option>
               {locations.map(location => (
-                <option>{location.locationId}</option>
+                <option key={location.locationId}>{location.locationId}</option>
                 
               ))}
               </select>
@@ -483,7 +541,7 @@ function TestForm() {
 
        {currentView === 'EL' && (
         <>
-        <form onSubmit={handleSubmit && handleSubmitTwo}>
+        <form onSubmit={handleSubmits}>
           <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input id="name" name="name" type="text" className="form-control"
