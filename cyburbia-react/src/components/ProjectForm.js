@@ -3,21 +3,35 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 
 const PROJECT_DEFAULT = {
   sqFt: 0,
-  projectType: null,
-  status: null,
+  projectType: '',
+  status: '',
   description: '',
   budget: 0,
   locationId: 0,
   agencyId: 0,
-  developers: null
+  developers: ''
 };
 
 function ProjectForm() {
   const [project, setProject] = useState(PROJECT_DEFAULT);
   const [errors, setErrors] = useState([]);
+  const [agencies, setAgencies] = useState([])
 
   const history = useHistory();
   const { id } = useParams();
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/agency')
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        return Promise.reject(`Unexpected status code: ${response.status}`);
+      }
+    })
+    .then(data => setAgencies(data))
+    .catch(console.log);
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -161,10 +175,21 @@ function ProjectForm() {
           <input id="sqFt" name="sqFt" type="number" className="form-control"
             value={project.sqFt} onChange={handleChange} />
         </div>
-        <div class="form-group">
-          <label for="budget">Budget:</label>
+        <div className="form-group">
+          <label htmlFor="budget">Budget:</label>
           <input id="budget" name="budget" type="number" className="form-control"
             value={project.budget} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="agency">Agency:</label>
+          <select id="agency" name="agencyId" className="form-control"
+            value={project.agencyId} onChange={handleChange}>
+            <option value="">Choose Agency</option>
+            {agencies.map(agency => (
+              <option value={agency.agencyId} key={agency.agencyId}>{agency.name}</option>
+            ))
+            }
+          </select>
         </div>
         <div className="mt-4">
           <button className="btn btn-success mr-2" type="submit">
