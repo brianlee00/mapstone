@@ -87,7 +87,7 @@ function ProjectDetails() {
     
 
 
-    return locations.length > 0 && developers.length > 0 && agencies.length > 0 && (
+    return (
         <>
             <div className="container">
                 <h2 className="mb-3 mt-3">View Project</h2>
