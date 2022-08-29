@@ -1,3 +1,5 @@
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import DeveloperForm from './components/DeveloperForm';
@@ -6,9 +8,11 @@ import NotFound from './components/NotFound';
 import AgencyForm from './components/AgencyForm';
 import AgencyList from './components/AgencyList';
 import ProjectDetails from './components/ProjectDetails';
+import ProjectList from './components/ProjectList';
 
 
 import MapTest from './components/MapTest';
+import ProjectForm from './components/ProjectForm';
 
 function App() {
   return (
@@ -17,10 +21,15 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Home />
-
-        
-    
         </Route>
+        <Route exact path="/projects">
+          <ProjectList />
+        </Route>
+        <Route exact path={['/projects/add', 'projects/edit/:id']}>
+          <ProjectForm />
+        </Route>
+
+
         <Route exact path="/developers">
           <DeveloperList />
         </Route>
@@ -32,6 +41,9 @@ function App() {
         </Route>
         <Route exact path={['/agencies/add', '/agencies/edit/:id']}>
           <AgencyForm />
+        </Route>
+        <Route exact path="/projectdetails/:id">
+          <ProjectDetails />
         </Route>
 
         <Route>
