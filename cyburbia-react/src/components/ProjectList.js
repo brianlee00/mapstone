@@ -35,7 +35,7 @@ function ProjectList() {
   return locations.length > 0 && (
       <>
         <h1 className="mb-4">Project List</h1>
-        <Link className="btn btn-primary my-4" to="/project/add">
+        <Link className="btn btn-primary my-4" to="/projects/add">
           <i className="bi bi-plus-circle"></i> Add Project
         </Link>
         <table className="table table-striped table-hover table-sm">
@@ -67,7 +67,7 @@ function ProjectList() {
                 <td>{project.developers}</td>
                 <td>
                   <div className="float-right mr-2">
-                    <Link className="btn btn-primary btn-sm mr-2" to={`/project/edit/${project.projectId}`}>
+                    <Link className="btn btn-primary btn-sm mr-2" to={`/projects/edit/${project.projectId}`}>
                       <i className="bi bi-pencil-square"></i> Edit
                     </Link>
                   </div>
