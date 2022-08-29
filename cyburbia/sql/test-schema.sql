@@ -31,6 +31,8 @@ create table agency (
         references location(location_id)
 );
 
+
+
 create table project (
 	project_id int primary key auto_increment,
     location_id int not null,
@@ -144,6 +146,22 @@ insert into project_developer (developer_id, project_id)
     where developer_id = 2
     and project_id = 2;
 
+select * from location;
+select * from agency;
 
-	
+select json_object
+('agency_id', agency.agency_id,
+'name', agency.name,
+'email', agency.email,
+'location_id', agency.location_id,
+'address', location.address,
+'city', location.city,
+'state', location.state,
+'zip_code', location.zip_code)
+from agency
+inner join location on agency.location_id = location.location_id
+into outfile 'C:/dev10-mapstone/mapstone/cyburbia-react/src/Agencies.json';
+
+
+	show variables;
 
