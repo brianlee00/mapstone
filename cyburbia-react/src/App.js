@@ -21,14 +21,15 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Home />
-          <Route exact path="/projects">
-            <ProjectList />
-          </Route>
-          <Route exact path={['/projects/add', 'projects/edit/:id']}>
-            <ProjectForm />
-          </Route>
-
         </Route>
+        <Route exact path="/projects">
+          <ProjectList />
+        </Route>
+        <Route exact path={['/projects/add', 'projects/edit/:id']}>
+          <ProjectForm />
+        </Route>
+
+
         <Route exact path="/developers">
           <DeveloperList />
         </Route>
