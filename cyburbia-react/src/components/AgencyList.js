@@ -8,7 +8,7 @@ const LOCATION_DEFAULT = {
     zipCode: ''
   };
 
-function TestList() {
+function AgencyList() {
   const [agencies, setAgencies] = useState([]);
   const [locations, setLocations] = useState([]);
  
@@ -89,4 +89,4 @@ function TestList() {
   );
 }
 
-export default TestList;
+export default AgencyList;

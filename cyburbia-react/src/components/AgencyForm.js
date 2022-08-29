@@ -16,7 +16,7 @@ const LOCATION_DEFAULT = {
   };
 
 
-function TestForm() {
+function AgencyForm() {
 
   const [agency, setAgency] = useState(AGENCY_DEFAULT);
   const [currentView, setCurrentView] = useState('AAL');
@@ -605,4 +605,4 @@ function TestForm() {
   );
 }
 
-export default TestForm;
+export default AgencyForm;

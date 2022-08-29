@@ -7,10 +7,8 @@ import DeveloperList from './components/DeveloperList';
 import NotFound from './components/NotFound';
 import AgencyForm from './components/AgencyForm';
 import AgencyList from './components/AgencyList';
-import TestForm from './components/TestForm';
-import LocationForm from './components/LocationForm';
-import LocationList from './components/LocationList';
-import TestList from './components/TestList';
+
+
 import MapTest from './components/MapTest';
 
 function App() {
@@ -27,7 +25,6 @@ function App() {
         <Route exact path="/developers">
           <DeveloperList />
         </Route>
-        
         <Route exact path={['/developers/add', '/developers/edit/:id']}>
           <DeveloperForm />
         </Route>
