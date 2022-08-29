@@ -39,7 +39,7 @@ function DeveloperList() {
       .catch(console.log);
     },[]);
 
-    return (
+    return locations.length > 0 && (
         <>
             <div className="container">
                 <h2 className="mb-3 mt-3">Developers</h2>

@@ -1,8 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-function AgencyList() {
+const LOCATION_DEFAULT = {
+    address: '',
+    city: '',
+    state: 'NEW_YORK',
+    zipCode: ''
+  };
+
+function TestList() {
   const [agencies, setAgencies] = useState([]);
+  const [locations, setLocations] = useState([]);
+ 
 
   const history = useHistory();
 
@@ -17,10 +26,21 @@ function AgencyList() {
       })
       .then(data => setAgencies(data))
       .catch(console.log);
-  }, []); // An empty dependency array tells to run our side effect once when the component is initially loaded.    
+
+      fetch('http://localhost:8080/api/location')
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
+        }
+      })
+      .then(data => setLocations(data))
+      .catch(console.log);
+  }, [],[]); // An empty dependency array tells to run our side effect once when the component is initially loaded.    
 
 
-  return (
+  return locations.length > 0 && (
     <>
       <div className="container">
         <h2 className="mb-3 mt-3">Agencies</h2>
@@ -35,6 +55,10 @@ function AgencyList() {
               <th>ID</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Zip Code</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
@@ -44,6 +68,10 @@ function AgencyList() {
                 <td>{agency.agencyId}</td>
                 <td>{agency.name}</td>
                 <td>{agency.email}</td>
+                <td>{locations[agency.locationId-1].address}</td>
+                <td>{locations[agency.locationId-1].city}</td>
+                <td>{locations[agency.locationId-1].state}</td>
+                <td>{locations[agency.locationId-1].zipCode}</td>
                 <td>
                   <div className="float-right mr-2">
                     <Link className="btn btn-primary btn-sm mr-2" to={`/agencies/edit/${agency.agencyId}`}>
@@ -61,4 +89,4 @@ function AgencyList() {
   );
 }
 
-export default AgencyList;
+export default TestList;

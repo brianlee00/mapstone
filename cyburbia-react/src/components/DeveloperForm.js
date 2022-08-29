@@ -121,7 +121,7 @@ function DeveloperForm() {
     const handleLocationSubmit = (event) => {
 
         event.preventDefault();
-        if (id) {
+        if (developer.locationId) {
             updateLocation();
         } else {
             addLocation();
@@ -480,13 +480,13 @@ function DeveloperForm() {
             <form onSubmit={handleSubmits}>
                 <div className="form-row">
               <div className="form-group col-md-6">
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="name">Developer Name:</label>
                 <input id="name" name="name" type="text" className="form-control"
                   value={developer.name} onChange={handleDeveloperChange} required />
                  
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="email">Email:</label>
+                <label htmlFor="email">Developer Email:</label>
                 <input id="email" name="email" type="text" className="form-control"
                   value={developer.email} onChange={handleDeveloperChange} required />
                   

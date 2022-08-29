@@ -33,7 +33,7 @@ function TestForm() {
   const { id } = useParams();
 
   useEffect(() => {
-    setCurrentView('ASL');
+    setCurrentView('ADDSET');
 
     fetch('http://localhost:8080/api/location')
       .then(response => {
@@ -47,7 +47,7 @@ function TestForm() {
       .catch(console.log);
 
     if (id) {
-        setCurrentView('EL')
+        setCurrentView('EDIT')
       fetch(`http://localhost:8080/api/agency/${id}`)
         .then(response => {
           if (response.status === 200) {
@@ -87,18 +87,14 @@ function TestForm() {
 
  
 
-  const handleChange = (event) => {
-    const newAgency = { ...agency };
-    if (event.target.type === 'checkbox') {
-      newAgency[event.target.name] = event.target.checked;
-      
-    } else {
+  const handleAgencyChange = (event) => {
+
+      const newAgency = { ...agency };
       newAgency[event.target.name] = event.target.value;
-    }
-    setAgency(newAgency);
+      setAgency(newAgency);
   };
 
-  const handleChanges = (event) => {
+  const handleArrayChange = (event) => {
 
     fetch('http://localhost:8080/api/location')
       .then(response => {
@@ -114,28 +110,18 @@ function TestForm() {
   };
 
 
-  const handleChangeTwo = (event) => {
-    // Make a copy of the object.
+  const handleLocationChange = (event) => {
     const newLocation = { ...location};
-
-    // Update the value of the property that just changed.
-    // We can "index" into the object using square brackets (just like we can do with arrays).
-    if (event.target.type === 'checkbox') {
-      newLocation[event.target.name] = event.target.checked;
-    } else {
-      newLocation[event.target.name] = event.target.value;
-    }
-
+    newLocation[event.target.name] = event.target.value;
     setLocation(newLocation);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleAgencySubmit = (event) => {
 
+    event.preventDefault();
     if (id) {
       updateAgency();
       history.push('/agencies');
-      
     } else {
       addAgency();
       history.push('/agencies');
@@ -143,8 +129,8 @@ function TestForm() {
   };
 
   const handleSubmits = (event) => {
-    event.preventDefault();
 
+    event.preventDefault();
     if (id) {
       updateAgency();
       updateLocation();
@@ -155,29 +141,25 @@ function TestForm() {
     }
   };
 
-  const handleAAL = () => {
+  const handleView = () => {
     setIsChecked(!isChecked);
     if (isChecked){
-        setCurrentView('ASL');
+        setCurrentView('ADDSET');
     } else {
 
-    setCurrentView('AAL');
+    setCurrentView('ADDL');
     }
 }
   
 
 
-  const handleSubmitTwo = (event) => {
-    event.preventDefault();
+  const handleLocationSubmit = (event) => {
 
+    event.preventDefault();
     if (agency.locationId) {
         updateLocation();
-        
-     
     } else {
         addLocation();
-      
-      
     }
   };
 
@@ -203,8 +185,6 @@ function TestForm() {
       })
       .then(data => {
         if (!data.agencyId) {
-
-
 
           setErrors(data);
         }
@@ -264,37 +244,8 @@ function TestForm() {
       })
       .then(data => {
         if (data.locationId) {
-          /*
-
-          On the happy path, "data" is an object that looks this:
-
-          {
-            "id": 30,
-            "section": "The Ridge",
-            "row": 202,
-            "column": 201,
-            "yearInstalled": 2000,
-            "material": "MONO_SI",
-            "tracking": true
-          }
-
-          */
-
-          // Send the user back to the list route.
-          setCurrentView('AA');
+          setCurrentView('ADD');
         } else {
-          /*
-
-          On the unhappy path, "data" is an array that looks this:
-
-          [
-            "SolarPanel `section` is required.",
-            "SolarPanel `row` must be a positive number less than or equal to 250.",
-            "SolarPanel `column` must be a positive number less than or equal to 250.",
-            "SolarPanel `material` is required."
-          ]
-
-          */
 
           setErrors(data);
         }
@@ -354,34 +305,37 @@ function TestForm() {
             </ul>
           </div>
         )}
-    {currentView === 'AAL' && (
+    {currentView === 'ADDL' && (
     <>
-     <div className="form-group">
-              <label htmlFor="addLocation">Add Location
-              <input id="addLocation" name="addLocation" type="hidden"
-                  checked={!isChecked} onChange={handleAAL} />
-                <input id="addLocation" name="addLocation" type="checkbox"
-                  checked={isChecked} onChange={handleAAL} />
-                  
-              </label>
-            </div>
+     <div className="form-check">
+                 
+                 <input id="addLocation" name="addLocation" className="form-check-input" type="hidden"
+                     checked={!isChecked} onChange={handleView} />
+                   <input id="addLocation" name="addLocation" className="form-check-input" type="checkbox"
+                     checked={isChecked} onChange={handleView} />
+                      <label className="form-check-label" htmlFor="addLocation">
+                       Add Location
+                     
+                 </label>
+               </div>
             <h2 className="mb-3 mt-3">{'Add New Agency Location'}</h2>
 
-        <form onSubmit={handleSubmitTwo}>
+        <form onSubmit={handleLocationSubmit}>
           <div className="form-group">
           <label htmlFor="address">Address:</label>
           <input id="address" name="address" type="text" className="form-control"
-            value={location.address} onChange={handleChangeTwo} />
+            value={location.address} onChange={handleLocationChange} />
         </div>
-        <div className="form-group">
+        <div className="form-row ">
+        <div className="form-group col-md-6">
           <label htmlFor="city">City:</label>
-          <input id="city" name="city" type="text" className="form-control"
-            value={location.city} onChange={handleChangeTwo} />
+          <input id="city" name="city" type="text" className="form-control form-control-m"
+            value={location.city} onChange={handleLocationChange} />
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-4">
           <label htmlFor="state">State:</label>
-          <select id="state" name="state" className="form-control"
-            value={location.state} onChange={handleChangeTwo}>
+          <select id="state" name="state" className="form-control form-control-sm"
+            value={location.state} onChange={handleLocationChange}>
             <option>ALABAMA</option>
             <option>ALASKA</option>
             <option>ARIZONA</option>
@@ -435,42 +389,43 @@ function TestForm() {
             
           </select>
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-2">
           <label htmlFor="zipCode">Zip Code:</label>
-          <input id="zipCode" name="zipCode" type="number" className="form-control"
-            value={location.zipCode} onChange={handleChangeTwo} />
+          <input id="zipCode" name="zipCode" type="text" className="form-control form-control-sm"
+            value={location.zipCode} onChange={handleLocationChange} />
+        </div>
         </div>
     
           <div className="mt-4">
             <button className="btn btn-success mr-2" type="submit">
-              <i className="bi bi-file-earmark-check"></i> Continue
+              <i className="bi bi-patch-check-fill"></i> Continue
             </button>
-            <Link className="btn btn-warning" to="/agencies">
-              <i className="bi bi-stoplights"></i> Cancel
+            <Link className="btn btn-secondary" to="/agencies">
+              <i className="bi bi-patch-exclamation"></i> Cancel
             </Link>
 
           </div>
         </form>
         </>
        )}
-       {currentView === 'AA' &&(
+       {currentView === 'ADD' &&(
         <>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleAgencyChange}>
         <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input id="name" name="name" type="text" className="form-control"
-              value={agency.name} onChange={handleChange} />
+              value={agency.name} onChange={handleAgencyChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="email">Email:</label>
-            <input id="email" name="email" type="text" className="form-control"
-              value={agency.email} onChange={handleChange} />
+            <input id="email" name="email" type="text" placeholder="name@example.com" className="form-control"
+              value={agency.email} onChange={handleAgencyChange} required/>
           </div>
           
           <div className="form-group">
             <label htmlFor="locationId">Location Id:</label>
             <select id="locationId" name="locationId" type="number" className="form-control"
-              value={agency.locationId} onMouseOver={handleChanges} onChange={handleChange}>
+              value={agency.locationId} onMouseOver={handleArrayChange} onChange={handleAgencyChange}>
                 <option>0</option>
               {locations.map(location => (
                 <option key={location.locationId}>{location.locationId}</option>
@@ -481,43 +436,46 @@ function TestForm() {
     
           <div className="mt-4">
             <button className="btn btn-success mr-2" type="submit">
-              <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
+              <i className="bi bi-patch-check-fill"></i> {id ? 'Update Agency' : 'Add Agency'}
             </button>
             <Link className="btn btn-warning" to="/agencies">
-              <i className="bi bi-stoplights"></i> Cancel
+              <i className="bi bi-patch-exclamation"></i> Cancel
             </Link>
 
           </div>
           </form>
 </>
 )}
-       {currentView === 'ASL' && (
+       {currentView === 'ADDSET' && (
         <>
-         <div className="form-group">
-              <label htmlFor="addLocation">Add Location
-              <input id="addLocation" name="addLocation" type="hidden"
-                  checked={!isChecked} onChange={handleAAL} />
-                <input id="addLocation" name="addLocation" type="checkbox"
-                  checked={isChecked} onChange={handleAAL} />
-                  
-              </label>
-            </div>
-        <form onSubmit={handleSubmit}>
+         <div className="form-check">
+                 
+                 <input id="addLocation" name="addLocation" className="form-check-input" type="hidden"
+                     checked={!isChecked} onChange={handleView} />
+                   <input id="addLocation" name="addLocation" className="form-check-input" type="checkbox"
+                     checked={isChecked} onChange={handleView} />
+                      <label className="form-check-label" htmlFor="addLocation">
+                       Add Location
+                     
+                 </label>
+               </div>
+               <br />
+        <form onSubmit={handleAgencySubmit}>
           <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input id="name" name="name" type="text" className="form-control"
-              value={agency.name} onChange={handleChange} />
+              value={agency.name} onChange={handleAgencyChange} />
           </div>
           <div className="form-group">
             <label htmlFor="email">Email:</label>
-            <input id="email" name="email" type="text" className="form-control"
-              value={agency.email} onChange={handleChange} />
+            <input id="email" name="email" type="text" placeholder="name@example.com" className="form-control"
+              value={agency.email} onChange={handleAgencyChange} />
           </div>
 
           <div className="form-group">
             <label htmlFor="locationId">Location Id:</label>
             <select id="locationId" name="locationId" type="number" className="form-control"
-              value={agency.locationId}  onChange={handleChange}>
+              value={agency.locationId}  onChange={handleAgencyChange}>
                 <option>0</option>
               {locations.map(location => (
                 <option key={location.locationId}>{location.locationId}</option>
@@ -528,10 +486,10 @@ function TestForm() {
     
           <div className="mt-4">
             <button className="btn btn-success mr-2" type="submit">
-              <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
+              <i className="bi bi-patch-check-fill"></i> {id ? 'Update Agency' : 'Add Agency'}
             </button>
-            <Link className="btn btn-warning" to="/agencies">
-              <i className="bi bi-stoplights"></i> Cancel
+            <Link className="btn btn-secondary" to="/agencies">
+              <i className="bi bi-patch-exclamation"></i> Cancel
             </Link>
 
           </div>
@@ -539,34 +497,36 @@ function TestForm() {
         </>
        )}
 
-       {currentView === 'EL' && (
+       {currentView === 'EDIT' && (
         <>
         <form onSubmit={handleSubmits}>
-          <div className="form-group">
+        <div className="form-row">
+          <div className="form-group col-md-6">
             <label htmlFor="name">Name:</label>
             <input id="name" name="name" type="text" className="form-control"
-              value={agency.name} onChange={handleChange} />
+              value={agency.name} onChange={handleAgencyChange} />
           </div>
-          <div className="form-group">
+          <div className="form-group col-md-6">
             <label htmlFor="email">Email:</label>
             <input id="email" name="email" type="text" className="form-control"
-              value={agency.email} onChange={handleChange} />
+              value={agency.email} onChange={handleAgencyChange} />
           </div>
-
+          </div>
           <div className="form-group">
           <label htmlFor="address">Address:</label>
           <input id="address" name="address" type="text" className="form-control"
-            value={location.address} onChange={handleChangeTwo} />
+            value={location.address} onChange={handleLocationChange} />
         </div>
-        <div className="form-group">
+        <div className="form-row">
+        <div className="form-group col-md-6">
           <label htmlFor="city">City:</label>
           <input id="city" name="city" type="text" className="form-control"
-            value={location.city} onChange={handleChangeTwo} />
+            value={location.city} onChange={handleLocationChange} />
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-3">
           <label htmlFor="state">State:</label>
           <select id="state" name="state" className="form-control"
-            value={location.state} onChange={handleChangeTwo}>
+            value={location.state} onChange={handleLocationChange}>
             <option>ALABAMA</option>
             <option>ALASKA</option>
             <option>ARIZONA</option>
@@ -620,18 +580,19 @@ function TestForm() {
             
           </select>
         </div>
-        <div className="form-group">
+        <div className="form-group col-md-3">
           <label htmlFor="zipCode">Zip Code:</label>
           <input id="zipCode" name="zipCode" type="number" className="form-control"
-            value={location.zipCode} onChange={handleChangeTwo} />
+            value={location.zipCode} onChange={handleLocationChange} />
+        </div>
         </div>
     
           <div className="mt-4">
             <button className="btn btn-success mr-2" type="submit">
-              <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
+              <i className="bi bi-patch-check-fill"></i> {id ? 'Update Agency' : 'Add Agency'}
             </button>
             <Link className="btn btn-warning" to="/agencies">
-              <i className="bi bi-stoplights"></i> Cancel
+              <i className="bi bi-patch-exclamation"></i> Cancel
             </Link>
 
           </div>

@@ -27,24 +27,16 @@ function App() {
         <Route exact path="/developers">
           <DeveloperList />
         </Route>
+        
         <Route exact path={['/developers/add', '/developers/edit/:id']}>
           <DeveloperForm />
         </Route>
         <Route exact path="/agencies">
-          <TestList />
+          <AgencyList />
         </Route>
         <Route exact path={['/agencies/add', '/agencies/edit/:id']}>
-          <TestForm />
+          <AgencyForm />
         </Route>
-
-        <Route exact path="/locations">
-          <LocationList />
-        </Route>
-        <Route exact path={['/locations/add', '/locations/edit/:id']}>
-          <LocationForm />
-        </Route>
-       
-
         <Route>
           <NotFound />
         </Route>
