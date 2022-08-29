@@ -247,7 +247,7 @@ function ProjectForm() {
         <div className="form-group" id="developers">
           {developers.map((developer, index) => {
             return (
-              <div className="developers-list-name">
+              <div className="developers-list-name" key={developer.developerId}>
                 <input
                   type="checkbox"
                   id={`custom-checkbox-${index}`}

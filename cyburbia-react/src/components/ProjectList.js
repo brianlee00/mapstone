@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 function ProjectList() {
 
   const [projects, setProjects] = useState([]);
+  const [locations, setLocations] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:8080/api/project')
@@ -18,12 +19,8 @@ function ProjectList() {
       .catch(console.log);
   }, []);
 
-  console.log(projects)
-
-  let locations = [];
-  if (projects.length > 0) {
-    projects.map((project) => {
-      fetch(`http://localhost:8080/api/location/${project.locationId}`)
+  useEffect(() => {
+    fetch('http://localhost:8080/api/location')
       .then(response => {
         if (response.status === 200) {
           return response.json();
@@ -31,12 +28,9 @@ function ProjectList() {
           return Promise.reject(`Unexpected status code: ${response.status}`);
         }
       })
-      .then(data => {locations[project.projectId] = data})
+      .then(data => setLocations(data))
       .catch(console.log);
-    })
-  }
-
-  console.log(locations)
+  }, []);
 
   return locations.length > 0 && (
       <>
@@ -68,7 +62,7 @@ function ProjectList() {
                 <td>{project.description}</td>
                 <td>{project.sqFt}</td>
                 <td>{project.budget}</td>
-                <td>{locations[project.projectId].address}</td>
+                <td>{locations[project.locationId-1].address}</td>
                 <td>{project.agencyId}</td>
                 <td>{project.developers}</td>
                 <td>
