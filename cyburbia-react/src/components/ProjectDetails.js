@@ -14,7 +14,6 @@ const PROJ_DEFAULT = {
 }
 
 
-
 function ProjectDetails() {
     const [project, setProject] = useState(PROJ_DEFAULT);
     const [locations, setLocations] = useState([]);
@@ -42,6 +41,7 @@ function ProjectDetails() {
         }
     }, [id]);
 
+
     useEffect(() => {
 
         fetch('http://localhost:8080/api/location')
@@ -54,7 +54,7 @@ function ProjectDetails() {
             })
             .then(data => setLocations(data))
             .catch(console.log);
-    }, []);
+    }, [id]);
 
     useEffect(() => {
 
@@ -68,7 +68,7 @@ function ProjectDetails() {
             })
             .then(data => setAgencies(data))
             .catch(console.log);
-    }, []);
+    }, [id]);
 
     useEffect(() => {
 
@@ -82,12 +82,12 @@ function ProjectDetails() {
             })
             .then(data => setDevelopers(data))
             .catch(console.log);
-    }, []);
+    }, [id]);
+
+    
 
 
-
-
-    return (locations.length > 0) && (
+    return locations.length > 0 && developers.length > 0 && agencies.length > 0 && (
         <>
             <div className="container">
                 <h2 className="mb-3 mt-3">View Project</h2>
