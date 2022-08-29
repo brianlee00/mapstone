@@ -7,6 +7,7 @@ import DeveloperList from './components/DeveloperList';
 import NotFound from './components/NotFound';
 import AgencyForm from './components/AgencyForm';
 import AgencyList from './components/AgencyList';
+import ProjectDetails from './components/ProjectDetails';
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
         </Route>
         <Route exact path={['/agencies/add', '/agencies/edit/:id']}>
           <AgencyForm />
+        </Route>
+        <Route exact path="/projectdetails">
+          <ProjectDetails />
         </Route>
 
         <Route>
