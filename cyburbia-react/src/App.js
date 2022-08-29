@@ -11,6 +11,7 @@ import TestForm from './components/TestForm';
 import LocationForm from './components/LocationForm';
 import LocationList from './components/LocationList';
 import TestList from './components/TestList';
+import MapTest from './components/MapTest';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Home />
+
+        
     
         </Route>
         <Route exact path="/developers">

@@ -64,8 +64,6 @@ function TestList() {
           </thead>
           <tbody>
             {agencies.map(agency => (
-                
-                 
               <tr key={agency.agencyId}>
                 <td>{agency.agencyId}</td>
                 <td>{agency.name}</td>
