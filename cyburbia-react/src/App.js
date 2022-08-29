@@ -29,7 +29,7 @@ function App() {
         <Route exact path={['/agencies/add', '/agencies/edit/:id']}>
           <AgencyForm />
         </Route>
-        <Route exact path="/projectdetails">
+        <Route exact path="/projectdetails/:id">
           <ProjectDetails />
         </Route>
 
