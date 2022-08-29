@@ -193,27 +193,29 @@ function ProjectForm() {
           <label htmlFor="projectType">Project Type:</label>
           <select id="projectType" name="projectType" className="form-control"
             value={project.projectType} onChange={handleChange}>
-            <option>RES</option>
-            <option>IND</option>
-            <option>COM</option>
-            <option>AGR</option>
-            <option>REC</option>
-            <option>INS</option>
-            <option>TRA</option>
-            <option>MIX</option>
-            <option>NAT</option>
+            <option value="">Select Project Type</option>
+            <option value="RES">Residential</option>
+            <option value="IND">Industrial</option>
+            <option value="COM">Commercial</option>
+            <option value="AGR">Agricultural</option>
+            <option value="REC">Recreational</option>
+            <option value="INS">Institutional</option>
+            <option value="TRA">Transportation</option>
+            <option value="MIX">Mixed-Urban</option>
+            <option value="NAT">Natural</option>
           </select>
         </div>
         <div className="form-group">
           <label htmlFor="status">Status:</label>
           <select id="status" name="status" className="form-control"
             value={project.status} onChange={handleChange}>
-            <option>PRO</option>
-            <option>REV</option>
-            <option>APP</option>
-            <option>CON</option>
-            <option>COM</option>
-            <option>CAN</option>
+            <option value="">Select Status</option>
+            <option value="PRO">Proposed</option>
+            <option value="REV">In Review</option>
+            <option value="APP">Approved</option>
+            <option value="CON">Under Construction</option>
+            <option value="COM">Completed</option>
+            <option value="CAN">Canceled</option>
           </select>
         </div>
         <div className="form-group">
@@ -241,22 +243,21 @@ function ProjectForm() {
             ))}
           </select>
         </div>
-        <div className="form-group">
+        <label htmlFor="developers">Developers:</label>
+        <div className="form-group" id="developers">
           {developers.map((developer, index) => {
             return (
-              <li key={index}>
-                <div className="developers-list-name">
-                  <input
-                    type="checkbox"
-                    id={`custom-checkbox-${index}`}
-                    name={developer.name}
-                    value={developer.name}
-                    checked={checkedState[index]}
-                    onChange={() => handleCheckbox(index)}
-                  />
-                  <label htmlFor={`custom-checkbox-${index}`}>{developer.name}</label>
-                </div>
-              </li>
+              <div className="developers-list-name">
+                <input
+                  type="checkbox"
+                  id={`custom-checkbox-${index}`}
+                  name={developer.name}
+                  value={developer.name}
+                  checked={checkedState[index]}
+                  onChange={() => handleCheckbox(index)}
+                />
+                <label htmlFor={`custom-checkbox-${index}`}>{developer.name}</label>
+              </div>
             );
           })}
         </div>
