@@ -9,7 +9,7 @@ const PROJECT_DEFAULT = {
   budget: 0,
   locationId: 0,
   agencyId: 0,
-  developers: ''
+  developers: []
 };
 
 function ProjectForm() {
@@ -17,6 +17,9 @@ function ProjectForm() {
   const [errors, setErrors] = useState([]);
   const [agencies, setAgencies] = useState([]);
   const [developers, setDevelopers] = useState([]);
+  const [checkedState, setCheckedState] = useState(
+    new Array(developers.length).fill(false)
+  );
 
   const history = useHistory();
   const { id } = useParams();
@@ -68,6 +71,29 @@ function ProjectForm() {
 
     setProject(newProject);
   };
+
+  const handleCheckbox = (position) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
+    );
+    setCheckedState(updatedCheckedState);
+
+    const projectDevs = updatedCheckedState.reduce(
+      (devs, currentState, index) => {
+        if (currentState === true) {
+          console.log(devs);
+          return devs.push(developers[index]);
+        }
+        return devs;
+      },
+      []
+    );
+
+    const newProject = { ...project };
+    newProject[developers] = projectDevs;
+    setProject(newProject);
+    console.log(project);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -205,21 +231,23 @@ function ProjectForm() {
           </select>
         </div>
         <div className="form-group">
-          {developers.map(developer => (
-            <li key={developer.developerId}>
-              <div className="developers">
-                <input
-                  type="checkbox"
-                  id={developer.developerId}
-                  name={developer.developerId}
-                  value={developer.developerId}
-                  checked={false}
-                  onChange={handleChange}
-                />
-                <label htmlFor={developer.developerId}>{developer.name}</label>
-              </div>
-            </li>
-          ))}
+          {developers.map((developer, index) => {
+            return (
+              <li key={index}>
+                <div className="developers-list-name">
+                  <input
+                    type="checkbox"
+                    id={`custom-checkbox-${index}`}
+                    name={developer.name}
+                    value={developer.name}
+                    checked={checkedState[index]}
+                    onChange={() => handleCheckbox(index)}
+                  />
+                  <label htmlFor={`custom-checkbox-${index}`}>{developer.name}</label>
+                </div>
+              </li>
+            );
+          })}
         </div>
         <div className="mt-4">
           <button className="btn btn-success mr-2" type="submit">
