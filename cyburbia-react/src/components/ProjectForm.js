@@ -17,9 +17,7 @@ function ProjectForm() {
   const [errors, setErrors] = useState([]);
   const [agencies, setAgencies] = useState([]);
   const [developers, setDevelopers] = useState([]);
-  const [checkedState, setCheckedState] = useState(
-    new Array(developers.length).fill(false)
-  );
+  const [checkedState, setCheckedState] = useState([]);
 
   const history = useHistory();
   const { id } = useParams();
@@ -47,6 +45,19 @@ function ProjectForm() {
       }
     })
     .then(data => setDevelopers(data))
+    .catch(console.log);
+  }, []);
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/developer')
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        return Promise.reject(`Unexpected status code: ${response.status}`);
+      }
+    })
+    .then(data => setCheckedState(new Array(data.length).fill(false)))
     .catch(console.log);
   }, []);
 
@@ -81,8 +92,8 @@ function ProjectForm() {
     const projectDevs = updatedCheckedState.reduce(
       (devs, currentState, index) => {
         if (currentState === true) {
-          console.log(devs);
-          return devs.push(developers[index]);
+          devs.push(developers[index]);
+          return devs;
         }
         return devs;
       },
@@ -90,9 +101,9 @@ function ProjectForm() {
     );
 
     const newProject = { ...project };
-    newProject[developers] = projectDevs;
+    newProject['developers'] = projectDevs;
     setProject(newProject);
-    console.log(project);
+    console.log(newProject);
   }
 
   const handleSubmit = (event) => {
