@@ -7,9 +7,16 @@ const LOCATION_DEFAULT = {
   state: 'NEW_YORK',
   zipCode: ''
 };
+const AGENCY_DEFAULT = {
+  name: '',
+  email: '',
+  locationId: 0
+};
 
 function LocationForm() {
+  const [agency, setAgency] = useState(AGENCY_DEFAULT);
   const [location, setLocation] = useState(LOCATION_DEFAULT);
+
   const [errors, setErrors] = useState([]);
 
   const history = useHistory();
@@ -24,7 +31,7 @@ function LocationForm() {
   useEffect(() => {
     // Make sure that we have an "id" value...
     if (id) {
-      fetch(`http://localhost:8080/api/location/${id}`)
+      fetch(`http://localhost:8080/api/agency/${id}`)
         .then(response => {
           if (response.status === 200) {
             return response.json();
@@ -32,10 +39,24 @@ function LocationForm() {
             return Promise.reject(`Unexpected status code: ${response.status}`);
           }
         })
+        .then(data => setAgency(data))
+        .catch(console.log);
+
+        fetch(`http://localhost:8080/api/location/${agency.locationId}`)
+        .then(response => {
+          if (response.status === 200) { 
+            return response.json();
+          } else {
+            return Promise.reject(`Unexpected status code: ${response.status}`);
+          }
+        })
         .then(data => setLocation(data))
         .catch(console.log);
+
+
+
     }
-  }, [id]); // Hey React... please call my arrow function every time the "id" route parameter changes value
+  },[agency.locationId], [id]); // Hey React... please call my arrow function every time the "id" route parameter changes value
 
   const handleChange = (event) => {
     // Make a copy of the object.
@@ -52,7 +73,7 @@ function LocationForm() {
     setLocation(newLocation);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmitTwo = (event) => {
     event.preventDefault();
 
     if (id) {
@@ -167,10 +188,10 @@ function LocationForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmitTwo}>
         <div className="form-group">
           <label htmlFor="address">Address:</label>
-          <input id="address" address="address" type="text" className="form-control"
+          <input id="address" name="address" type="text" className="form-control"
             value={location.address} onChange={handleChange} />
         </div>
         <div className="form-group">
@@ -241,14 +262,7 @@ function LocationForm() {
             value={location.zipCode} onChange={handleChange} />
         </div>
     
-        <div className="mt-4">
-          <button className="btn btn-success mr-2" type="submit">
-            <i className="bi bi-file-earmark-check"></i> {id ? 'Update Location' : 'Add Location'}
-          </button>
-          <Link className="btn btn-warning" to="/locations">
-            <i className="bi bi-stoplights"></i> Cancel
-          </Link>
-        </div>
+       
       </form>
     </>
   );
