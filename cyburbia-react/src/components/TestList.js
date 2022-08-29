@@ -11,7 +11,7 @@ const LOCATION_DEFAULT = {
 function TestList() {
   const [agencies, setAgencies] = useState([]);
   const [locations, setLocations] = useState([]);
-  const [location, setLocation] = useState(LOCATION_DEFAULT);
+ 
 
   const history = useHistory();
 
