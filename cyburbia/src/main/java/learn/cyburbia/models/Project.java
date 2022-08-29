@@ -115,4 +115,19 @@ public class Project {
     public int hashCode() {
         return Objects.hash(projectId, sqFt, projectType, status, description, budget, locationId, agencyId, developers);
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectId=" + projectId +
+                ", sqFt=" + sqFt +
+                ", projectType=" + projectType +
+                ", status=" + status +
+                ", description='" + description + '\'' +
+                ", budget=" + budget +
+                ", locationId=" + locationId +
+                ", agencyId=" + agencyId +
+                ", developers=" + developers +
+                '}';
+    }
 }
