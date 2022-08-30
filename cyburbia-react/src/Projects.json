@@ -1,0 +1,23 @@
+[
+	{
+		"project_id" : 1,
+		"location" : "114 Central Ave Staten Island NY 10301",
+		"description" : "5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above",
+		"status" : "REV",
+		"type" : "MIX"
+	},
+	{
+		"project_id" : 2,
+		"location" : "153 N 15th St Philadelphia PA 19102",
+		"description" : "12 story apartment building: 1, 2, and 3br units",
+		"status" : "CON",
+		"type" : "RES"
+	},
+	{
+		"project_id" : 3,
+		"location" : "22 Spruce St Quincy MA 02171",
+		"description" : "8 story office building, contact developer for leasing opportunities",
+		"status" : "APP",
+		"type" : "COM"
+	}
+]
