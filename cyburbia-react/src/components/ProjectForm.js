@@ -9,7 +9,7 @@ const PROJECT_DEFAULT = {
   budget: 0,
   locationId: 0,
   agencyId: 0,
-  developers: []
+  developerId: 0
 };
 
 const LOCATION_DEFAULT = {
@@ -132,38 +132,13 @@ function ProjectForm() {
 
   };
 
-  const handleCheckbox = (position) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
-    );
-    setCheckedState(updatedCheckedState);
-
-    const projectDevs = updatedCheckedState.reduce(
-      (devs, currentState, index) => {
-        if (currentState === true) {
-          devs.push(developers[index]);
-          return devs;
-        }
-        return devs;
-      },
-      []
-    );
-
-    const newProject = { ...project };
-    newProject['developers'] = projectDevs;
-    setProject(newProject);
-    console.log(newProject);
-  }
-
   const handleProjectSubmit = (event) => {
     event.preventDefault();
 
     if (id) {
       updateProject();
-      history.push('/projects');
     } else {
       addProject();
-      history.push('/projects');
     }
   };
 
@@ -217,7 +192,9 @@ function ProjectForm() {
         }
       })
       .then(data => {
-        if (!data.projectId) {
+        if (data.projectId) {
+          history.push('/projects');
+        } else {
           setErrors(data);
         }
       })
@@ -481,7 +458,7 @@ function ProjectForm() {
               <div className="form-group">
                 <label htmlFor="locationId">Project Location:</label>
                 <select id="locationId" name="locationId" type="number" className="form-control"
-                  value={project.locationId}  onChange={handleProjectChange}>
+                  value={project.locationId}  onMouseOver={handleArrayChange} onChange={handleProjectChange}>
                     <option>0</option>
                   {locations.map(location => (
                     <option key={location.locationId}>{location.locationId}</option>
