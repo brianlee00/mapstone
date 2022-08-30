@@ -167,7 +167,7 @@ function DeveloperForm() {
                 }
             })
             .then(data => {
-                if (data.locationId) {
+                if (data.developerId) {
                     history.push('/developers');
                 } else {
                     setErrors(data);

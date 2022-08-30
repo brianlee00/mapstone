@@ -182,7 +182,7 @@ function AgencyForm() {
         }
       })
       .then(data => {
-        if (data.locationId) {
+        if (data.agencyId) {
           history.push('/agencies');
         } else {
 
