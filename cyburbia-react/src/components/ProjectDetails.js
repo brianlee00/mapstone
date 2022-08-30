@@ -21,6 +21,7 @@ const PROJ_DEFAULT = {
 function ProjectDetails() {
     const [project, setProject] = useState(PROJ_DEFAULT);
     const { id } = useParams();
+    const history = useHistory();
 
     useEffect(() => {
         // Make sure that we have an "id" value...
@@ -41,10 +42,14 @@ function ProjectDetails() {
     return (
         <>
             <div className="container">
-                <RenderProject id={id}/>
-                <RenderLocation id={project.locationId}/>
-                <RenderAgency id={project.agencyId}/>
-                <RenderDeveloper id={project.developerId}/>
+                <h2 className="mb-3 mt-3">View Project</h2>
+                <button className="btn btn-outline-primary my-2" onClick={() => history.push('/')}>
+                    <i className="bi bi-arrow-bar-left"></i> Back to Map
+                </button>
+                <RenderProject id={id} />
+                <RenderLocation id={project.locationId} />
+                <RenderAgency id={project.agencyId} />
+                <RenderDeveloper id={project.developerId} />
             </div>
         </>
     )

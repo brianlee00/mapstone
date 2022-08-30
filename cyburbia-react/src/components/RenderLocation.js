@@ -36,10 +36,10 @@ function RenderLocation({ id }) {
             <div className="container">
                 <h5 className="mt-2">Project Location:</h5>
                 <ul>
-                    <li>{location.address}</li>
-                    <li>{location.city}</li>
+                    <li>{location.address}, {location.city}, {convertState(location.state)}, {location.zipCode}</li>
+                    {/* <li>{location.city}</li>
                     <li>{convertState(location.state)}</li>
-                    <li>{location.zipCode}</li>
+                    <li>{location.zipCode}</li> */}
                 </ul>
             </div>
         </>

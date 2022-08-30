@@ -398,7 +398,7 @@ function ProjectForm() {
                 <button className="btn btn-success mr-2" type="submit">
                   <i className="bi bi-patch-check-fill"></i> Continue
                 </button>
-                <Link className="btn btn-secondary" to="/projects">
+                <Link className="btn btn-warning" to="/projects">
                   <i className="bi bi-patch-exclamation"></i> Cancel
                 </Link>
 
@@ -491,7 +491,7 @@ function ProjectForm() {
                   <i className="bi bi-file-earmark-check"></i> {id ? 'Update Project' : 'Add Project'}
                 </button>
                 <Link className="btn btn-warning" to="/projects">
-                  <i className="bi bi-stoplights"></i> Cancel
+                  <i className="bi bi-patch-exclamation"></i> Cancel
                 </Link>
               </div>
             </form>
@@ -591,7 +591,7 @@ function ProjectForm() {
                   <i className="bi bi-file-earmark-check"></i> {id ? 'Update Project' : 'Add Project'}
                 </button>
                 <Link className="btn btn-warning" to="/projects">
-                  <i className="bi bi-stoplights"></i> Cancel
+                  <i className="bi bi-patch-exclamation"></i> Cancel
                 </Link>
               </div>
             </form>
@@ -745,7 +745,7 @@ function ProjectForm() {
                   <i className="bi bi-file-earmark-check"></i> {id ? 'Update Project' : 'Add Project'}
                 </button>
                 <Link className="btn btn-warning" to="/projects">
-                  <i className="bi bi-stoplights"></i> Cancel
+                  <i className="bi bi-patch-exclamation"></i> Cancel
                 </Link>
               </div>
             </form>
