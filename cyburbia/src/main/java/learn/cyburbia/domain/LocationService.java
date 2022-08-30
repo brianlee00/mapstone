@@ -23,6 +23,7 @@ import java.util.List;
 
         public Result<Location> add(Location location) {
             Result<Location> result = validate(location);
+            result = validateDuplicate(location, result);
             if (!result.isSuccess()) {
                 return result;
             }
@@ -80,8 +81,6 @@ import java.util.List;
             if (Validations.isNullOrBlank(location.getZipCode())) {
                 result.addMessage("Zip Code is required", ResultType.INVALID);
             }
-
-            result = validateDuplicate(location, result);
 
             return result;
         }
