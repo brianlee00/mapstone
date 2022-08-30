@@ -11,11 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
     @RestController
-<<<<<<< HEAD
-    @CrossOrigin
-=======
     @CrossOrigin (origins = {"*"})
->>>>>>> origin/main
     @RequestMapping("/api/developer")
     public class DeveloperController {
 

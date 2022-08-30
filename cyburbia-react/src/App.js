@@ -9,10 +9,9 @@ import AgencyForm from './components/AgencyForm';
 import AgencyList from './components/AgencyList';
 import ProjectDetails from './components/ProjectDetails';
 import ProjectList from './components/ProjectList';
-
+import ProjectForm from './components/ProjectForm';
 
 import MapTest from './components/MapTest';
-import ProjectForm from './components/ProjectForm';
 
 function App() {
   return (
@@ -25,7 +24,7 @@ function App() {
         <Route exact path="/projects">
           <ProjectList />
         </Route>
-        <Route exact path={['/projects/add', 'projects/edit/:id']}>
+        <Route exact path={['/projects/add', '/projects/edit/:id']}>
           <ProjectForm />
         </Route>
 
