@@ -13,6 +13,60 @@ const PROJ_DEFAULT = {
     developers: []
 }
 
+function convertStatus(input) {
+    if (input == "PRO") {
+        return "Proposed"
+    }
+    if (input == "REV") {
+        return "In Review"
+    }
+    if (input == "APP") {
+        return "Approved"
+    }
+    if (input == "CON") {
+        return "Under Construction"
+    }
+    if (input == "COM") {
+        return "Completed"
+    }
+    if (input == "CAN") {
+        return "Canceled"
+    }
+}
+
+function convertType(input) {
+    if (input == "RES") {
+        return "Residential"
+    }
+    if (input == "IND") {
+        return "Industrial"
+    }
+    if (input == "IND") {
+        return "Industrial"
+    }
+    if (input == "COM") {
+        return "Commercial"
+    }
+    if (input == "AGR") {
+        return "Agricultural"
+    }
+    if (input == "REC") {
+        return "Recreational"
+    }
+    if (input == "INS") {
+        return "Institutional"
+    }
+    if (input == "TRA") {
+        return "Transportation"
+    }
+    if (input == "MIX") {
+        return "Mixed-Urban"
+    }
+    if (input == "NAT") {
+        return "Natural"
+    }
+}
+
 function RenderProject({ id }) {
     const [project, setProject] = useState(PROJ_DEFAULT);
     const [errors, setErrors] = useState([]);
@@ -42,7 +96,7 @@ function RenderProject({ id }) {
                 <i className="bi bi-arrow-bar-left"></i> Back to Map
             </button>
             <div className="container">
-                <h4 className="mb-2 mt-2">{project.status} - {project.projectType}</h4>
+                <h4 className="mb-2 mt-2">{convertStatus(project.status)} - {convertType(project.projectType)}</h4>
                 <h6 className="mb-2 mt-2">{project.description}</h6>
             </div>
         </>

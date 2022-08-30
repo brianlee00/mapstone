@@ -250,6 +250,7 @@ function LocationForm() {
             <option>VERMONT</option>
             <option>VIRGINIA</option>
             <option>WASHINGTON</option>
+            <option>WASHINGTON_DC</option>
             <option>WEST_VIRGINIA</option>
             <option>WISCONSIN</option>
             <option>WYOMING</option>

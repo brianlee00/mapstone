@@ -49,6 +49,7 @@ public enum State {
         VERMONT("VT","Vermont"),
         VIRGINIA("VA","Virginia"),
         WASHINGTON("WA","Washington"),
+        WASHINGTON_DC("DC", "Washington, DC"),
         WEST_VIRGINIA("WV","West Virginia"),
         WISCONSIN("WI","Wisconsin"),
         WYOMING("WY","Wyoming"),
