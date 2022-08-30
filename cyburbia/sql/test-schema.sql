@@ -31,8 +31,6 @@ create table agency (
         references location(location_id)
 );
 
-
-
 create table project (
 	project_id int primary key auto_increment,
     location_id int not null,
@@ -43,6 +41,10 @@ create table project (
 	constraint fk_project_agency_id
 		foreign key (agency_id)
         references agency(agency_id),
+	developer_id int not null,
+	constraint fk_project_developer_id
+		foreign key (developer_id)
+        references developer(developer_id),
 	sq_ft int,
     `type` varchar(100) not null,
     `status` varchar(100) not null,
@@ -50,22 +52,10 @@ create table project (
     budget decimal(12,2)
 );
 
-create table project_developer (
-	developer_id int not null,
-    constraint fk_project_developer_developer_id
-		foreign key (developer_id)
-        references developer(developer_id),
-	project_id int not null,
-    constraint fk_project_developer_project_id
-		foreign key (project_id)
-        references project(project_id)
-);
-
 delimiter //
 create procedure set_known_good_state()
 begin
 
-	delete from project_developer;
     delete from project;
     alter table project auto_increment = 1;
 	delete from developer;
@@ -96,17 +86,10 @@ insert into developer (developer_id, `name`, email, location_id) values
     (2, 'Building Brotherly Love, Inc', 'contact@bbl.com', 5),
     (3, 'Design+Build Associates', 'contact@designbuild.com', 8);
     
-insert into project (project_id, location_id, agency_id, sq_ft, `type`, `status`, `description`, budget) values
-	(1, 3, 1, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
-    (2, 6, 2, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
-    (3, 9, 3, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00);
-    
-insert into project_developer (developer_id, project_id) 
-	select developer.developer_id, project.project_id
-    from project
-    inner join developer 
-    where developer_id = 2
-    and project_id = 2;
+insert into project (project_id, location_id, agency_id, developer_id, sq_ft, `type`, `status`, `description`, budget) values
+	(1, 3, 1, 2, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
+    (2, 6, 2, 3, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
+    (3, 9, 3, 1, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00);
     
 end //
 delimiter ;
@@ -134,34 +117,8 @@ insert into developer (developer_id, `name`, email, location_id) values
     (2, 'Building Brotherly Love, Inc', 'contact@bbl.com', 5),
     (3, 'Design+Build Associates', 'contact@designbuild.com', 8);
     
-insert into project (project_id, location_id, agency_id, sq_ft, `type`, `status`, `description`, budget) values
-	(1, 3, 1, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
-    (2, 6, 2, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
-    (3, 9, 3, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00);
+insert into project (project_id, location_id, agency_id, developer_id, sq_ft, `type`, `status`, `description`, budget) values
+	(1, 3, 1, 2, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
+    (2, 6, 2, 3, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
+    (3, 9, 3, 1, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00);
     
-insert into project_developer (developer_id, project_id) 
-	select developer.developer_id, project.project_id
-    from project
-    inner join developer 
-    where developer_id = 2
-    and project_id = 2;
-
-select * from location;
-select * from agency;
-
-select json_object
-('agency_id', agency.agency_id,
-'name', agency.name,
-'email', agency.email,
-'location_id', agency.location_id,
-'address', location.address,
-'city', location.city,
-'state', location.state,
-'zip_code', location.zip_code)
-from agency
-inner join location on agency.location_id = location.location_id
-into outfile 'C:/dev10-mapstone/mapstone/cyburbia-react/src/Agencies.json';
-
-
-	show variables;
-
