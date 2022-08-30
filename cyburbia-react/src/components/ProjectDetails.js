@@ -41,15 +41,10 @@ function ProjectDetails() {
     return (
         <>
             <div className="container">
-
                 <RenderProject id={id}/>
-
                 <RenderLocation id={project.locationId}/>
-
                 <RenderAgency id={project.agencyId}/>
-
                 <RenderDeveloper id={project.developers}/>
-
             </div>
         </>
     )
