@@ -26,7 +26,7 @@ function DeveloperForm() {
     const { id } = useParams();
 
     useEffect(() => {
-        setCurrentView('ADDL');
+        setCurrentView('ADDSET');
 
     fetch('http://localhost:8080/api/location')
       .then(response => {
@@ -111,10 +111,8 @@ function DeveloperForm() {
         event.preventDefault();
         if (id) {
             updateDeveloper();
-            history.push('/developers');
         } else {
             addDeveloper();
-            history.push('/developers');
         }
     };
 
@@ -169,7 +167,9 @@ function DeveloperForm() {
                 }
             })
             .then(data => {
-                if (!data.developerId) {
+                if (data.developerId) {
+                    history.push('/developers');
+                } else {
                     setErrors(data);
                 }
             })
