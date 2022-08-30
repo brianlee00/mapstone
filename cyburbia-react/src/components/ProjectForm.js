@@ -314,7 +314,7 @@ function ProjectForm() {
   return (
     <>
       <div className="container">
-        <h2 className="mb-4">{id ? 'Update Project' : 'Add Project'}</h2>
+        <h2 className="mb-3 mt-3">{id ? 'Update Project' : 'Add Project'}</h2>
         
         <br />
 
