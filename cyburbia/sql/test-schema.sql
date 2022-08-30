@@ -87,9 +87,9 @@ insert into developer (developer_id, `name`, email, location_id) values
     (3, 'Design+Build Associates', 'contact@designbuild.com', 8);
     
 insert into project (project_id, location_id, agency_id, developer_id, sq_ft, `type`, `status`, `description`, budget) values
-	(1, 3, 1, 2, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
-    (2, 6, 2, 3, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
-    (3, 9, 3, 1, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00);
+	(1, 3, 1, 1, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
+    (2, 6, 2, 2, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
+    (3, 9, 3, 3, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00);
     
 end //
 delimiter ;
@@ -118,7 +118,26 @@ insert into developer (developer_id, `name`, email, location_id) values
     (3, 'Design+Build Associates', 'contact@designbuild.com', 8);
     
 insert into project (project_id, location_id, agency_id, developer_id, sq_ft, `type`, `status`, `description`, budget) values
-	(1, 3, 1, 2, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
-    (2, 6, 2, 3, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
-    (3, 9, 3, 1, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00);
+	(1, 3, 1, 1, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
+    (2, 6, 2, 2, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
+    (3, 9, 3, 3, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00);
     
+    
+delimiter //
+create procedure createProjectObjects()
+begin  
+
+select 
+ project_id, concat(location.address, ' ', location.city, ' ', location.state, ' ', location.zip_code) as location, `description`, `status`, `type`
+ from project
+ inner join location on project.location_id = location.location_id;
+ 
+ end //
+delimiter ;
+
+
+
+
+
+
+
