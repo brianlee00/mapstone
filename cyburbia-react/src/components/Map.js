@@ -35,7 +35,7 @@ function Map() {
         <>
             <div>
                 <div className="bottom">
-                    Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+                    {/* Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} */}
                 </div>
                 <div ref={mapContainer} className="map-container" />
             </div>
