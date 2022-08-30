@@ -1,8 +1,6 @@
 package learn.cyburbia.models;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Project {
@@ -16,6 +14,8 @@ public class Project {
     private int locationId;
     private int agencyId;
     private int developerId;
+
+    public Project() {}
 
     public Project(int projectId, int sqFt, ProjectType projectType, Status status, String description, BigDecimal budget, int locationId, int agencyId, int developerId) {
         this.projectId = projectId;

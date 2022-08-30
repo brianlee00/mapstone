@@ -12,6 +12,8 @@ public class Developer {
     private int locationId;
     private List<Project> projects = new ArrayList<>();
 
+    public Developer() {}
+
     public Developer(int developerId, String name, String email, int locationId, List<Project> projects) {
         this.developerId = developerId;
         this.name = name;
