@@ -10,17 +10,15 @@ public class Developer {
     private String name;
     private String email;
     private int locationId;
-    private List<DeveloperProject> projects = new ArrayList<>();
+    private List<Project> projects = new ArrayList<>();
 
-    public Developer(int developerId, String name, String email, int locationId, List<DeveloperProject> projects) {
+    public Developer(int developerId, String name, String email, int locationId, List<Project> projects) {
         this.developerId = developerId;
         this.name = name;
         this.email = email;
         this.locationId = locationId;
         this.projects = projects;
     }
-
-    public Developer() {}
 
     public int getDeveloperId() {
         return developerId;
@@ -54,11 +52,11 @@ public class Developer {
         this.locationId = locationId;
     }
 
-    public List<DeveloperProject> getProjects() {
+    public List<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(List<DeveloperProject> projects) {
+    public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
 

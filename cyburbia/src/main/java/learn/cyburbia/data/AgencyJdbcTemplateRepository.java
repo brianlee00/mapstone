@@ -81,7 +81,7 @@ public class AgencyJdbcTemplateRepository implements AgencyRepository{
     }
 
     private void addProjects(Agency agency){
-        final String sql = "select project.project_id, project.location_id, project.agency_id, project.sq_ft, project.type, project.status, project.description, project.budget "
+        final String sql = "select project.project_id, project.location_id, project.agency_id, project.developer_id, project.sq_ft, project.type, project.status, project.description, project.budget "
                 +"from project "
                 +"inner join agency on agency.agency_id = project.agency_id "
                 +"where project.agency_id = ?;";
