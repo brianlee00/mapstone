@@ -15,9 +15,9 @@ public class Project {
     private BigDecimal budget;
     private int locationId;
     private int agencyId;
-    private List<ProjectDeveloper> developers = new ArrayList<>();
+    private int developerId;
 
-    public Project(int projectId, int sqFt, ProjectType projectType, Status status, String description, BigDecimal budget, int locationId, int agencyId, List<ProjectDeveloper> developers) {
+    public Project(int projectId, int sqFt, ProjectType projectType, Status status, String description, BigDecimal budget, int locationId, int agencyId, int developerId) {
         this.projectId = projectId;
         this.sqFt = sqFt;
         this.projectType = projectType;
@@ -26,10 +26,8 @@ public class Project {
         this.budget = budget;
         this.locationId = locationId;
         this.agencyId = agencyId;
-        this.developers = developers;
+        this.developerId = developerId;
     }
-
-    public Project() {}
 
     public int getProjectId() {
         return projectId;
@@ -95,12 +93,12 @@ public class Project {
         this.agencyId = agencyId;
     }
 
-    public List<ProjectDeveloper> getDevelopers() {
-        return developers;
+    public int getDeveloperId() {
+        return developerId;
     }
 
-    public void setDevelopers(List<ProjectDeveloper> developers) {
-        this.developers = developers;
+    public void setDeveloperId(int developerId) {
+        this.developerId = developerId;
     }
 
     @Override
@@ -108,26 +106,11 @@ public class Project {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Project project = (Project) o;
-        return projectId == project.projectId && sqFt == project.sqFt && locationId == project.locationId && agencyId == project.agencyId && projectType == project.projectType && status == project.status && Objects.equals(description, project.description) && Objects.equals(budget, project.budget) && Objects.equals(developers, project.developers);
+        return projectId == project.projectId && sqFt == project.sqFt && locationId == project.locationId && agencyId == project.agencyId && developerId == project.developerId && projectType == project.projectType && status == project.status && Objects.equals(description, project.description) && Objects.equals(budget, project.budget);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(projectId, sqFt, projectType, status, description, budget, locationId, agencyId, developers);
-    }
-
-    @Override
-    public String toString() {
-        return "Project{" +
-                "projectId=" + projectId +
-                ", sqFt=" + sqFt +
-                ", projectType=" + projectType +
-                ", status=" + status +
-                ", description='" + description + '\'' +
-                ", budget=" + budget +
-                ", locationId=" + locationId +
-                ", agencyId=" + agencyId +
-                ", developers=" + developers +
-                '}';
+        return Objects.hash(projectId, sqFt, projectType, status, description, budget, locationId, agencyId, developerId);
     }
 }
