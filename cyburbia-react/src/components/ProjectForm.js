@@ -499,23 +499,15 @@ function ProjectForm() {
                   ))}
                 </select>
               </div>
-              <label htmlFor="developers">Developers:</label>
-              <div className="form-group" id="developers">
-                {developers.map((developer, index) => {
-                  return (
-                    <div className="developers-list-name" key={developer.developerId}>
-                      <input
-                        type="checkbox"
-                        id={`custom-checkbox-${index}`}
-                        name={developer.name}
-                        value={developer.name}
-                        checked={checkedState[index]}
-                        onChange={() => handleCheckbox(index)}
-                      />
-                      <label htmlFor={`custom-checkbox-${index}`}>{developer.name}</label>
-                    </div>
-                  );
-                })}
+              <div className="form-group">
+                <label htmlFor="developer">Developer:</label>
+                <select id="developer" name="developerId" className="form-control"
+                  value={project.developerId} onChange={handleProjectChange}>
+                  <option value="">Choose Developer</option>
+                  {developers.map(developer => (
+                    <option value={developer.developerId} key={developer.developerId}>{developer.name}</option>
+                  ))}
+                </select>
               </div>
               <div className="mt-4">
                 <button className="btn btn-success mr-2" type="submit">
@@ -607,23 +599,15 @@ function ProjectForm() {
                   ))}
                 </select>
               </div>
-              <label htmlFor="developers">Developers:</label>
-              <div className="form-group" id="developers">
-                {developers.map((developer, index) => {
-                  return (
-                    <div className="developers-list-name" key={developer.developerId}>
-                      <input
-                        type="checkbox"
-                        id={`custom-checkbox-${index}`}
-                        name={developer.name}
-                        value={developer.name}
-                        checked={checkedState[index]}
-                        onChange={() => handleCheckbox(index)}
-                      />
-                      <label htmlFor={`custom-checkbox-${index}`}>{developer.name}</label>
-                    </div>
-                  );
-                })}
+              <div className="form-group">
+                <label htmlFor="developer">Developer:</label>
+                <select id="developer" name="developerId" className="form-control"
+                  value={project.developerId} onChange={handleProjectChange}>
+                  <option value="">Choose Developer</option>
+                  {developers.map(developer => (
+                    <option value={developer.developerId} key={developer.developerId}>{developer.name}</option>
+                  ))}
+                </select>
               </div>
               <div className="mt-4">
                 <button className="btn btn-success mr-2" type="submit">
@@ -695,23 +679,15 @@ function ProjectForm() {
                   ))}
                 </select>
               </div>
-              <label htmlFor="developers">Developers:</label>
-              <div className="form-group" id="developers">
-                {developers.map((developer, index) => {
-                  return (
-                    <div className="developers-list-name" key={developer.developerId}>
-                      <input
-                        type="checkbox"
-                        id={`custom-checkbox-${index}`}
-                        name={developer.name}
-                        value={developer.name}
-                        checked={checkedState[index]}
-                        onChange={() => handleCheckbox(index)}
-                      />
-                      <label htmlFor={`custom-checkbox-${index}`}>{developer.name}</label>
-                    </div>
-                  );
-                })}
+              <div className="form-group">
+                <label htmlFor="developer">Developer:</label>
+                <select id="developer" name="developerId" className="form-control"
+                  value={project.developerId} onChange={handleProjectChange}>
+                  <option value="">Choose Developer</option>
+                  {developers.map(developer => (
+                    <option value={developer.developerId} key={developer.developerId}>{developer.name}</option>
+                  ))}
+                </select>
               </div>
               <div className="form-group">
                 <label htmlFor="address">Address:</label>
