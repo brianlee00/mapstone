@@ -329,7 +329,7 @@ function AgencyForm() {
         <div className="form-row ">
         <div className="form-group col-md-6">
           <label htmlFor="city">City:</label>
-          <input id="city" name="city" type="text" className="form-control form-control-m"
+          <input id="city" name="city" type="text" className="form-control form-control-sm"
             value={location.city} onChange={handleLocationChange} />
         </div>
         <div className="form-group col-md-4">
