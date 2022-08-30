@@ -8,10 +8,10 @@ const AGENCY_DEFAULT = {
     locationId: 0
 };
 
-function RenderAgency() {
+function RenderAgency({ id }) {
     const [agency, setAgency] = useState(AGENCY_DEFAULT);
     const [errors, setErrors] = useState([]);
-    const { id } = useParams();
+    // const { id } = useParams();
 
 
     useEffect(() => {
@@ -33,7 +33,7 @@ function RenderAgency() {
 
     return (
         <>
-            <div>
+            <div className="container">
                 <h5>Planning Agency:</h5>
                 <ul>
                     <li>{agency.name}</li>

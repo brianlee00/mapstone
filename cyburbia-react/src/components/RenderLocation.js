@@ -8,11 +8,11 @@ const LOCATION_DEFAULT = {
     zipCode: ''
 };
 
-function RenderLocation() {
+function RenderLocation({ id }) {
 
     const [location, setLocation] = useState(LOCATION_DEFAULT);
     const [errors, setErrors] = useState([]);
-    const { id } = useParams();
+    // const { id } = useParams();
 
     useEffect(() => {
         // Make sure that we have an "id" value...
@@ -33,8 +33,8 @@ function RenderLocation() {
 
     return (
         <>
-            <div>
-                <h5>Project Location:</h5>
+            <div className="container">
+                <h5 className="mt-2">Project Location:</h5>
                 <ul>
                     <li>{location.address}</li>
                     <li>{location.city}</li>

@@ -13,11 +13,11 @@ const PROJ_DEFAULT = {
     developers: []
 }
 
-function RenderProject() {
+function RenderProject({ id }) {
     const [project, setProject] = useState(PROJ_DEFAULT);
     const [errors, setErrors] = useState([]);
     const history = useHistory();
-    const { id } = useParams();
+    // const { id } = useParams();
 
     useEffect(() => {
         // Make sure that we have an "id" value...
@@ -44,15 +44,6 @@ function RenderProject() {
             <div className="container">
                 <h4 className="mb-2 mt-2">{project.status} - {project.projectType}</h4>
                 <h6 className="mb-2 mt-2">{project.description}</h6>
-                <div>
-                    <h5>Project Location:</h5>
-                    <ul>
-                        <li>{locations[project.locationId - 1].address}</li>
-                        <li>{locations[project.locationId - 1].city}</li>
-                        <li>{locations[project.locationId - 1].state}</li>
-                        <li>{locations[project.locationId - 1].zipCode}</li>
-                    </ul>
-                </div>
             </div>
         </>
     )

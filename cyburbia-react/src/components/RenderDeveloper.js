@@ -7,11 +7,11 @@ const DEVELOPER_DEFAULT = {
     locationId: ''
 };
 
-function RenderDeveloper() {
+function RenderDeveloper({ id }) {
 
     const [developer, setDeveloper] = useState(DEVELOPER_DEFAULT);
     const [errors, setErrors] = useState([]);
-    const { id } = useParams();
+    // const { id } = useParams();
 
 
     useEffect(() => {
@@ -33,7 +33,7 @@ function RenderDeveloper() {
 
     return (
         <>
-            <div>
+            <div className="container">
                 <h5>Project Developer:</h5>
                 <ul>
                     <li>{developer.name}</li>
