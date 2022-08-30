@@ -1,9 +1,7 @@
 package learn.cyburbia.domain;
 
-import learn.cyburbia.data.ProjectDeveloperRepository;
 import learn.cyburbia.data.ProjectRepository;
 import learn.cyburbia.models.Project;
-import learn.cyburbia.models.ProjectDeveloper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
