@@ -1,12 +1,21 @@
 import { Link } from 'react-router-dom';
+import Map from './Map';
+
+
 
 function Home() {
   return (
     <>
-    <div className="container">
-      <h2 className="mt-3">Home</h2>
+      <center>
+        <div className="container" text-align="center">
+          {/* <h2 className="mt-3">Home</h2> */}
 
-      <h4 className="mb-3 mt-3 ml-3">Welcome to the Cyburbia Urban Development Map</h4>
+          <h2 className="mb-5 mt-5">Cyburbia Urban Development Map</h2>
+        </div>
+      </center>
+      <div className="container">
+        <Map />
+
       </div>
     </>
   );

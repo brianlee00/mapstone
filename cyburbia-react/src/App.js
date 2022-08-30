@@ -11,7 +11,6 @@ import ProjectDetails from './components/ProjectDetails';
 import ProjectList from './components/ProjectList';
 import ProjectForm from './components/ProjectForm';
 
-import MapTest from './components/MapTest';
 
 function App() {
   return (
