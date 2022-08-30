@@ -121,10 +121,8 @@ function AgencyForm() {
     event.preventDefault();
     if (id) {
       updateAgency();
-      history.push('/agencies');
     } else {
       addAgency();
-      history.push('/agencies');
     }
   };
 
@@ -184,7 +182,9 @@ function AgencyForm() {
         }
       })
       .then(data => {
-        if (!data.agencyId) {
+        if (data.locationId) {
+          history.push('/agencies');
+        } else {
 
           setErrors(data);
         }
@@ -410,7 +410,7 @@ function AgencyForm() {
        )}
        {currentView === 'ADD' &&(
         <>
-        <form onSubmit={handleAgencyChange}>
+        <form onSubmit={handleAgencySubmit}>
         <div className="form-group">
             <label htmlFor="name">Agency Name:</label>
             <input id="name" name="name" type="text" className="form-control"
