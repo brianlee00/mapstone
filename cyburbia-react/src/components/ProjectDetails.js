@@ -15,7 +15,7 @@ const PROJ_DEFAULT = {
     status: '',
     description: '',
     budget: '',
-    developers: []
+    developerId: ''
 }
 
 function ProjectDetails() {
@@ -44,7 +44,7 @@ function ProjectDetails() {
                 <RenderProject id={id}/>
                 <RenderLocation id={project.locationId}/>
                 <RenderAgency id={project.agencyId}/>
-                <RenderDeveloper id={project.developers}/>
+                <RenderDeveloper id={project.developerId}/>
             </div>
         </>
     )
