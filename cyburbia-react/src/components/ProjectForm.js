@@ -111,8 +111,10 @@ function ProjectForm() {
 
     if (id) {
       updateProject();
+      history.push('/projects')
     } else {
       addProject();
+      history.push('/projects')
     }
   };
 

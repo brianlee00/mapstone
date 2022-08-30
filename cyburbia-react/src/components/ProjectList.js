@@ -5,6 +5,7 @@ function ProjectList() {
 
   const [projects, setProjects] = useState([]);
   const [locations, setLocations] = useState([]);
+  const [agencies, setAgencies] = useState([]);
 
   const history = useHistory();
 
@@ -22,6 +23,19 @@ function ProjectList() {
   }, []);
 
   useEffect(() => {
+    fetch('http://localhost:8080/api/agency')
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return Promise.reject(`Unexpected status code: ${response.status}`);
+        }
+      })
+      .then(data => setAgencies(data))
+      .catch(console.log);
+  }, []);
+
+  useEffect(() => {
     fetch('http://localhost:8080/api/location')
       .then(response => {
         if (response.status === 200) {
@@ -34,7 +48,7 @@ function ProjectList() {
       .catch(console.log);
   }, []);
 
-  return locations.length > 0 && (
+  return locations.length > 0 && agencies.length > 0 && (
       <>
         <div className="container">
           <h1 className="mb-4">Project List</h1>
@@ -66,7 +80,7 @@ function ProjectList() {
                   <td>{project.sqFt}</td>
                   <td>{project.budget}</td>
                   <td>{locations[project.locationId-1].address}</td>
-                  <td>{project.agencyId}</td>
+                  <td>{agencies[project.agencyId-1].name}</td>
                   <td>{project.developers}</td>
                   <td>
                     <div className="float-right mr-2">
