@@ -6,7 +6,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFlYmFlIiwiYSI6ImNsN2U3MGZtZzAwMWczb3J6dDJxM
 
 
 
-function MapTest() {
+function Map() {
     const mapContainer = useRef(null);
 const map = useRef(null);
 const [lng, setLng] = useState(-74.0060);
@@ -40,5 +40,5 @@ const [zoom, setZoom] = useState(9);
             </div>
             );
 }
-export default MapTest;
+export default Map;
 
