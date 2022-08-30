@@ -1,7 +1,7 @@
 package learn.cyburbia.data;
 
 import learn.cyburbia.data.mappers.DeveloperMapper;
-import learn.cyburbia.data.mappers.DeveloperProjectMapper;
+import learn.cyburbia.data.mappers.ProjectMapper;
 import learn.cyburbia.models.Developer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -79,14 +79,12 @@ public class DeveloperJdbcTemplateRepository implements DeveloperRepository{
                 developer.getDeveloperId()) > 0;
     }
 
-    private void addProjects(Developer developer) {
-        final String sql = "select pd.developer_id, pd.project_id, " +
-                "p.location_id, p.agency_id, p.sq_ft, p.type, p.status, p.description " +
-                "from project_developer pd " +
-                "inner join project p on pd.project_id = p.project_id " +
-                "where pd.developer_id = ?;";
-
-        var developerProjects = jdbcTemplate.query(sql, new DeveloperProjectMapper(), developer.getDeveloperId());
-        developer.setProjects(developerProjects);
+    private void addProjects(Developer developer){
+        final String sql = "select project.project_id, project.location_id, project.agency_id, project.developer_id, project.sq_ft, project.type, project.status, project.description, project.budget "
+                +"from project "
+                +"inner join developer on developer.developer_id = project.developer_id "
+                +"where project.developer_id = ?;";
+        var projects = jdbcTemplate.query(sql, new ProjectMapper(), developer.getDeveloperId());
+        developer.setProjects(projects);
     }
 }

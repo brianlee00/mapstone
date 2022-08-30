@@ -1,9 +1,7 @@
 package learn.cyburbia.domain;
 
-import learn.cyburbia.data.ProjectDeveloperRepository;
 import learn.cyburbia.data.ProjectRepository;
 import learn.cyburbia.models.Project;
-import learn.cyburbia.models.ProjectDeveloper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +10,9 @@ import java.util.List;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
-    private final ProjectDeveloperRepository projectDeveloperRepository;
 
-    public ProjectService(ProjectRepository projectRepository, ProjectDeveloperRepository projectDeveloperRepository) {
+    public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
-        this.projectDeveloperRepository = projectDeveloperRepository;
     }
 
     public List<Project> findAll() {
@@ -64,39 +60,6 @@ public class ProjectService {
         return projectRepository.deleteById(projectId, locationId);
     }
 
-    public Result<Void> addDeveloper(ProjectDeveloper projectDeveloper) {
-        Result<Void> result = validate(projectDeveloper);
-        if (!result.isSuccess()) {
-            return result;
-        }
-
-        if (!projectDeveloperRepository.add(projectDeveloper)) {
-            result.addMessage("developer not added", ResultType.INVALID);
-        }
-
-        return result;
-    }
-
-//    public Result<Void> updateDeveloper(ProjectDeveloper projectDeveloper) {
-//        Result<Void> result = validate(projectDeveloper);
-//        if (!result.isSuccess()) {
-//            return result;
-//        }
-//
-//        if (!projectDeveloperRepository.update(projectDeveloper)) {
-//            String msg = String.format("update failed for project id %s, developer id %s: not found",
-//                    projectDeveloper.getProjectId(),
-//                    projectDeveloper.getDeveloper().getDeveloperId());
-//            result.addMessage(msg, ResultType.NOT_FOUND);
-//        }
-//
-//        return result;
-//    }
-
-    public boolean deleteDeveloperByKey(int projectId, int developerId) {
-        return projectDeveloperRepository.deleteByKey(projectId, developerId);
-    }
-
     private Result<Project> validate(Project project) {
         Result<Project> result = new Result<>();
         if (project == null) {
@@ -132,20 +95,6 @@ public class ProjectService {
                 result.addMessage("budget must be positive", ResultType.INVALID);
             }
         }
-        return result;
-    }
-
-    private Result<Void> validate(ProjectDeveloper projectDeveloper) {
-        Result<Void> result = new Result<>();
-        if (projectDeveloper == null) {
-            result.addMessage("projectDeveloper cannot be null", ResultType.INVALID);
-            return result;
-        }
-
-        if (projectDeveloper.getDeveloper() == null) {
-            result.addMessage("developer cannot be null", ResultType.INVALID);
-        }
-
         return result;
     }
 

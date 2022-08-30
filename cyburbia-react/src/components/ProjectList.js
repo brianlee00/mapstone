@@ -51,7 +51,7 @@ function ProjectList() {
   return locations.length > 0 && agencies.length > 0 && (
       <>
         <div className="container">
-          <h1 className="mb-3 mt-3">Project List</h1>
+          <h2 className="mb-3 mt-3">Projects</h2>
           <button className="btn btn-primary my-4" onClick={() => history.push('/projects/add')}>
             <i className="bi bi-plus-circle"></i> Add Project
           </button>
