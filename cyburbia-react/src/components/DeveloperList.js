@@ -50,7 +50,7 @@ function DeveloperList() {
                 <table className="table table-striped table-hover table-sm">
                     <thead className="thead-dark">
                         <tr>
-                            <th>Developer ID</th>
+                            <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Address</th>

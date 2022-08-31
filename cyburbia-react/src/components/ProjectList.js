@@ -58,7 +58,7 @@ function ProjectList() {
           <table className="table table-striped table-hover table-sm">
             <thead className="thead-dark">
               <tr>
-                <th>Project ID</th>
+                <th>ID</th>
                 <th>Type</th>
                 <th>Status</th>
                 <th>Description</th>
@@ -79,7 +79,7 @@ function ProjectList() {
                   <td>{convertType(project.projectType)}</td>
                   <td>{convertStatus(project.status)}</td>
                   <td>{project.description}</td>
-                  <td>{project.sqFt}</td>
+                  <td>{project.sqFt.toLocaleString('en-US')}</td>
                   {/* <td>${project.budget}</td> */}
                   <td>{locations[project.locationId-1].address}</td>
                   <td>{locations[project.locationId-1].city}</td>

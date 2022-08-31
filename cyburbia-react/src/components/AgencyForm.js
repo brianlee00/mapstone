@@ -400,7 +400,7 @@ function AgencyForm() {
             <button className="btn btn-success mr-2" type="submit">
               <i className="bi bi-patch-check-fill"></i> Continue
             </button>
-            <Link className="btn btn-secondary" to="/agencies">
+            <Link className="btn btn-warning" to="/agencies">
               <i className="bi bi-patch-exclamation"></i> Cancel
             </Link>
 
@@ -436,7 +436,7 @@ function AgencyForm() {
     
           <div className="mt-4">
             <button className="btn btn-success mr-2" type="submit">
-              <i className="bi bi-patch-check-fill"></i> {id ? 'Update Agency' : 'Add Agency'}
+              <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
             </button>
             <Link className="btn btn-warning" to="/agencies">
               <i className="bi bi-patch-exclamation"></i> Cancel
@@ -486,9 +486,9 @@ function AgencyForm() {
     
           <div className="mt-4">
             <button className="btn btn-success mr-2" type="submit">
-              <i className="bi bi-patch-check-fill"></i> {id ? 'Update Agency' : 'Add Agency'}
+              <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
             </button>
-            <Link className="btn btn-secondary" to="/agencies">
+            <Link className="btn btn-warning" to="/agencies">
               <i className="bi bi-patch-exclamation"></i> Cancel
             </Link>
 
@@ -589,7 +589,7 @@ function AgencyForm() {
     
           <div className="mt-4">
             <button className="btn btn-success mr-2" type="submit">
-              <i className="bi bi-patch-check-fill"></i> {id ? 'Update Agency' : 'Add Agency'}
+              <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
             </button>
             <Link className="btn btn-warning" to="/agencies">
               <i className="bi bi-patch-exclamation"></i> Cancel

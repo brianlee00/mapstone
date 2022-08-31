@@ -52,7 +52,7 @@ function AgencyList() {
         <table className="table table-striped table-hover table-sm">
           <thead className="thead-dark">
             <tr>
-              <th>Agency ID</th>
+              <th>ID</th>
               <th>Name</th>
               <th>Email</th>
               <th>Address</th>
