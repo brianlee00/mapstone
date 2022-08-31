@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const PROJ_DEFAULT = {
     projectId: '',
@@ -14,63 +14,62 @@ const PROJ_DEFAULT = {
 }
 
 function convertStatus(input) {
-    if (input == "PRO") {
+    if (input === "PRO") {
         return "Proposed"
     }
-    if (input == "REV") {
+    if (input === "REV") {
         return "In Review"
     }
-    if (input == "APP") {
+    if (input === "APP") {
         return "Approved"
     }
-    if (input == "CON") {
+    if (input === "CON") {
         return "Under Construction"
     }
-    if (input == "COM") {
+    if (input === "COM") {
         return "Completed"
     }
-    if (input == "CAN") {
+    if (input === "CAN") {
         return "Canceled"
     }
 }
 
 function convertType(input) {
-    if (input == "RES") {
+    if (input === "RES") {
         return "Residential"
     }
-    if (input == "IND") {
+    if (input === "IND") {
         return "Industrial"
     }
-    if (input == "IND") {
+    if (input === "IND") {
         return "Industrial"
     }
-    if (input == "COM") {
+    if (input === "COM") {
         return "Commercial"
     }
-    if (input == "AGR") {
+    if (input === "AGR") {
         return "Agricultural"
     }
-    if (input == "REC") {
+    if (input === "REC") {
         return "Recreational"
     }
-    if (input == "INS") {
+    if (input === "INS") {
         return "Institutional"
     }
-    if (input == "TRA") {
+    if (input === "TRA") {
         return "Transportation"
     }
-    if (input == "MIX") {
+    if (input === "MIX") {
         return "Mixed-Urban"
     }
-    if (input == "NAT") {
+    if (input === "NAT") {
         return "Natural"
     }
 }
 
 function RenderProject({ id }) {
     const [project, setProject] = useState(PROJ_DEFAULT);
-    const [errors, setErrors] = useState([]);
-    const history = useHistory();
+
     // const { id } = useParams();
 
     useEffect(() => {

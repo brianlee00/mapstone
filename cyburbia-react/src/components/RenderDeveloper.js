@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+
 
 const DEVELOPER_DEFAULT = {
     name: '',
@@ -10,7 +10,7 @@ const DEVELOPER_DEFAULT = {
 function RenderDeveloper({ id }) {
 
     const [developer, setDeveloper] = useState(DEVELOPER_DEFAULT);
-    const [errors, setErrors] = useState([]);
+
     // const { id } = useParams();
 
 
