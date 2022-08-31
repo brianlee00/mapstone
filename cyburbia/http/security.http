@@ -1,0 +1,30 @@
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "user"
+}
+
+###
+
+POST http://localhost:8080/refresh_token HTTP/1.1
+Authorization: Bearer 
+
+###
+
+GET http://localhost:8080/api/project HTTP/1.1
+
+###
+
+POST http://localhost:8080/api/location HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+    "address": "20 White Rose Lane",
+    "city": "Easton",
+    "state": "PENNSYLVANIA",
+    "zipCode": "18045"
+    
+}
