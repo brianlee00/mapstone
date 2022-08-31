@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+
 
 
 const AGENCY_DEFAULT = {
@@ -10,7 +10,7 @@ const AGENCY_DEFAULT = {
 
 function RenderAgency({ id }) {
     const [agency, setAgency] = useState(AGENCY_DEFAULT);
-    const [errors, setErrors] = useState([]);
+
     // const { id } = useParams();
 
 
