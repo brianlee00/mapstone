@@ -1,4 +1,4 @@
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -14,15 +14,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
-<style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-</style>
-   
 
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@200&display=swap" rel="stylesheet"> 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="css/lumen.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <title>Cyburbia</title>
   </head>
   <body>
@@ -34,7 +34,7 @@ body { margin: 0; padding: 0; }
   </body>
 </html>
 -->
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -61,7 +61,7 @@ body { margin: 0; padding: 0; }
     const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
     var projects= [];
   var locations =[];
-  var newObject = '';
+  const newObject = '';
   var some = [];
     
     var arr = ["343 Legion Street, Brooklyn, New York 11212", "769 St Marks Avenue, Brooklyn, New York 11213 "];
@@ -81,12 +81,9 @@ body { margin: 0; padding: 0; }
       return Promise.reject(`Unexpected status code: ${response.status}`);
     }
   })
-  .then(data => projects.push(data))
-  .catch(console.log);
-
-  console.log(projects);
-
-  fetch('http://localhost:8080/api/location')
+  .then(data => 
+  data.map(d =>
+  fetch(`http://localhost:8080/api/location/${d.locationId}`)
       .then(response => {
         if (response.status === 200) {
           return response.json();
@@ -94,28 +91,10 @@ body { margin: 0; padding: 0; }
           return Promise.reject(`Unexpected status code: ${response.status}`);
         }
       })
-      .then(data =>locations.push(data))
-      .catch(console.log);
-
-      console.log(locations);
-
-
-
-      //projects.map(project => (
-
-      newObject = "343 Legion Street, Brooklyn, New York 11212"//locations[project.locationId-1].address,.concat(", ",locations[project.locationId-1].city,", ",locations[project.locationId-1].state," ",locations[project.locationId-1].zipCode),
-
-      some.push(newObject)
-//));
-console.log(some);
-console.log(some);
-
-
-
-    some.map(a => (
+      .then(data =>
     mapboxClient.geocoding
         .forwardGeocode({
-            query: a,
+            query: data.address.concat(", ",data.city,", ",data.state," ",data.zipCode),
             autocomplete: false,
             limit: arr.length
         })
@@ -135,12 +114,37 @@ console.log(some);
 
             // Create a marker and add it to the map.
             new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
+            const popup = new mapboxgl.Popup({ closeOnClick: false, closeOnMove: false })
+            .setLngLat(feature.center)
+            .setHTML('<h1>This Location Details</h1>')
+            .addTo(map);
 
         })
-    ));
-        
+    ))
+      
+      )
+  
+      .catch(console.log);
+
+      console.log(locations);
+
+
+      console.log(projects);
+      
+
+    
+
+
+      //newObject = projects[0].description.address,.concat(", ",locations[project.locationId-1].city,", ",locations[project.locationId-1].state," ",locations[project.locationId-1].zipCode),
+
+
+
+
+
+   
+      
     
 </script>
 
 </body>
-</html>
+</html> -->

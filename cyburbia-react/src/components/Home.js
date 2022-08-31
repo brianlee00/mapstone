@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Map from './Map';
+import FileTest from './File';
 
 
 
@@ -14,7 +15,7 @@ function Home() {
         </div>
       </center>
       <div className="container">
-        <Map />
+        <FileTest />
 
       </div>
     </>

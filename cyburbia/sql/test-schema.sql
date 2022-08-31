@@ -87,9 +87,9 @@ insert into developer (developer_id, `name`, email, location_id) values
     (3, 'Design+Build Associates', 'contact@designbuild.com', 8);
     
 insert into project (project_id, location_id, agency_id, developer_id, sq_ft, `type`, `status`, `description`, budget) values
-	(1, 3, 1, 2, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
-    (2, 6, 2, 3, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
-    (3, 9, 3, 1, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00);
+	(1, 3, 1, 1, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
+    (2, 6, 2, 2, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
+    (3, 9, 3, 3, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00);
     
 end //
 delimiter ;
@@ -105,7 +105,10 @@ insert into location (location_id, address, city, state, zip_code) values
     (6, '153 N 15th St', 'Philadelphia', 'PA', '19102'),
 	(7, '244 A St', 'Boston', 'MA', '02210'),
     (8, '1910 Dorchester Ave', 'Boston', 'MA', '02124'),
-    (9, '22 Spruce St', 'Quincy', 'MA', '02171');
+    (9, '22 Spruce St', 'Quincy', 'MA', '02171'),
+    (10, '317 E 18th St', 'New York', 'NY', '10003'),
+    (11, '451 W 43rd St', 'New York', 'NY', '10036'),
+    (12, '12-16 30th Rd', 'Queens', 'NY', '11102');
 
 insert into agency (agency_id, `name`, email, location_id) values
 	(1, 'New York Urban Development Authority', 'contact@nyuda.org', 1),
@@ -118,7 +121,40 @@ insert into developer (developer_id, `name`, email, location_id) values
     (3, 'Design+Build Associates', 'contact@designbuild.com', 8);
     
 insert into project (project_id, location_id, agency_id, developer_id, sq_ft, `type`, `status`, `description`, budget) values
-	(1, 3, 1, 2, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
-    (2, 6, 2, 3, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
-    (3, 9, 3, 1, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00);
+	(1, 3, 1, 1, 10000, 'MIX', 'REV', '5 story mixed-use building; 1000 sq ft commercial on ground floor, 4 stories of apartments above', 3000000.00),
+    (2, 6, 2, 2, 30000, 'RES', 'CON', '12 story apartment building: 1, 2, and 3br units', 15000000.00),
+    (3, 9, 3, 3, 100000, 'COM', 'APP', '8 story office building, contact developer for leasing opportunities', 20000000.00),
+    (4, 10, 1, 1, 2000000, 'COM', 'CAN', '25 story office building', 30000000.00),
+    (5, 11, 1, 1, 250000, 'TRA', 'PRO', 'NYC Transit operations office', 10000000.00),
+    (6, 12, 1, 1, 2500, 'RES', 'COM', '2 story residential home', 750000);
     
+    
+-- delimiter //
+-- create procedure createProjectObjects()
+-- begin  
+
+-- select 
+--  project_id, concat(location.address, ' ', location.city, ' ', location.state, ' ', location.zip_code) as location, `description`, `status`, `type`
+--  from project
+--  inner join location on project.location_id = location.location_id;
+--  
+--  end //
+-- delimiter ;
+
+-- select json_object 
+-- ('project_id', project.project_id,
+--  'location', concat(location.address, location.city, location.state, location.zip_code),
+--  'description', project.description,
+--  'status', project.status,
+--  'type', project.type)
+--  from project
+--  inner join location on project.location_id = location.location_id
+--  into outfile 'C:\Users\steph\Documents\repositories\mapstone\cyburbia-react\src\Projects.json';
+
+-- show variables;
+
+
+
+
+
+

@@ -19,7 +19,7 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Home />
-        <File />
+        
         </Route>
         <Route exact path="/projects">
           <ProjectList />

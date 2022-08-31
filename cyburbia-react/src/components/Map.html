@@ -1,12 +1,33 @@
-import mapboxSdk from '@mapbox/mapbox-sdk';
-import mapboxgl from 'mapbox-gl';
-mapboxgl.accessToken = 'pk.eyJ1IjoicmFlYmFlIiwiYSI6ImNsN2U3MGZtZzAwMWczb3J6dDJxMW5ndDgifQ.iUi9IT62BG9NNwGDVOrU8Q';
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Add a marker using a place name</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+
+<script type="text/javascript" 
+src ="./src/components/File.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+</style>
+</head>
+<body>
+<div id="map">
+
+
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+<script type="text/javascript">
+	mapboxgl.accessToken = 'pk.eyJ1IjoicmFlYmFlIiwiYSI6ImNsN2U3MGZtZzAwMWczb3J6dDJxMW5ndDgifQ.iUi9IT62BG9NNwGDVOrU8Q';
     const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
     var projects= [];
   var locations =[];
   const newObject = '';
   var some = [];
-    function FileTest() {
+    
     var arr = ["343 Legion Street, Brooklyn, New York 11212", "769 St Marks Avenue, Brooklyn, New York 11213 "];
     const map = new mapboxgl.Map({
                 container: 'map',
@@ -15,8 +36,6 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFlYmFlIiwiYSI6ImNsN2U3MGZtZzAwMWczb3J6dDJxM
                 center: [-74.0060, 40.7128],
                 zoom: 10
             });
-
-            return (
 
   fetch('http://localhost:8080/api/project')
   .then(response => {
@@ -69,10 +88,27 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFlYmFlIiwiYSI6ImNsN2U3MGZtZzAwMWczb3J6dDJxM
       
       )
   
-      .catch(console.log)
-            
+      .catch(console.log);
 
+      console.log(locations);
+
+
+      console.log(projects);
       
-            )
-    }
-    export default FileTest;
+
+    
+
+
+      //newObject = projects[0].description.address,.concat(", ",locations[project.locationId-1].city,", ",locations[project.locationId-1].state," ",locations[project.locationId-1].zipCode),
+
+
+
+
+
+   
+      
+    
+</script>
+</div>
+</body>
+</html>

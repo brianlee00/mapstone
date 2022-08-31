@@ -89,15 +89,17 @@ function RenderProject({ id }) {
         }
     }, [id]);
 
+    
+
     return (
         <>
-            <h2 className="mb-3 mt-3">View Project</h2>
-            <button className="btn btn-primary my-2" onClick={() => history.push('/')}>
-                <i className="bi bi-arrow-bar-left"></i> Back to Map
-            </button>
             <div className="container">
                 <h4 className="mb-2 mt-2">{convertStatus(project.status)} - {convertType(project.projectType)}</h4>
                 <h6 className="mb-2 mt-2">{project.description}</h6>
+                <ul>
+                    <li>Budget: ${project.budget.toLocaleString('en-US')}</li>
+                    <li>Sq. Footage: {project.sqFt.toLocaleString('en-US')}</li>
+                </ul>
             </div>
         </>
     )

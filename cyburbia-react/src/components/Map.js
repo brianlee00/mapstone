@@ -1,76 +1,13 @@
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import React, { useRef, useEffect, useState } from 'react';
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { Marker } from 'mapbox-gl';
-import ReactMapGL from "react-map-gl";
+import React, {Component, useRef, useEffect, useState } from 'react';
 
 
-mapboxgl.accessToken = 'pk.eyJ1IjoicmFlYmFlIiwiYSI6ImNsN2U3MGZtZzAwMWczb3J6dDJxMW5ndDgifQ.iUi9IT62BG9NNwGDVOrU8Q';
+    var perf =require('./Map.html');
 
+function  Map() {
+      return (
+         <iframe src={perf }></iframe>   /* like this */
+      );
+   }
 
-const geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    mapboxgl: mapboxgl
-});
-
-
-
-function Map() {
-    const mapContainer = useRef(null);
-    const map = useRef(null);
-    const [lng, setLng] = useState(-74.0060);
-    const [lat, setLat] = useState(40.7128);
-    const [zoom, setZoom] = useState(9);
-
-    
-
-    useEffect(() => {
-        
-        if (map.current) return; // initialize map only once
-        map.current = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [lng, lat],
-            zoom: zoom
-        });
-//geojson.map(project => (
-        
-        if (!map.current) return; // wait for map to initialize
-        map.current.on('move', () => {
-            setLng(map.current.getCenter().lng.toFixed(4));
-            setLat(map.current.getCenter().lat.toFixed(4));
-            setZoom(map.current.getZoom().toFixed(2));
-        });
-    });
-
-        
-    
-
-
-      
-
-
-
-    return (
-        
-        
-        <>
-            <div>
-                <div className="bottom">
-                    {/* Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} */}
-                </div>
-                <div ref={mapContainer} className="map-container" />
-            </div>
-            
-            
-           
-            
-        
-        </>
-       
-    );
-}
 
 export default Map;
-
