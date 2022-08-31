@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import mapboxSdk from '@mapbox/mapbox-sdk';
+import mapboxSdk from '@mapbox/mapbox-sdk/services/geocoding';
 
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicmFlYmFlIiwiYSI6ImNsN2U3MGZtZzAwMWczb3J6dDJxMW5ndDgifQ.iUi9IT62BG9NNwGDVOrU8Q';
@@ -45,7 +45,7 @@ function Map() {
           }
       })
       .then(data =>
-        mapboxClient.geocoding.forwardGeocode({
+        mapboxClient.forwardGeocode({
           query: data.address.concat(", ",data.city,", ",data.state," ",data.zipCode),
           autocomplete: false,
           limit: 10
