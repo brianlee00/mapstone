@@ -10,7 +10,7 @@ import AgencyList from './components/AgencyList';
 import ProjectDetails from './components/ProjectDetails';
 import ProjectList from './components/ProjectList';
 import ProjectForm from './components/ProjectForm';
-
+import File from './components/File';
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Home />
+        <File />
         </Route>
         <Route exact path="/projects">
           <ProjectList />
