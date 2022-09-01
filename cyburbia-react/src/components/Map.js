@@ -1,11 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import mapboxSdk from '@mapbox/mapbox-sdk/services/geocoding';
-
-
-mapboxgl.accessToken = 'pk.eyJ1IjoicmFlYmFlIiwiYSI6ImNsN2U3MGZtZzAwMWczb3J6dDJxMW5ndDgifQ.iUi9IT62BG9NNwGDVOrU8Q';
-
-
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 function Map() {
 	mapboxgl.accessToken = 'pk.eyJ1IjoicmFlYmFlIiwiYSI6ImNsN2U3MGZtZzAwMWczb3J6dDJxMW5ndDgifQ.iUi9IT62BG9NNwGDVOrU8Q';
@@ -22,6 +19,11 @@ function Map() {
       center: [-74.0060, 40.7128],
       zoom: 10
     });
+    var geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      marker: false
+    });
+    map.current.addControl(geocoder);
   });
 
   useEffect(() => {
@@ -68,7 +70,6 @@ function Map() {
                 const popupText = `<h6>${convertType(project.projectType)}</h6>
                   <div>${project.description}</div>
                   <a href="/projectdetails/${project.projectId}">Details</a>`;
-
                 const popup = new mapboxgl.Popup({ closeOnClick: false, closeOnMove: false })
                 .setLngLat(feature.center)
                 .setHTML(popupText)
