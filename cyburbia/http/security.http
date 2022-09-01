@@ -28,3 +28,25 @@ Authorization: Bearer
     "zipCode": "18045"
     
 }
+
+###
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "user@cyburbia.com",
+    "password": "P@ssw0rd!"
+}
+
+###
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "stephen@cyburbia.com",
+    "password": "P@ssw0rd!"
+}
+
+
