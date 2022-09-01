@@ -12,6 +12,7 @@ function Map() {
   const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
   const mapContainer = useRef(null);
   const map = useRef(null);
+  const [project, setProject] = useState('');
     
   useEffect(() => {
     if (map.current) {return};
@@ -34,7 +35,8 @@ function Map() {
         }
       })
       .then(data => 
-        data.map(project =>
+        data.map(project => {
+          setProject(project);
           fetch(`http://localhost:8080/api/location/${project.locationId}`)
           .then(response => {
             if (response.status === 200) {
@@ -65,14 +67,15 @@ function Map() {
                 const popupText = ``;
                 const popup = new mapboxgl.Popup({ closeOnClick: false, closeOnMove: false })
                 .setLngLat(feature.center)
-                .setHTML('<h1>This Location Details</h1>')
+                .setHTML(`<a href="/projectdetails/${project.projectId}">Details</a>`)
                 .addTo(map.current);
                 new mapboxgl.Marker().setLngLat(feature.center).setPopup(popup).addTo(map.current);
               })
-          ))
+          );
+        })
       )
       .catch(console.log);
-    })
+    }, []);
 
   return (
     <div ref={mapContainer} className="map-container" />
