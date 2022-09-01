@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+
 
 const LOCATION_DEFAULT = {
     address: '',
@@ -11,7 +11,7 @@ const LOCATION_DEFAULT = {
 function RenderLocation({ id }) {
 
     const [location, setLocation] = useState(LOCATION_DEFAULT);
-    const [errors, setErrors] = useState([]);
+
     // const { id } = useParams();
 
     useEffect(() => {
@@ -48,157 +48,157 @@ function RenderLocation({ id }) {
 }
 
 function convertState(input) {
-    if (input == "ALABAMA") {
+    if (input === "ALABAMA") {
         return "Alabama"
     }
-    if (input == "ALASKA") {
+    if (input === "ALASKA") {
         return "Alaska"
     }
-    if (input == "ARIZONA") {
+    if (input === "ARIZONA") {
         return "Arizona"
     }
-    if (input == "ARKANSAS") {
+    if (input === "ARKANSAS") {
         return "Arkansas"
     }
-    if (input == "CALIFORNIA") {
+    if (input === "CALIFORNIA") {
         return "California"
     }
-    if (input == "COLORADO") {
+    if (input === "COLORADO") {
         return "Colorado"
     }
-    if (input == "CONNECTICUT") {
+    if (input === "CONNECTICUT") {
         return "Connecticut"
     }
-    if (input == "DELAWARE") {
+    if (input === "DELAWARE") {
         return "Delaware"
     }
-    if (input == "FLORIDA") {
+    if (input === "FLORIDA") {
         return "Florida"
     }
-    if (input == "GEORGIA") {
+    if (input === "GEORGIA") {
         return "Georgia"
     }
-    if (input == "HAWAII") {
+    if (input === "HAWAII") {
         return "Hawaii"
     }
-    if (input == "IDAHO") {
+    if (input === "IDAHO") {
         return "Idaho"
     }
-    if (input == "ILLINOIS") {
+    if (input === "ILLINOIS") {
         return "Illinois"
     }
-    if (input == "INDIANA") {
+    if (input === "INDIANA") {
         return "Indiana"
     }
-    if (input == "IOWA") {
+    if (input === "IOWA") {
         return "Iowa"
     }
-    if (input == "KANSAS") {
+    if (input === "KANSAS") {
         return "Kansas"
     }
-    if (input == "KENTUCKY") {
+    if (input === "KENTUCKY") {
         return "Kentucky"
     }
-    if (input == "LOUISIANA") {
+    if (input === "LOUISIANA") {
         return "Louisiana"
     }
-    if (input == "MAINE") {
+    if (input === "MAINE") {
         return "Maine"
     }
-    if (input == "MARYLAND") {
+    if (input === "MARYLAND") {
         return "Maryland"
     }
-    if (input == "MASSACHUSETTS") {
+    if (input === "MASSACHUSETTS") {
         return "Massachusetts"
     }
-    if (input == "MICHIGAN") {
+    if (input === "MICHIGAN") {
         return "Michigan"
     }
-    if (input == "MINNESOTA") {
+    if (input === "MINNESOTA") {
         return "Minnesota"
     }
-    if (input == "MISSISSIPPI") {
+    if (input === "MISSISSIPPI") {
         return "Mississippi"
     }
-    if (input == "MISSOURI") {
+    if (input === "MISSOURI") {
         return "Missouri"
     }
-    if (input == "MONTANA") {
+    if (input === "MONTANA") {
         return "Montana"
     }
-    if (input == "NEBRASKA") {
+    if (input === "NEBRASKA") {
         return "Nebraska"
     }
-    if (input == "NEVADA") {
+    if (input === "NEVADA") {
         return "Nevada"
     }
-    if (input == "NEW_HAMPSHIRE") {
+    if (input === "NEW_HAMPSHIRE") {
         return "New Hampshire"
     }
-    if (input == "NEW_JERSEY") {
+    if (input === "NEW_JERSEY") {
         return "New Jersey"
     }
-    if (input == "NEW_MEXICO") {
+    if (input === "NEW_MEXICO") {
         return "New Mexico"
     }
-    if (input == "NEW_YORK") {
+    if (input === "NEW_YORK") {
         return "New York"
     }
-    if (input == "NORTH_CAROLINA") {
+    if (input === "NORTH_CAROLINA") {
         return "North Carolina"
     }
-    if (input == "NORTH_DAKOTA") {
+    if (input === "NORTH_DAKOTA") {
         return "North Dakota"
     }
-    if (input == "OHIO") {
+    if (input === "OHIO") {
         return "Ohio"
     }
-    if (input == "OKLAHOMA") {
+    if (input === "OKLAHOMA") {
         return "Oklahoma"
     }
-    if (input == "OREGON") {
+    if (input === "OREGON") {
         return "Oregon"
     }
-    if (input == "PENNSYLVANIA") {
+    if (input === "PENNSYLVANIA") {
         return "Pennsylvania"
     }
-    if (input == "RHODE_ISLAND") {
+    if (input === "RHODE_ISLAND") {
         return "Rhode Island"
     }
-    if (input == "SOUTH_CAROLINA") {
+    if (input === "SOUTH_CAROLINA") {
         return "South Carolina"
     }
-    if (input == "SOUTH_DAKOTA") {
+    if (input === "SOUTH_DAKOTA") {
         return "South Dakota"
     }
-    if (input == "TENNESSEE") {
+    if (input === "TENNESSEE") {
         return "Tennessee"
     }
-    if (input == "TEXAS") {
+    if (input === "TEXAS") {
         return "Texax"
     }
-    if (input == "UTAH") {
+    if (input === "UTAH") {
         return "Utah"
     }
-    if (input == "VERMONT") {
+    if (input === "VERMONT") {
         return "Vermont"
     }
-    if (input == "VIRGINIA") {
+    if (input === "VIRGINIA") {
         return "Virginia"
     }
-    if (input == "WASHINGTON") {
+    if (input === "WASHINGTON") {
         return "Washington"
     }
-    if (input == "WASHINGTON_DC") {
+    if (input === "WASHINGTON_DC") {
         return "Washington, DC"
     }
-    if (input == "WEST_VIRGINIA") {
+    if (input === "WEST_VIRGINIA") {
         return "West Virginia"
     }
-    if (input == "WISCONSIN") {
+    if (input === "WISCONSIN") {
         return "Wisconsin"
     }
-    if (input == "WYOMING") {
+    if (input === "WYOMING") {
         return "Wyoming"
     }
 

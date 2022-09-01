@@ -12,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
+//        (webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class AgencyJdbcTemplateRepositoryTest {
 
     @Autowired

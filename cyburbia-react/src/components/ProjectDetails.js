@@ -4,7 +4,7 @@ import RenderAgency from "./RenderAgency";
 import RenderDeveloper from "./RenderDeveloper";
 
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const PROJ_DEFAULT = {
     projectId: '',
