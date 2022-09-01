@@ -1,11 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import mapboxSdk from '@mapbox/mapbox-sdk/services/geocoding';
-
-
-mapboxgl.accessToken = 'pk.eyJ1IjoicmFlYmFlIiwiYSI6ImNsN2U3MGZtZzAwMWczb3J6dDJxMW5ndDgifQ.iUi9IT62BG9NNwGDVOrU8Q';
-
-
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 function Map() {
 	mapboxgl.accessToken = 'pk.eyJ1IjoicmFlYmFlIiwiYSI6ImNsN2U3MGZtZzAwMWczb3J6dDJxMW5ndDgifQ.iUi9IT62BG9NNwGDVOrU8Q';
@@ -22,6 +19,11 @@ function Map() {
       center: [-74.0060, 40.7128],
       zoom: 10
     });
+    var geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      marker: false
+    });
+    map.current.addControl(geocoder);
   });
 
   useEffect(() => {
@@ -64,12 +66,19 @@ function Map() {
                   return;
                 }
                 const feature = response.body.features[0];
-                const popupText = ``;
+
+                const popupText = `<h6>${convertType(project.projectType)}</h6>
+                  <div>${project.description}</div>
+                  <a href="/projectdetails/${project.projectId}">Details</a>`;
                 const popup = new mapboxgl.Popup({ closeOnClick: false, closeOnMove: false })
                 .setLngLat(feature.center)
-                .setHTML(`<a href="/projectdetails/${project.projectId}">Details</a>`)
+                .setHTML(popupText)
                 .addTo(map.current);
-                new mapboxgl.Marker().setLngLat(feature.center).setPopup(popup).addTo(map.current);
+                
+                const colorCode = convertStatusToColor(project.status);
+                new mapboxgl.Marker({
+                  color: colorCode
+                }).setLngLat(feature.center).setPopup(popup).addTo(map.current);
               })
           );
         })
@@ -80,6 +89,58 @@ function Map() {
   return (
     <div ref={mapContainer} className="map-container" />
   );
+}
+
+
+function convertType(input) {
+  if (input == "RES") {
+      return "Residential"
+  }
+  if (input == "IND") {
+      return "Industrial"
+  }
+  if (input == "IND") {
+      return "Industrial"
+  }
+  if (input == "COM") {
+      return "Commercial"
+  }
+  if (input == "AGR") {
+      return "Agricultural"
+  }
+  if (input == "REC") {
+      return "Recreational"
+  }
+  if (input == "INS") {
+      return "Institutional"
+  }
+  if (input == "TRA") {
+      return "Transportation"
+  }
+  if (input == "MIX") {
+      return "Mixed-Urban"
+  }
+  if (input == "NAT") {
+      return "Natural"
+  }
+}
+
+function convertStatusToColor(status) {
+  var colorCode = "";
+  if (status === "PRO") {
+    colorCode = "#00B9FF";
+  } else if (status === "REV") {
+    colorCode = "#FFF300";
+  } else if (status === "APP") {
+    colorCode = "#8B00FF";
+  } else if (status === "CON") {
+    colorCode = "#FFAA00";
+  } else if (status === "COM") {
+    colorCode = "#51FF00";
+  } else if (status === "CAN") {
+    colorCode = "#FF0000";
+  }
+  return colorCode;
 }
 
 export default Map;
