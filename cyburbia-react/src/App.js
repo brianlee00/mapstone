@@ -13,6 +13,7 @@ import ProjectDetails from './components/ProjectDetails';
 import ProjectList from './components/ProjectList';
 import ProjectForm from './components/ProjectForm';
 import Login from './components/Login';
+import Register from './components/Register';
 import Error from './components/Error';
 import AuthContext from "./context/AuthContext";
 
@@ -89,6 +90,10 @@ function App() {
           <Route path="/login">
             {!user ? <Login /> : <Redirect to="/" />}
           </Route>
+          <Route path="/register">
+            {!user ? <Register /> : <Redirect to="/" />}
+          </Route>
+
           <Route exact path="/projects">
             {user ? <ProjectList /> : <Redirect to="/login" />}
           </Route>
