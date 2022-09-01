@@ -64,10 +64,12 @@ function Map() {
                   return;
                 }
                 const feature = response.body.features[0];
-                const popupText = ``;
+                const popupText = `<div>Description: ${project.description}</div>
+                <div>Type: ${convertType(project.projectType)}</div>
+                <a href="/projectdetails/${project.projectId}">Details</a>`;
                 const popup = new mapboxgl.Popup({ closeOnClick: false, closeOnMove: false })
                 .setLngLat(feature.center)
-                .setHTML(`<a href="/projectdetails/${project.projectId}">Details</a>`)
+                .setHTML(popupText)
                 .addTo(map.current);
                 new mapboxgl.Marker().setLngLat(feature.center).setPopup(popup).addTo(map.current);
               })
@@ -80,6 +82,40 @@ function Map() {
   return (
     <div ref={mapContainer} className="map-container" />
   );
+}
+
+
+function convertType(input) {
+  if (input == "RES") {
+      return "Residential"
+  }
+  if (input == "IND") {
+      return "Industrial"
+  }
+  if (input == "IND") {
+      return "Industrial"
+  }
+  if (input == "COM") {
+      return "Commercial"
+  }
+  if (input == "AGR") {
+      return "Agricultural"
+  }
+  if (input == "REC") {
+      return "Recreational"
+  }
+  if (input == "INS") {
+      return "Institutional"
+  }
+  if (input == "TRA") {
+      return "Transportation"
+  }
+  if (input == "MIX") {
+      return "Mixed-Urban"
+  }
+  if (input == "NAT") {
+      return "Natural"
+  }
 }
 
 export default Map;
