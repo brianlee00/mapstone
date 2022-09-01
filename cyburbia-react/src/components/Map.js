@@ -64,14 +64,19 @@ function Map() {
                   return;
                 }
                 const feature = response.body.features[0];
+
                 const popupText = `<div>Description: ${project.description}</div>
-                <div>Type: ${convertType(project.projectType)}</div>
-                <a href="/projectdetails/${project.projectId}">Details</a>`;
+                  <div>Type: ${convertType(project.projectType)}</div>
+                  <a href="/projectdetails/${project.projectId}">Details</a>`;
                 const popup = new mapboxgl.Popup({ closeOnClick: false, closeOnMove: false })
                 .setLngLat(feature.center)
                 .setHTML(popupText)
                 .addTo(map.current);
-                new mapboxgl.Marker().setLngLat(feature.center).setPopup(popup).addTo(map.current);
+                
+                const colorCode = convertStatusToColor(project.status);
+                new mapboxgl.Marker({
+                  color: colorCode
+                }).setLngLat(feature.center).setPopup(popup).addTo(map.current);
               })
           );
         })
@@ -116,6 +121,24 @@ function convertType(input) {
   if (input == "NAT") {
       return "Natural"
   }
+}
+
+function convertStatusToColor(status) {
+  var colorCode = "";
+  if (status === "PRO") {
+    colorCode = "#00B9FF";
+  } else if (status === "REV") {
+    colorCode = "#FFF300";
+  } else if (status === "APP") {
+    colorCode = "#8B00FF";
+  } else if (status === "CON") {
+    colorCode = "#FFAA00";
+  } else if (status === "COM") {
+    colorCode = "#51FF00";
+  } else if (status === "CAN") {
+    colorCode = "#FF0000";
+  }
+  return colorCode;
 }
 
 export default Map;
