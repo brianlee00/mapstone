@@ -41,11 +41,11 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/authenticate HTTP/1.1
+POST http://localhost:8080/create_account HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "stephen@cyburbia.com",
+    "username": "tim@cyburbia.com",
     "password": "P@ssw0rd!"
 }
 
