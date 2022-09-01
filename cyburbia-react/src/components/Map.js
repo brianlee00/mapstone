@@ -65,9 +65,10 @@ function Map() {
                 }
                 const feature = response.body.features[0];
 
-                const popupText = `<div>Description: ${project.description}</div>
-                  <div>Type: ${convertType(project.projectType)}</div>
+                const popupText = `<h6>${convertType(project.projectType)}</h6>
+                  <div>${project.description}</div>
                   <a href="/projectdetails/${project.projectId}">Details</a>`;
+
                 const popup = new mapboxgl.Popup({ closeOnClick: false, closeOnMove: false })
                 .setLngLat(feature.center)
                 .setHTML(popupText)
