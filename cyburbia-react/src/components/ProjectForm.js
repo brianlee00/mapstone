@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
+import AuthContext from "../context/AuthContext";
 
 const PROJECT_DEFAULT = {
   sqFt: 0,
@@ -20,6 +21,9 @@ const LOCATION_DEFAULT = {
 };
 
 function ProjectForm() {
+
+  const auth = useContext(AuthContext);
+
   const [project, setProject] = useState(PROJECT_DEFAULT);
   const [errors, setErrors] = useState([]);
   const [agencies, setAgencies] = useState([]);
@@ -178,7 +182,8 @@ function ProjectForm() {
     const init = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.user.token}`,
       },
       body: JSON.stringify(project)
     };
@@ -206,7 +211,8 @@ function ProjectForm() {
     const init = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.user.token}`,
       },
       body: JSON.stringify(project)
     };
@@ -233,7 +239,8 @@ function ProjectForm() {
     const init = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.user.token}`,
       },
       body: JSON.stringify(location)
     };
@@ -263,7 +270,8 @@ function ProjectForm() {
     const init = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.user.token}`,
       },
       body: JSON.stringify(location)
     };

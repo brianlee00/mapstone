@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
+import AuthContext from "../context/AuthContext";
 
 const LOCATION_DEFAULT = {
   address: '',
@@ -14,6 +15,9 @@ const AGENCY_DEFAULT = {
 };
 
 function LocationForm() {
+
+  const auth = useContext(AuthContext);
+
   const [agency, setAgency] = useState(AGENCY_DEFAULT);
   const [location, setLocation] = useState(LOCATION_DEFAULT);
 
@@ -87,7 +91,8 @@ function LocationForm() {
     const init = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.user.token}`,
       },
       body: JSON.stringify(location)
     };
@@ -147,7 +152,8 @@ function LocationForm() {
     const init = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.user.token}`,
       },
       body: JSON.stringify(location)
     };

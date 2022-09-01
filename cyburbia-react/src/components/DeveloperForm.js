@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
+import AuthContext from "../context/AuthContext";
 
 const DEVELOPER_DEFAULT = {
   name: '',
@@ -14,6 +15,9 @@ const LOCATION_DEFAULT = {
 };
 
 function DeveloperForm() {
+
+  const auth = useContext(AuthContext);
+
   const [developer, setDeveloper] = useState(DEVELOPER_DEFAULT);
   const [currentView, setCurrentView] = useState('AAL');
   const [isChecked, setIsChecked] = useState(false);
@@ -153,7 +157,8 @@ function DeveloperForm() {
     const init = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.user.token}`,
       },
       body: JSON.stringify(developer)
     };
@@ -180,7 +185,8 @@ function DeveloperForm() {
     const init = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.user.token}`,
       },
       body: JSON.stringify(location)
     };
@@ -209,7 +215,8 @@ function DeveloperForm() {
     const init = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.user.token}`,
       },
       body: JSON.stringify(developer)
     };
@@ -237,7 +244,8 @@ function DeveloperForm() {
     const init = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.user.token}`,
       },
       body: JSON.stringify(location)
     };
