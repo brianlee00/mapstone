@@ -20,7 +20,7 @@ public class JwtConverter {
     private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     // 2. "Configurable" constants
     private final String ISSUER = "cyburbia";
-    private final int EXPIRATION_MINUTES = 30;
+    private final int EXPIRATION_MINUTES = 90;
     private final int EXPIRATION_MILLIS = EXPIRATION_MINUTES * 60 * 1000;
 
     public String getTokenFromUser(User user) {
