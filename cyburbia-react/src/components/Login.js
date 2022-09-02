@@ -61,7 +61,7 @@ export default function Login() {
           />
         </div>
         <div className="mt-3">
-          <label htmlFor="password">Password (must be at least 8 characters): </label>
+          <label htmlFor="password">Password (must be at least 8 characters and contain a digit, a letter, and a special character): </label>
           <input className="form-control"
             type="password"
             onChange={(event) => setPassword(event.target.value)}
