@@ -16,9 +16,11 @@ function Home() {
       <div className="container">
         <Map />
       </div>
-      <div>
-        <img src="images/map-legend.jpg" alt="map-legend" width="300" height="80" className="center mt-4"></img>
-      </div>
+      <center><div>
+        <h4 className="mt-4">Map Legend</h4>
+        <img src="images/map-legend.jpg" alt="map-legend" width="300" height="80" className="center mt-2"></img>
+      </div></center>
+      
       <br/>
     </>
   );
