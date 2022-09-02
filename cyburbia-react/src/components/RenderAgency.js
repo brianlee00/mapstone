@@ -34,7 +34,7 @@ function RenderAgency({ id }) {
     return (
         <>
             <div className="container mb-2 mt-2">
-                <h6>Planning Agency:</h6>
+                <h4>Planning Agency:</h4>
                 {agency.name}<br></br>{agency.email}
             </div>
         </>

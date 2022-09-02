@@ -34,7 +34,7 @@ function RenderDeveloper({ id }) {
     return (
         <>
             <div className="container mb-2 mt-2">
-                <h6>Project Developer:</h6>
+                <h4>Project Developer:</h4>
                 {developer.name} <br></br>{developer.email}
             </div>
         </>
