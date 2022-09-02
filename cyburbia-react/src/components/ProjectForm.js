@@ -29,10 +29,7 @@ function ProjectForm() {
   const [agencies, setAgencies] = useState([]);
   const [developers, setDevelopers] = useState([]);
   const [location, setLocation] = useState(LOCATION_DEFAULT);
-  const [locations, setLocations] = useState([]);
-  const [checkedState, setCheckedState] = useState([]);
-  const [currentView, setCurrentView] = useState('');
-  const [isChecked,setIsChecked] = useState(false);
+  const [currentView, setCurrentView] = useState('ADDL');
 
   const history = useHistory();
   const { id } = useParams();
@@ -59,24 +56,7 @@ function ProjectForm() {
         return Promise.reject(`Unexpected status code: ${response.status}`);
       }
     })
-    .then(data => {
-      setDevelopers(data);
-      setCheckedState(new Array(data.length).fill(false));
-    })
-    .catch(console.log);
-  }, []);
-
-  useEffect(() => {
-    setCurrentView('ADDSET');
-    fetch('http://localhost:8080/api/location')
-    .then(response => {
-      if (response.status === 200) {
-        return response.json();
-      } else {
-        return Promise.reject(`Unexpected status code: ${response.status}`);
-      }
-    })
-    .then(data => setLocations(data))
+    .then(data => setDevelopers(data))
     .catch(console.log);
   }, []);
 
@@ -111,7 +91,6 @@ function ProjectForm() {
   const handleProjectChange = (event) => {
     const newProject = { ...project };
     newProject[event.target.name] = event.target.value;
-
     setProject(newProject);
   };
   
@@ -119,21 +98,6 @@ function ProjectForm() {
     const newLocation = { ...location};
     newLocation[event.target.name] = event.target.value;
     setLocation(newLocation);
-  };
-
-  const handleArrayChange = (event) => {
-
-    fetch('http://localhost:8080/api/location')
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected status code: ${response.status}`);
-        }
-      })
-      .then(data => setLocations(data))
-      .catch(console.log);
-
   };
 
   const handleProjectSubmit = (event) => {
@@ -156,15 +120,6 @@ function ProjectForm() {
       addProject();
       addLocation();
       
-    }
-  };
-
-  const handleView = () => {
-    setIsChecked(!isChecked);
-    if (isChecked){
-      setCurrentView('ADDSET');
-    } else {
-      setCurrentView('ADDL');
     }
   };
 
@@ -255,6 +210,9 @@ function ProjectForm() {
       })
       .then(data => {
         if (data.locationId) {
+          const newProject = { ...project };
+          newProject["locationId"] = data.locationId;
+          setProject(newProject);
           setCurrentView('ADD');
         } else {
 
@@ -317,13 +275,6 @@ function ProjectForm() {
         {currentView === 'ADDL' && (
 
           <>
-            <div className="form-check">
-              <input id="addLocation" name="addLocation" className="form-check-input" type="hidden"
-                checked={!isChecked} onChange={handleView} />
-              <input id="addLocation" name="addLocation" className="form-check-input" type="checkbox"
-                checked={isChecked} onChange={handleView} />
-              <label className="form-check-label" htmlFor="addLocation">Add Location</label>
-            </div>
             <h2 className="mb-3 mt-3">{'Add New Project Location'}</h2>
 
             <form onSubmit={handleLocationSubmit}>
@@ -464,17 +415,6 @@ function ProjectForm() {
                   value={project.budget} onChange={handleProjectChange} />
               </div>
               <div className="form-group">
-                <label htmlFor="locationId">Project Location:</label>
-                <select id="locationId" name="locationId" type="number" className="form-control"
-                  value={project.locationId}  onMouseOver={handleArrayChange} onChange={handleProjectChange}>
-                    <option>0</option>
-                  {locations.map(location => (
-                    <option key={location.locationId}>{location.locationId}</option>
-                    
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
                 <label htmlFor="agency">Agency:</label>
                 <select id="agency" name="agencyId" className="form-control"
                   value={project.agencyId} onChange={handleProjectChange}>
@@ -506,106 +446,7 @@ function ProjectForm() {
           </>
 
         )}
-        {currentView === 'ADDSET' && (
-
-          <>
-            <div className="form-check">
-                
-              <input id="addLocation" name="addLocation" className="form-check-input" type="hidden"
-                checked={!isChecked} onChange={handleView} />
-              <input id="addLocation" name="addLocation" className="form-check-input" type="checkbox"
-                checked={isChecked} onChange={handleView} />
-              <label className="form-check-label" htmlFor="addLocation">Add Location</label>
-            </div>
-            <br />
-            <form onSubmit={handleProjectSubmit}>
-              <div className="form-group">
-                <label htmlFor="projectType">Project Type:</label>
-                <select id="projectType" name="projectType" className="form-control"
-                  value={project.projectType} onChange={handleProjectChange}>
-                  <option value="">Select Project Type</option>
-                  <option value="RES">Residential</option>
-                  <option value="IND">Industrial</option>
-                  <option value="COM">Commercial</option>
-                  <option value="AGR">Agricultural</option>
-                  <option value="REC">Recreational</option>
-                  <option value="INS">Institutional</option>
-                  <option value="TRA">Transportation</option>
-                  <option value="MIX">Mixed-Urban</option>
-                  <option value="NAT">Natural</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="status">Status:</label>
-                <select id="status" name="status" className="form-control"
-                  value={project.status} onChange={handleProjectChange}>
-                  <option value="">Select Status</option>
-                  <option value="PRO">Proposed</option>
-                  <option value="REV">In Review</option>
-                  <option value="APP">Approved</option>
-                  <option value="CON">Under Construction</option>
-                  <option value="COM">Completed</option>
-                  <option value="CAN">Canceled</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="description">Description:</label>
-                <input id="description" name="description" type="text" className="form-control"
-                  value={project.description} onChange={handleProjectChange} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="sqFt">Sq. Ft:</label>
-                <input id="sqFt" name="sqFt" type="number" className="form-control"
-                  value={project.sqFt} onChange={handleProjectChange} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="budget">Budget:</label>
-                <input id="budget" name="budget" type="number" className="form-control"
-                  value={project.budget} onChange={handleProjectChange} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="locationId">Project Location:</label>
-                <select id="locationId" name="locationId" type="number" className="form-control"
-                  value={project.locationId}  onChange={handleProjectChange}>
-                    <option>0</option>
-                  {locations.map(location => (
-                    <option key={location.locationId}>{location.locationId}</option>
-                    
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="agency">Agency:</label>
-                <select id="agency" name="agencyId" className="form-control"
-                  value={project.agencyId} onChange={handleProjectChange}>
-                  <option value="">Choose Agency</option>
-                  {agencies.map(agency => (
-                    <option value={agency.agencyId} key={agency.agencyId}>{agency.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="developer">Developer:</label>
-                <select id="developer" name="developerId" className="form-control"
-                  value={project.developerId} onChange={handleProjectChange}>
-                  <option value="">Choose Developer</option>
-                  {developers.map(developer => (
-                    <option value={developer.developerId} key={developer.developerId}>{developer.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="mt-4">
-                <button className="btn btn-success mr-2" type="submit">
-                  <i className="bi bi-file-earmark-check"></i> {id ? 'Update Project' : 'Add Project'}
-                </button>
-                <Link className="btn btn-warning" to="/projects">
-                  <i className="bi bi-patch-exclamation"></i> Cancel
-                </Link>
-              </div>
-            </form>
-          </>
-          
-        )}
+        
         {currentView === 'EDIT' && (
           
           <>

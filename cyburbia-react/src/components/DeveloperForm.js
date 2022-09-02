@@ -19,30 +19,15 @@ function DeveloperForm() {
   const auth = useContext(AuthContext);
 
   const [developer, setDeveloper] = useState(DEVELOPER_DEFAULT);
-  const [currentView, setCurrentView] = useState('AAL');
-  const [isChecked, setIsChecked] = useState(false);
+  const [currentView, setCurrentView] = useState('ADDL');
   const [location, setLocation] = useState(LOCATION_DEFAULT);
   const [errors, setErrors] = useState([]);
-  const [locations, setLocations] = useState([]);
 
   const history = useHistory();
 
   const { id } = useParams();
 
-  useEffect(() => {
-    setCurrentView('ADDSET');
 
-    fetch('http://localhost:8080/api/location')
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected status code: ${response.status}`);
-        }
-      })
-      .then(data => setLocations(data))
-      .catch(console.log);
-  }, []);
   useEffect(() => {
     if (id) {
       setCurrentView('EDIT')
@@ -54,31 +39,20 @@ function DeveloperForm() {
             return Promise.reject(`Unexpected status code: ${response.status}`);
           }
         })
-        .then(data => setDeveloper(data))
-        .catch(console.log);
-
-      fetch(`http://localhost:8080/api/developer/${id}`)
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            return Promise.reject(`Unexpected status code: ${response.status}`);
-          }
-        })
-        .then(data =>
-
+        .then(data => {
+          setDeveloper(data);
           fetch(`http://localhost:8080/api/location/${data.locationId}`)
-
-            .then(response => {
-              if (response.status === 200) {
-                return response.json();
-              } else {
-                return Promise.reject(`Unexpected status code: ${response.status}`);
-              }
-            })
-            .then(datal => setLocation(datal))
-
-            .catch(console.log))
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else {
+              return Promise.reject(`Unexpected status code: ${response.status}`);
+            }
+          })
+          .then(data => setLocation(data))
+          .catch(console.log)
+        })
+        .catch(console.log);
     }
   }, [id]);
 
@@ -94,20 +68,6 @@ function DeveloperForm() {
     const newLocation = { ...location };
     newLocation[event.target.name] = event.target.value;
     setLocation(newLocation);
-  };
-
-  const handleArrayChange = (event) => {
-
-    fetch('http://localhost:8080/api/location')
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected status code: ${response.status}`);
-        }
-      })
-      .then(data => setLocations(data))
-      .catch(console.log);
   };
 
   const handleDeveloperSubmit = (event) => {
@@ -142,16 +102,6 @@ function DeveloperForm() {
 
     }
   };
-
-  const handleView = () => {
-    setIsChecked(!isChecked);
-    if (isChecked) {
-      setCurrentView('ADDSET');
-    } else {
-      setCurrentView('ADDL');
-    }
-  }
-
 
   const addDeveloper = () => {
     const init = {
@@ -201,6 +151,9 @@ function DeveloperForm() {
       })
       .then(data => {
         if (data.locationId) {
+          const newDeveloper = { ...developer };
+          newDeveloper["locationId"] = data.locationId;
+          setDeveloper(newDeveloper);
           setCurrentView('ADD');
         } else {
           setErrors(data);
@@ -290,18 +243,7 @@ function DeveloperForm() {
         )}
         {currentView === 'ADDL' && (
           <>
-            <div className="form-check">
-
-              <input id="addLocation" name="addLocation" className="form-check-input" type="hidden"
-                checked={!isChecked} onChange={handleView} />
-              <input id="addLocation" name="addLocation" className="form-check-input" type="checkbox"
-                checked={isChecked} onChange={handleView} />
-              <label className="form-check-label" htmlFor="addLocation">
-                Add Location
-
-              </label>
-            </div>
-            <br />
+            <h2 className="mb-3 mt-3">{'Add New Developer Location'}</h2>
             <form onSubmit={handleLocationSubmit}>
               <div className="form-group">
                 <label htmlFor="address">Address:</label>
@@ -406,70 +348,6 @@ function DeveloperForm() {
                 <input id="email" name="email" type="text" placeholder="name@example.com" className="form-control"
                   value={developer.email} onChange={handleDeveloperChange} />
               </div>
-
-              <div className="form-group">
-                <label htmlFor="locationId">Developer Location:</label>
-                <select id="locationId" name="locationId" type="number" className="form-control form-control-sm"
-                  value={developer.locationId} onMouseOver={handleArrayChange} onChange={handleDeveloperChange}>
-                  <option>0</option>
-                  {locations.map(location => (
-                    <option key={location.locationId}>{location.locationId}</option>
-
-                  ))}
-                </select>
-              </div>
-
-              <div className="mt-4">
-                <button className="btn btn-success mr-2" type="submit">
-                  <i className="bi bi-file-earmark-check"></i> {id ? 'Update Developer' : 'Add Developer'}
-                </button>
-                <Link className="btn btn-warning" to="/developers">
-                  <i className="bi bi-patch-exclamation"></i> Cancel
-                </Link>
-
-              </div>
-            </form>
-          </>
-        )}
-        {currentView === 'ADDSET' && (
-          <>
-            <div className="form-check">
-
-              <input id="addLocation" name="addLocation" className="form-check-input" type="hidden"
-                checked={!isChecked} onChange={handleView} />
-              <input id="addLocation" name="addLocation" className="form-check-input" type="checkbox"
-                checked={isChecked} onChange={handleView} />
-              <label className="form-check-label" htmlFor="addLocation">
-                Add Location
-
-              </label>
-            </div>
-            <br />
-            <form onSubmit={handleDeveloperSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Developer Name:</label>
-                <input id="name" name="name" type="text" className="form-control"
-                  value={developer.name} onChange={handleDeveloperChange} required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Developer Email:</label>
-                <input id="email" name="email" type="text" placeholder="name@example.com" className="form-control"
-                  value={developer.email} onChange={handleDeveloperChange} />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="locationId">Developer Location:</label>
-                <select id="locationId" name="locationId" type="number" className="form-control form-control-sm "
-                  value={developer.locationId} onChange={handleDeveloperChange}>
-                  <option>0</option>
-                  {locations.map(location => (
-                    <option key={location.locationId}>{location.locationId}</option>
-
-                  ))}
-                </select>
-
-              </div>
-
               <div className="mt-4">
                 <button className="btn btn-success mr-2" type="submit">
                   <i className="bi bi-file-earmark-check"></i> {id ? 'Update Developer' : 'Add Developer'}

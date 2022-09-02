@@ -1,8 +1,6 @@
-// import { getValue } from '@testing-library/user-event/dist/utils';
 import { useEffect, useState, useContext } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import AuthContext from "../context/AuthContext";
-// import LocationForm from './LocationForm';
 
 const AGENCY_DEFAULT = {
   name: '',
@@ -22,33 +20,15 @@ function AgencyForm() {
   const auth = useContext(AuthContext);
 
   const [agency, setAgency] = useState(AGENCY_DEFAULT);
-  const [currentView, setCurrentView] = useState('AAL');
-  const [isChecked, setIsChecked] = useState(false);
+  const [currentView, setCurrentView] = useState('ADDL');
   const [location, setLocation] = useState(LOCATION_DEFAULT);
-  const [locations, setLocations] = useState([]);
-
-
   const [errors, setErrors] = useState([]);
-
 
   const history = useHistory();
 
   const { id } = useParams();
 
   useEffect(() => {
-    setCurrentView('ADDSET');
-
-    fetch('http://localhost:8080/api/location')
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected status code: ${response.status}`);
-        }
-      })
-      .then(data => setLocations(data))
-      .catch(console.log);
-
     if (id) {
       setCurrentView('EDIT')
       fetch(`http://localhost:8080/api/agency/${id}`)
@@ -59,59 +39,28 @@ function AgencyForm() {
             return Promise.reject(`Unexpected status code: ${response.status}`);
           }
         })
-        .then(data => setAgency(data))
-        .catch(console.log);
-
-
-      fetch(`http://localhost:8080/api/agency/${id}`)
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            return Promise.reject(`Unexpected status code: ${response.status}`);
-          }
-        })
-        .then(data =>
-
+        .then(data => {
+          setAgency(data);
           fetch(`http://localhost:8080/api/location/${data.locationId}`)
-            .then(response => {
-              if (response.status === 200) {
-                return response.json();
-              } else {
-                return Promise.reject(`Unexpected status code: ${response.status}`);
-              }
-            })
-            .then(data => setLocation(data))
-            .catch(console.log))
-
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else {
+              return Promise.reject(`Unexpected status code: ${response.status}`);
+            }
+          })
+          .then(data => setLocation(data))
+          .catch(console.log)
+        })
+        .catch(console.log);
     }
-
-  }, [], [id]);
-
-
+  }, [id]);
 
   const handleAgencyChange = (event) => {
-
     const newAgency = { ...agency };
     newAgency[event.target.name] = event.target.value;
     setAgency(newAgency);
   };
-
-  const handleArrayChange = (event) => {
-
-    fetch('http://localhost:8080/api/location')
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          return Promise.reject(`Unexpected status code: ${response.status}`);
-        }
-      })
-      .then(data => setLocations(data))
-      .catch(console.log);
-
-  };
-
 
   const handleLocationChange = (event) => {
     const newLocation = { ...location };
@@ -142,18 +91,6 @@ function AgencyForm() {
     }
   };
 
-  const handleView = () => {
-    setIsChecked(!isChecked);
-    if (isChecked) {
-      setCurrentView('ADDSET');
-    } else {
-
-      setCurrentView('ADDL');
-    }
-  }
-
-
-
   const handleLocationSubmit = (event) => {
 
     event.preventDefault();
@@ -163,8 +100,6 @@ function AgencyForm() {
       addLocation();
     }
   };
-
-
 
   const addAgency = () => {
 
@@ -250,6 +185,9 @@ function AgencyForm() {
       })
       .then(data => {
         if (data.locationId) {
+          const newAgency = { ...agency };
+          newAgency["locationId"] = data.locationId;
+          setAgency(newAgency);
           setCurrentView('ADD');
         } else {
 
@@ -261,8 +199,6 @@ function AgencyForm() {
   };
 
   const updateLocation = () => {
-    // assign an ID (this is probably needed anymore)
-
     const init = {
       method: 'PUT',
       headers: {
@@ -314,19 +250,7 @@ function AgencyForm() {
         )}
         {currentView === 'ADDL' && (
           <>
-            <div className="form-check">
-
-              <input id="addLocation" name="addLocation" className="form-check-input" type="hidden"
-                checked={!isChecked} onChange={handleView} />
-              <input id="addLocation" name="addLocation" className="form-check-input" type="checkbox"
-                checked={isChecked} onChange={handleView} />
-              <label className="form-check-label" htmlFor="addLocation">
-                Add Location
-
-              </label>
-            </div>
             <h2 className="mb-3 mt-3">{'Add New Agency Location'}</h2>
-
             <form onSubmit={handleLocationSubmit}>
               <div className="form-group">
                 <label htmlFor="address">Address:</label>
@@ -428,69 +352,6 @@ function AgencyForm() {
                 <input id="email" name="email" type="text" placeholder="name@example.com" className="form-control"
                   value={agency.email} onChange={handleAgencyChange} required />
               </div>
-
-              <div className="form-group">
-                <label htmlFor="locationId">Agency Location:</label>
-                <select id="locationId" name="locationId" type="number" className="form-control"
-                  value={agency.locationId} onMouseOver={handleArrayChange} onChange={handleAgencyChange}>
-                  <option>0</option>
-                  {locations.map(location => (
-                    <option key={location.locationId}>{location.locationId}</option>
-
-                  ))}
-                </select>
-              </div>
-
-              <div className="mt-4">
-                <button className="btn btn-success mr-2" type="submit">
-                  <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
-                </button>
-                <Link className="btn btn-warning" to="/agencies">
-                  <i className="bi bi-patch-exclamation"></i> Cancel
-                </Link>
-
-              </div>
-            </form>
-          </>
-        )}
-        {currentView === 'ADDSET' && (
-          <>
-            <div className="form-check">
-
-              <input id="addLocation" name="addLocation" className="form-check-input" type="hidden"
-                checked={!isChecked} onChange={handleView} />
-              <input id="addLocation" name="addLocation" className="form-check-input" type="checkbox"
-                checked={isChecked} onChange={handleView} />
-              <label className="form-check-label" htmlFor="addLocation">
-                Add Location
-
-              </label>
-            </div>
-            <br />
-            <form onSubmit={handleAgencySubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Agency Name:</label>
-                <input id="name" name="name" type="text" className="form-control"
-                  value={agency.name} onChange={handleAgencyChange} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Agency Email:</label>
-                <input id="email" name="email" type="text" placeholder="name@example.com" className="form-control"
-                  value={agency.email} onChange={handleAgencyChange} />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="locationId">Agency Location:</label>
-                <select id="locationId" name="locationId" type="number" className="form-control"
-                  value={agency.locationId} onChange={handleAgencyChange}>
-                  <option>0</option>
-                  {locations.map(location => (
-                    <option key={location.locationId}>{location.locationId}</option>
-
-                  ))}
-                </select>
-              </div>
-
               <div className="mt-4">
                 <button className="btn btn-success mr-2" type="submit">
                   <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
