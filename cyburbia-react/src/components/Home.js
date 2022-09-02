@@ -17,7 +17,7 @@ function Home() {
         <Map />
       </div>
       <div>
-        <img src="images/map-legend.jpg" alt="map-legend" width="300" height="80" class="center"></img>
+        <img src="images/map-legend.jpg" alt="map-legend" width="300" height="80" className="center"></img>
       </div>
       <br/>
     </>
