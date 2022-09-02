@@ -70,7 +70,7 @@ function Map() {
                 const popupText = `<h6>${convertType(project.projectType)}</h6>
                   <div>${project.description}</div>
                   <a href="/projectdetails/${project.projectId}">Details</a>`;
-                const popup = new mapboxgl.Popup({ closeOnClick: false, closeOnMove: false })
+                const popup = new mapboxgl.Popup({ closeOnClick: true, closeOnMove: false })
                 .setLngLat(feature.center)
                 .setHTML(popupText)
                 .addTo(map.current);
