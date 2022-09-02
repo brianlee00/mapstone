@@ -88,17 +88,16 @@ function RenderProject({ id }) {
         }
     }, [id]);
 
-    
+
 
     return (
         <>
             <div className="container">
-                <h4 className="mb-2 mt-2">{convertStatus(project.status)} - {convertType(project.projectType)}</h4>
-                <h6 className="mb-2 mt-2">{project.description}</h6>
-                <ul>
-                    <li>Budget: ${project.budget.toLocaleString('en-US')}</li>
-                    <li>Sq. Footage: {project.sqFt.toLocaleString('en-US')}</li>
-                </ul>
+                <h3 className="mb-2 mt-2">{convertStatus(project.status)} - {convertType(project.projectType)}</h3>
+                <h5 className="mb-2 mt-4">{project.description}</h5>
+                <br></br>
+                <h6 className="mb-2 mt-2">Budget: </h6>${project.budget.toLocaleString('en-US')}
+                <h6 className="mb-2 mt-2">Sq. Footage: </h6>{project.sqFt.toLocaleString('en-US')}
             </div>
         </>
     )

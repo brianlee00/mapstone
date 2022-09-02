@@ -48,8 +48,8 @@ function ProjectDetails() {
                 </button>
                 <RenderProject id={id} />
                 <RenderLocation id={project.locationId} />
-                <RenderAgency id={project.agencyId} />
                 <RenderDeveloper id={project.developerId} />
+                <RenderAgency id={project.agencyId} />
             </div>
         </>
     )
