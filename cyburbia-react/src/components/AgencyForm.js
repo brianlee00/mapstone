@@ -2,6 +2,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import AuthContext from "../context/AuthContext";
+import {convertState} from './AgencyList';
 // import LocationForm from './LocationForm';
 
 const AGENCY_DEFAULT = {
@@ -29,6 +30,8 @@ function AgencyForm() {
 
 
   const [errors, setErrors] = useState([]);
+  var s = "";
+
 
 
   const history = useHistory();
@@ -36,7 +39,7 @@ function AgencyForm() {
   const { id } = useParams();
 
   useEffect(() => {
-    setCurrentView('ADDSET');
+    setCurrentView('ADDL');
 
     fetch('http://localhost:8080/api/location')
       .then(response => {
@@ -142,25 +145,15 @@ function AgencyForm() {
     }
   };
 
-  const handleView = () => {
-    setIsChecked(!isChecked);
-    if (isChecked) {
-      setCurrentView('ADDSET');
-    } else {
-
-      setCurrentView('ADDL');
-    }
-  }
-
-
 
   const handleLocationSubmit = (event) => {
 
     event.preventDefault();
-    if (agency.locationId) {
+    if (location.locationId) {
       updateLocation();
     } else {
       addLocation();
+      
     }
   };
 
@@ -314,17 +307,6 @@ function AgencyForm() {
         )}
         {currentView === 'ADDL' && (
           <>
-            <div className="form-check">
-
-              <input id="addLocation" name="addLocation" className="form-check-input" type="hidden"
-                checked={!isChecked} onChange={handleView} />
-              <input id="addLocation" name="addLocation" className="form-check-input" type="checkbox"
-                checked={isChecked} onChange={handleView} />
-              <label className="form-check-label" htmlFor="addLocation">
-                Add Location
-
-              </label>
-            </div>
             <h2 className="mb-3 mt-3">{'Add New Agency Location'}</h2>
 
             <form onSubmit={handleLocationSubmit}>
@@ -432,12 +414,11 @@ function AgencyForm() {
               <div className="form-group">
                 <label htmlFor="locationId">Agency Location:</label>
                 <select id="locationId" name="locationId" type="number" className="form-control"
-                  value={agency.locationId} onMouseOver={handleArrayChange} onChange={handleAgencyChange}>
-                  <option>0</option>
-                  {locations.map(location => (
-                    <option key={location.locationId}>{location.locationId}</option>
+                  value={agency.locationId} onMouseOver={handleArrayChange}
+                    onChange={handleAgencyChange}>
+                    <option selected>Select Address: </option>
+                    <option key={locations[locations.length-1].locationId}>{locations[locations.length-1].locationId}</option>
 
-                  ))}
                 </select>
               </div>
 
@@ -453,56 +434,7 @@ function AgencyForm() {
             </form>
           </>
         )}
-        {currentView === 'ADDSET' && (
-          <>
-            <div className="form-check">
-
-              <input id="addLocation" name="addLocation" className="form-check-input" type="hidden"
-                checked={!isChecked} onChange={handleView} />
-              <input id="addLocation" name="addLocation" className="form-check-input" type="checkbox"
-                checked={isChecked} onChange={handleView} />
-              <label className="form-check-label" htmlFor="addLocation">
-                Add Location
-
-              </label>
-            </div>
-            <br />
-            <form onSubmit={handleAgencySubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Agency Name:</label>
-                <input id="name" name="name" type="text" className="form-control"
-                  value={agency.name} onChange={handleAgencyChange} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Agency Email:</label>
-                <input id="email" name="email" type="text" placeholder="name@example.com" className="form-control"
-                  value={agency.email} onChange={handleAgencyChange} />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="locationId">Agency Location:</label>
-                <select id="locationId" name="locationId" type="number" className="form-control"
-                  value={agency.locationId} onChange={handleAgencyChange}>
-                  <option>0</option>
-                  {locations.map(location => (
-                    <option key={location.locationId}>{location.locationId}</option>
-
-                  ))}
-                </select>
-              </div>
-
-              <div className="mt-4">
-                <button className="btn btn-success mr-2" type="submit">
-                  <i className="bi bi-file-earmark-check"></i> {id ? 'Update Agency' : 'Add Agency'}
-                </button>
-                <Link className="btn btn-warning" to="/agencies">
-                  <i className="bi bi-patch-exclamation"></i> Cancel
-                </Link>
-
-              </div>
-            </form>
-          </>
-        )}
+      
 
         {currentView === 'EDIT' && (
           <>

@@ -91,7 +91,7 @@ function AgencyList() {
 
 export default AgencyList;
 
-function convertState(input) {
+export function convertState(input) {
   if (input == "ALABAMA") {
       return "Alabama"
   }
